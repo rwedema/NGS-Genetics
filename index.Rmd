@@ -1,0 +1,69 @@
+--- 
+title: "Case background information and exercises"
+author: "Marcel Kempenaar and Ronald Wedema"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography:
+- book.bib
+- packages.bib
+description: "This is the background and assignments needed to complete module 2.1.1
+  \nset in the _output.yml file.\nThe HTML output format for this example is bookdown::gitbook,\n"
+link-citations: yes
+github-repo: ''
+---
+
+# About {-}
+
+This is the syllabus for the module 2.1.1 NGS_en_Genetics. 
+This bookdown document will provide you with enough background material and exercises to complete the Case part of the module. Also links to the genetics presentations given can be found in the schedule here.
+
+## Usage{-}
+
+Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case and preparing for the genetics exam.
+
+
+## Learning outcomes
+
+- You have a good understanding of all the concepts of the central dogma, different types of macromolecules, and enzymes, and you can describe their interconnections.
+- You can identify various mechanisms of gene regulation and predict the effects of different mutations on gene expression.
+- You are familiar with the different genome structures and can detect, filter, and annotate them in an NGS (Next-Generation Sequencing) dataset using appropriate tools and techniques.
+- You have a clear understanding of the quality requirements for NGS data, depending on both the NGS technique used and the objective. You can also apply tools to assess and improve the quality of the data.
+- You are aware of the available tools and algorithms for mapping NGS reads to a reference genome, and you can justify which one is best suited for a given dataset and question.
+- You can provide arguments and present the choices made during the process of achieving a high-quality mapping.
+
+
+## End Products
+
+The end products of this course are the following two items: \* **The
+genetics exam** (weight 3/5) \* **Analysis of the selected case**
+(weight 2/5)
+
+The two items above are weighted and combined to get a single end graded. See also the Rubric for the learning outcomes and how they are graded.
+
+## Rubric
+
+| Subject  | criteria | weight  |
+|---|---|---|
+| Genetics exam | The exam has been concluded with a passing grade. | 15 |
+| Case	| The student writes a plan of approach and utilizes proper reasoning to justify the selection of the chosen tools. | 3 |
+| Case | The presentation provides a clear overview of the steps taken, and the final results are expressed in a clear and accurate manner.	| 4 |
+| Case | Questions regarding the presentation and the obtained results of the worked-out case are answered clearly and in a structured manner. | 2 |
+| Case | During the lessons and in response to presentations by others, the student asks meaningful, focused, and clear questions, and also contributes additional information to the answers provided by others. | 1 |
+
+
+
+## Schedule and deliverables
+| Week  | Subject  |  Background reading | Note | 
+|---|---|---|---|---|--|
+| 1  | Central Dogma en NGS techniques |  see Blackboard |
+| 2  |  Gene regulation |  see Blackboard |
+| 3  | Mutations and effects thereof  |  see Blackboard |
+| 4  | Finalize Case   |   |
+| 5  | Finalize Case  |   |
+| 6  | Presentation case   |   | The repair of the case is in consultation with the teacher.|
+| 7  | Genetics exam   |   |
+| 8 | | |
+| 9 | Resit Genetics exam | | 
+ 
+

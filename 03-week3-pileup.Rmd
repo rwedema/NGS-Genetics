@@ -1,0 +1,605 @@
+# The PileUp dataformat
+
+The output of the mapping and marking of the duplicate reads step is in
+a non-human readable form (binary data is only readable by computers).
+Here, the output is transformed to a more human readable format. We will
+run a program that gets the mapped and duplicate removed data and
+describe for **each** mapped position what the base-pair information is.
+This program will go over the mapping and report the following details
+for each position that was mapped (file format description [available
+here](http://samtools.sourceforge.net/pileup.shtml) and
+[here](https://en.wikipedia.org/wiki/Pileup_format)):
+
+-   the chromosome name [1],
+-   reference position [2],
+-   reference base [3],
+-   number of supporting reads [4],
+-   the match [5], either:
+    -   a dot for a match in the forward strand or
+    -   a comma for a match in the reverse strand
+    -   a nucleotide in case of a mismatch (upper case for the forward
+        strand, lower case for the reverse strand)
+    -   insertions/ deletions (defined by a `+` or `-` sign followed by
+        a number defining the size of the insert/ deletion, followed by
+        the bases that form the insert/ deletion).
+-   the quality [6] (taken from the FASTQ file) can be seen in the last
+    column, one value for each read
+
+```         
+1       2      3    4   5    6  
+chr1     10004   c  1   ,    [  
+chr1     10005   g    3    ,,.   ?1>
+```
+
+The reason this format is called *pileup* is because for each *position*
+it will pile (or stack) the data from all mapped reads for that
+position. In the first example line above (chromosome 1, position 10004)
+there was only one read with a match (the reference is a C as shown in
+column 3) in the reverse strand and the second line has three supporting
+reads with a match. See below for some other examples where multiple
+reads are mapped on the same position, including mismatches.
+
+## Assignment week 3
+
+Choose the <strong>MPileUp</strong> program from the toolbox and select
+the following settings:
+
+-   *Choose the source for the reference genome*
+    -   *Use a built-in genome* and
+-   for the *BAM file(s)*
+    -   Select the output BAM dataset from the previous step (output of
+        the *MarkDuplicates* tool)
+-   *Using reference genome* with
+    -   the *Human reference HG19* selected
+-   Set *Genotype Likelihood Computation* to
+    -   *Do not perform genotype likelihood computation (output pileup)*
+        selected
+-   Set *Output base positions on reads* to
+    -   *False*
+-   Set *Output mapping quality* to
+    -   *False*
+-   And finally, *Set advanced options* to
+    -   *Basic*
+
+**Note:** screenshot below shows the wrong input-file selected, read
+instructions above.
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/MPilup.png")
+```
+
+This tool adds two elements to your history, a log-file that we won't
+use and a text file in the *pileup* format that we will examine. You can
+click on the 'eye'-icon to view the contents of this file. Most likely,
+the first few (tens of) thousands of lines only show data as shown above
+in the example where only one read mapped. This file can be **very**
+large, both in size (2 - 3 GB) and in number of lines (100.000.000+
+lines).
+
+The line below is an example where multiple reads (30 in total, as shown
+in column 4 and by the lengths of columns 5 and 6) mapped on a single
+position. Here on chromosome 1 we see that in column 5 there is
+something going on. Read 8 contained a `C` whereas the reference (and
+the other 29 reads) show a `T` at this position, so this is classified
+as a mismatch which will be the subject of further analysis steps.
+
+```         
+chr1    16888646    T   30  .......C........,.,.....,,....  WomHHGomooHmHFHHGGFH1GDHHHHGFF
+```
+
+Besides mismatches, we can also have *insertions* and *deletions* such
+as shown in the example below with a `-` sign followed by a number and a
+number of bases that are missing.
+
+```         
+chr1    16888710    a   31  ..,.,..,..,,-2ct,,..,.,,.-2CT,,.,,.,.,, nGFkGUlFF?DFHFGGEnHFFHHGFHG5GGB
+```
+
+### Programming Assignments; Coverage Overview for Cardiopanel Genes
+
+Somewhere in this enormous pileup file we can see how (well) our
+panel-genes are covered by our reads, a very important statistic on the
+quality of our data. But in a file with that much data we definitely
+should not do this manually! This section contains a number of small
+assignments that - once completed - will give us a clear indication
+whether our mapping is of sufficient quality. Depending on this outcome
+we might need to revisit our previous step(s) such as the trimming
+process to increase our mapping quality. Steps that we need to take
+might include the following: \* Load the BED file containing the
+information (names, chromosome and exon coordinates) of all panel genes
+\* Load the `pileup` file containing the mapping data \* For each exon
+found in the BED file: \* read the start- and end-coordinate \* find all
+entries in the pileup file for this chromosome and within these
+coordinates \* for each pileup-entry: \* store the coverage number (data
+from column 4) \* Given the found coverage for each position in all
+**exons**: \* Calculate the average coverage per **gene** \* Count the
+number of positions with a coverage \< 30 \* Create a table that
+contains statistics for each of the genes; length, average coverage and
+the number of low-coverage positions \* Visualize the coverage for all
+the genes (similar as to what can be seen by using IGV)
+
+During these assignments we will not only perform these tasks but also
+visualize in between the steps to get a good understanding of the data
+that we have.
+
+### Assignment Instructions
+
+Below are a number assignments that together perform the tasks as
+explained above. For each you are required to **carefully read the
+instructions** and make sure you understand the goal and data used for
+that particular assignment. Being able to **critically reflect** on the
+outcome of your analysis is the most important aspect of being a
+bioinformatician! Furthermore, these assignments are generally a
+guideline and while it should be considered the minimum tasks to
+complete, you are always invited to do *more* with the data that you
+have. Feel free to explore and keep that code in your lab-journal as
+well.
+
+To perform some of these tasks we do need to learn some theory that is
+specific for working with our data (BED and Pileup files among others).
+For that we will introduce the Bioconductor libraries later on. First
+though we will explore the most simple of our data files and create a
+few simple plots based on the BED data.
+
+For each of these assignments, create at least one code-chunk, name it
+accordingly and in between the assignments reflect on what you did. For
+instance as the end product of assignment one is a dataframe with a
+proper header and an overview plot of the number of exons per
+chromosome, you could end this assignment by stating *"After loading and
+processing the data, the overview shows all chromosomes on which exons
+are located for the opanel genes"*.
+
+### Assignment 1; Loading the BED-data
+
+The first step of our program is to read the BED file to get the exon
+locations for our opanel genes. We already viewed the contents of the
+BED file in Galaxy, where we saw that this file contains 4 columns: \*
+The chromosome number, \* exon start location, \* exon end location and
+the \* gene name
+
+`This example shows the cardiopanel 10  75399683    75399795    MYOZ1   10  75757946    75758153    VCL   10  75802821    75802931    VCL`
+
+Perform these tasks:
+
+1.  Load the BED-data
+    -   Since this data is stored in a text file using tabs as column
+        separators, we can easily read this in using the `read.table`
+        function.
+2.  Change the column names
+    -   There are no column names in the BED-file and `read.table` gives
+        default names in this case: `[1] "V1" "V2" "V3" "V4"`. Using the
+        `names` function, we can assign new column names, do this by
+        assigning a vector with four column names (see the help of
+        `names`)
+3.  Print the number of exons per chromosome
+    -   An easy way to get an overview of large amounts of data (only
+        1204 exons in this case) is by using the `table` function. Using
+        this function, show the number of exons per chromosome.
+4.  Plot the number of exons per chromosome
+    -   The data from (3) can be used to create a plot by giving it to
+        the `barplot` function. Change the label on the y-axis to
+        something meaningful. Since the chromosome numbers can't all fit
+        on the x-axis you can change its orientation using the `las = 2`
+        argument to `barplot`. Further options aren't necessary and the
+        plot doesn't have to be very pretty at this stage.
+
+### Assignment 2; BED-visualization
+
+1.  Visualize the number of genes per chromosome
+    -   This requires the creation of a subset of unique chromosome-gene
+        combinations; all genes consist of exons but if we reduce all
+        genes to a single exon (doesn't matter which), we can then use
+        the `table` function again to give us the numbers that we need.
+    -   Select only the 'chromosome' and 'gene' columns (using the names
+        that you gave in assignment 1.2) from the BED-data
+    -   Apply the `unique` function to reduce this data to a single row
+        per gene and store only the 'chromosome' column of the result
+    -   Give this data to `table` and use that result as input for the
+        `barplot` function using a proper label for the y-axis.
+
+### Assignment 3; Bioconductor
+
+As software developers develop algorithms or solutions for common
+problems, they would like to publish their code so that others can use
+it too. For R (and many other programming languages) this code is
+packaged in a *library* that can then be easily distributed to others.
+You might already be familiar with the `library()` function in R to load
+external code into your environment and that is what we will do here
+too.
+
+[Bioconductor](http://bioconductor.org) is a *repository* that contains
+over 1800 of these libraries that we can get into R and use to perform
+analysis with. This vast amount of libraries are all focused on
+analyzing, processing and visualizing (high-throughput) biological data
+which we will also be using during both practical courses. Luckily you
+don't have to find the libraries yourself and the assignments will
+always instruct on which one to use (to load actually, since they are
+pre-installed on our network).
+
+What we will introduce here is a concept that is required for most of
+the remaining assignments below, namely `GenomicRanges` objects
+([website](http://bioconductor.org/packages/release/bioc/html/GenomicRanges.html),
+[manual](http://bioconductor.org/packages/release/bioc/vignettes/GenomicRanges/inst/doc/GenomicRangesIntroduction.html)),
+consisting of `IRanges`
+([website](http://bioconductor.org/packages/release/bioc/html/IRanges.html),
+[manual](http://bioconductor.org/packages/release/bioc/vignettes/IRanges/inst/doc/IRangesOverview.pdf))
+objects. These '*objects*' (they hold data in a combination of vectors,
+lists and data frames amongst other data structures) are used to store
+information about features on the genome. These features (introns,
+exons, variants, etc.) are always defined by their coordinates such as
+start and stop positions and the name of the sequence (in our case,
+chromosome) on which they lie.
+
+The BED-file and the Pileup file for instance can be represented using
+`IRanges` since both files contain simple positional data (chromosome
+and position (either a single position for Pileup or start/ stop for
+BED-data)). Let's first see an example of representing a few exons from
+the BED file into `IRanges` objects (you don't need to replicate this
+example).
+
+```{r, echo=TRUE}
+## Only needed when the package is missing
+if (!require("BiocManager"))
+    install.packages("BiocManager")
+
+BiocManager::install("GenomicRanges")
+```
+
+```{r, echo=TRUE}
+# This package contains the 'IRanges', 'GRanges' and 'GRangesList' classes we will use
+library(GenomicRanges)
+```
+
+```{r, echo=TRUE}
+# Loading the BED data (note: use your own data from assignment 1)
+load("_main_files/data/bed_data.RData")
+
+```
+
+```{r, echo=TRUE}
+# Print all rows where the gene name is for example 'SOD2'
+bed_file[bed_file$gene == "SOD2", ]
+```
+
+Shown above is a dataframe similar to your data containing the five
+exons of the `SOD2` gene located on chromosome 6. For each exon we have
+a begin and end coordinate. This data can be converted into `IRanges` by
+using the similar named function and providing the correct columns as
+shown below:
+
+```{r, echo=TRUE}
+# Get the data as a subset of the cardiopanel data
+sod2 <- bed_file[bed_file$gene == "SOD2", ]
+
+# Assign whole columns to the IRanges arguments
+ranges <- IRanges(start = sod2$begin,
+                  end = sod2$end,
+                  names = sod2$gene)
+# Print the object
+ranges
+
+# Calculate and print the length of a gene
+cat("Length of SOD2:", sum( width(ranges) ), "bp")
+```
+
+We see the same data now represented as an `IRanges` object. We do however both miss some data (the chromosome) and get some extra data as well (the *width* (length) of each exon). As it's important to know on which chromosome each gene lies we will convert our `ranges` object into a `GRanges` object that combines both data:
+
+```{r, echo=TRUE}
+# Converts to GRanges and adds the text 'chr' to each chromosome
+granges <- GRanges(seqnames = paste0("chr", sod2$chromosome),
+                   ranges = ranges)
+granges
+```
+
+
+When comparing the `IRanges` object with the `GRanges` object, it looks rather similar with yet again some missing data (the *width*) and some extra data (the *strand*). Nothing is lost though, as objects often have a lot of *accessor* methods that you can use for getting to the actual data, as the example above is a *representation* of the object that you get when you print it. Functions such as `width()` applied to an `IRanges` object gives the `width` column and the `ranges()` function applied to a `GRanges` object gives the `IRanges` object contained within. When needed, the assignments will hint to their usage but the linked manuals also describe the most important ones.
+
+Now that we have a gene within a `GRanges` object, what can we do with it? For now with just the BED data not a lot, but as we will also put the Pileup data into a similar `GRanges` object, we can start asking our data interesting questions with the `pileup` function for instance. This can be used to get the Pileup information specific for our exons and ignoring everything else. But before we can do that we need to get our BED-data into the proper format first and that is what we will do now.
+
+This more challenging assignment results in yet another type of object, named a `GRangesList` that contains multiple `GRanges` objects; one for each gene such as shown in the above example. So, in order to do that we need to:
+
+1. Create an empty (standard) R list,
+2. Iterate over all of our genes in the BED file,
+    * Read the part about `iteration` below and 
+    * the hints about the `split` function to get the gene names and data easily accessible.
+3. For each gene, create a `GRanges` object and add it to the list, including the gene name (use the following form: `my_list[[gene_name]] <- data`) and
+4. *Convert* the complete list into a `GRangesList` object.
+    * Use the conversion as explained in the `GRanges` manual: `bed_data <- GRangesList(bed_data)` given that the list is called `bed_data`.
+
+The techniques required for this assignment are mainly knowing how to work with lists (including how to create them, accessing single elements, adding to lists and iterating over its items). The following hints, the numbered list above and the examples are everything you need to do this assignment. Below is a bit of code to show the expected result which you can repeat on your own data as a check.
+
+**Hints and further instructions:**
+
+**Iteration**
+
+When we talk about iterating when performing programming, we mean repeatedly performing a set of operations on separate elements (of a vector, a list, columns or rows of a data-frame, etc.). In ordinary programming languages this often requires explicit step-wise execution of these operations, using constructs such as `for` and `while` 'loops'. In R however, we already perform a lot of iterative steps without realizing it. Given a vector `x`, we can multiply each value with itself by simply stating `x * x`. Programming languages such as Python, Java and C require code like:
+
+```
+squared = []
+for value in x:
+    squared.append(value * value)
+```
+
+This is still pretty readable code, but in R we never require this explicit form even though we *could*. This simple one liner in R for instance calculates the average log2 ratio of two columns from a data-frame that can contain thousands of rows and many columns, at once:
+
+```
+mean(log2(dat['sample1], dat['sample2']))
+```
+
+which would require a rather large for-loop in most other languages. When we do want to apply something to each element separately in R we often use - rather complicated but efficient - `apply` functions. For now though we will use the easier to understand `for` loop to perform our code on data for each gene (point 1 above). With the following example on iterating over our bed_data you should be able to perform this assignment:
+
+
+```{r, echo=TRUE}
+# Load the stored data; do not repeat. Object name in this
+# example is 'bed_data' 
+load('_main_files/data/bed_data_GRangesList.RData')
+
+# Split the data by gene, resulting in a list with named elements
+bed_splitted <- split(bed_file, bed_file$gene)
+# Print the names of the first 10 genes
+for (gene in names(bed_splitted)[1:10]) {
+    print(gene)
+}
+```
+
+
+**Hints**
+
+* As point 2 asks to iterate over all genes, we need to think of a way to group our data (exons) into genes which can be done using the `split` function. The result of `split` is a list with 55 named elements; one for each gene.
+    * The `split` function requires two arguments: first the data-frame containing all of the data and the second argument is the column containing the gene names (i.e. `bed_file$gene`)
+    * You can get the gene names by executing the `names` function on the resulting list from `split`.
+    * You can get all the exon-rows easily by accessing the list items: `split_output[[gene_name]]`.
+* When iterating, the code that you execute for each gene could be (1) create an `IRanges` object, (2) create a `GRanges` object combining the chromosome with the `IRanges` object and finally appending this to a list.
+
+Once completed, you should run the following code - besides the `load` function - and compare the results. Also, this was most likely a very challenging assignment but we will re-use parts of the code you have made now. Revisit everything you've written to complete this task and make sure you understand what everything does (the exact *how* it works is of less importance).
+
+
+### Assignment 4; Gene Lengths
+
+We'll create one last visualization based on the BED-data - but now using the `GRanges` object - namely an overview of the gene lengths; another barplot. The example code above shows how to calculate the length of a single gene (using `ranges`, `width` and `sum`). The same code also works on the complete `GRangesList` object,  use this to create a barplot showing the length of each gene.
+
+**Hint:**
+
+As you will notice, there is one gene that is very long compared to the others and this makes the plot difficult to read. The `plotrix` library contains the `gap.barplot` function specifically for this purpose (also supports the `las = 2` argument). Try to use this function for creating the barplot. As a small challenge you can try to style the y-axis to show more values ('ticks') besides the minimum and maximum.
+
+
+
+### Assignment 5; Pileup Loading
+
+Although we used Galaxy to create our Pileup file, we will not be using this file within R (luckily, since it's around 2 - 3 GB in size!). We *will* be using the complete Pileup file within Galaxy in our next analysis step to find our variant positions, but in R we will use the output of the *mapping* step (the BAM file) as there is an R library that can read this data much more efficiently (`RSamtools` [website](https://bioconductor.org/packages/release/bioc/html/Rsamtools.html) and [manual](https://bioconductor.org/packages/release/bioc/vignettes/Rsamtools/inst/doc/Rsamtools-Overview.pdf)) into `GRanges`. We have already downloaded the data as it was the input for the IGV tool in the previous chapter. 
+
+### Rsamtools
+
+Again, we have to briefly introduce this library before you will be able to use it. Rsamtools is described as "*an interface to BAM files*", the file that contains all the mapping information. As we've seen when looking at the Pileup file, we have a lot of information for each mapped base, information that we would like to get for all of our exons to report on.
+
+```{r, echo=TRUE}
+# Installing required library
+BiocManager::install("Rsamtools")
+
+# Loading the RSamtools library
+library(Rsamtools)
+```
+
+
+Functions from `Rsamtools` that we will use - in order - are:
+* `BamFile`: Reference to the BAM data and its index (`.bam.bai`)
+* `ScanBamParam`: Sets the *parameters* for selecting a certain region from the genome using `GRanges` (i.e., a gene from our BED-data)
+* `pileup`: Actually retrieves the region of interest given the `BamFile` and parameters supplied.
+
+**Assignment**:
+* Load the BAM mapping data into a list of data-frames covering all mapped positions of interest
+
+#### Instructions
+
+
+1. Create a `BamFile` object by providing both the `file` and `index` parameters
+
+
+2. Create a `ScanBamParam` object
+    * What this does is defining all the ranges that we want to get from the mapping, in this case the ranges of all exons for a gene
+    * Do this by selecting a single gene from your `GRangesList` object (using the `[["geneName"]]` syntax) and store this in an object (it's type will be a `GRanges`)
+    * Give this `GRanges` object to the `ScanBamParam` function and store this in a variable
+
+
+3. Get the actual Pileup data for our region of interest
+    * Call the `pileup` function providing - in order - the objects created at points 1-2. Note that you need to tell `pileup` what the parameter is, so use `pileup(file = ..., scanBamParam = ...)`
+    * The output of the `pileup` function is a data-frame, store this result
+    * Print the first lines of the data-frame (use the `head` function)
+
+Look at the data that we get for each position and note that we have - at least - two rows of data per position; one on each strand (as we've also seen in IGV). If we have *more* than two rows of data for a single position, it might be a variant which is coincidentally demonstrated in the example data below:
+
+```{r, echo=TRUE}
+# Load the example Pileup data for the SOD2 gene (do not repeat)
+load("_main_files/data/sod2_pileup.RData")
+head(sod2, n = 5)
+```
+
+The first position of the SOD2 gene in this case shows three rows; two on the positive strand and one on the negative strand. The `count` column shows that there is a single read that has a `T` nucleotide at this position instead of a `C` that the other 297 reads show. With such a big difference, this can be attributed to a sequencing error.
+
+Note though that what we have now is a *summary* of the actual pileup compared to the very detailed line we see in the actual Pileup file within Galaxy. This data is also available using `RSamtools` but we only require this summary.
+
+
+## Assignment 6; Pileup Processing
+
+In this assignment we will get the pileup data for all of our genes into a single object so that we can report on the average coverage of each gene and determine if there are positions with a low coverage that we might need to inspect, more on that later.
+
+Steps that need to be taken:
+
+1. Create an empty list (this will hold a separate data-frame for each gene as created in assignment 5)
+2. Iterate over your BED-data (the `GRangesList` object) similar as we did in assignment 3
+3. Get the pileup data for each gene in the for-loop, by creating a `ScanBamParam` and executing the `pileup` function
+4. Add the resulting pileup data-frame to the list, using it's gene name as identifier (`pileup_list[[gene_name]] <- ...`)
+5. Check by printing the `head` again for the same gene as used in assignment 5
+
+
+## Assignment 7; Coverage calculation and reporting
+
+Calculating the actual coverage for each position is a little cumbersome as we need to sum the count of all rows for a single position since we don't - yet - care about mismatches or the strand a read is mapped on. 
+
+
+Instead of performing all kinds of programming steps to check if positions are similar and if so, summing the count values, we can use an R function to do this for us. We don't expect you to understand the following example besides understanding what it produces. This summation can done by a function called `aggregate`, defined as "*Compute Summary Statistics of Data Subsets*". 
+
+Given a column to group on (our `pos` column) it will perform a function on a different column (our `count` column containing the coverage. The result of aggregate is a two-column data-frame with the position and the sum of all count values for this position; the total coverage.
+
+We provide the arguments as follows:
+* `x`: the `count` column (we provide it as a list so it gets a name in the resulting data-frame as well)
+* `by`: the `pos` column the grouping is applied to
+* `FUN`: the function to perform on all grouped rows (in this case, the `sum` function)
+
+Use the code below but check and rename the used variables to suit your data. 
+
+```{r, echo=TRUE}
+coverage = aggregate(x = list(count=sod2$count), 
+                     by = list(pos=sod2$pos), FUN=sum)
+head(coverage)
+```
+
+Your task now is to calculate this per-position coverage for all genes and to calculate and report on - for each gene:
+* the number of bases sequenced for this gene,
+* the average coverage of the gene and
+* the number of low-coverage positions (coverage < 30) both in number **and** as the calculated percentage.
+
+Given these tasks and your code from previous assignments, you should be able to do this. Store the calculated values (4 values) combined with the gene name in a new data-frame and show it completely in your lab-journal, ordered by the percentage of low-coverage positions, descending.
+
+The following code can be used to create an empty data-frame and add rows to the data. Note that this isn't done very often, use and forget. The first line of code (the `options` function) is needed to stop some annoying R behaviour.
+
+```{r, echo=TRUE}
+# Tell R not to complain...
+options(stringsAsFactors = FALSE)
+
+# Create empty data-frame, but specify columns and data types
+df <- data.frame(Name=character(), Course=character(), Grade=numeric())
+
+# Create a new row of data, stored as a named list (important)
+new_row = list(Name="James", Course="Math", Grade=7.5)
+
+# Append data to the data-frame using rbind
+df <- rbind(df, new_row)
+
+# Or within a single line
+df <- rbind(df, list(Name="Wendy", Course="Math", Grade=8))
+
+# print
+df
+```
+
+### Hints
+
+* As with the other assignments using iteration, create the data-frame *outside* of the `for`-loop and perform the `rbind` *within* the `for`-loop.
+* Take a good look (and print while testing) at *what* you are iterating over; in this case a `list` containing `data-frames`.
+* You need to re-use the `aggregate` code but adjust it to make sure it uses the data you get each iteration
+* Store each calculated value in a variable within the `for`-loop and check (print) them as mistakes are easily made.
+
+### End Result
+
+Below is an example of data you might get when you have completed this assignment. Note that all values as well as the column names will be different in your case.
+
+```{r, echo=TRUE}
+# Load example data
+load("_main_files/data/statistics.RData")
+
+statistics
+```
+
+
+
+
+## Finding Variants using `Varscan`
+
+Most likely you've already seen how a true variant (not a single or few mismatches) looks when we looked at the data in the IGV-browser. For such a variant you see a number of reads having a different base at that positions compared to the reference genome. As we've mentioned before, we are interested in all these variants in our patient data for the all the genes in our genepanel. The previous *visualize-your-data* assignment did not ask to find all these variants using the IGV-browser because in this section we are going to use a program to do this for us.
+
+The tool that we will use is the [Varscan 2](http://genome.cshlp.org/content/22/3/568) tool that scans the pileup file for variants. This tool has a number of settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that's why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.
+
+<!-- 
+http://genome.cshlp.org/content/22/3/568
+http://varscan.sourceforge.net/using-varscan.html
+-->
+
+From the toolbox select the <strong>Varscan</strong> tool, select your pileup file as input and leave all the settings to their defaults and execute the tool (this will take 5 to 10 minutes to complete as it has to analyze 100 million lines of data):
+knitr::include_graphics("_main_files/figure-html/varScan.png")
+
+knitr::include_graphics("_main_files/figure-html/varScan_output.png)
+
+### VCF File Filtering
+The result of the Varscan tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; over 7000 in the example shown to the right. Note the 24 comment-lines at the top of the file.
+
+When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you've seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. Varscan also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the [allele frequency](https://en.wikipedia.org/wiki/Allele_frequency) value included in the VCF file. In our case, this value describes the percentage of reads having the **variant** base.
+
+### Assignment 8; VCF File Processing
+
+Please briefly read the linked wikipedia page to understand why this value is of importance. As we are working with patient data, we use the protocol as described by the UMCG that states that variants with a minimum frequency of **30%** are retained. This means we will filter out any variants with a *lower* value. 
+
+There are once again step-by-step instructions for completing this assignment. It is however possible to do it without these instructions as we partly repeat steps we've taken in the previous assignments.
+
+1. Read in the data into a data-frame using the `read.delim` function
+    * Make sure the data has a proper header (line 24 in the data)
+    * Provide the `stringsAsFactors = FALSE` argument, otherwise the next part won't work (we cannot split an R `factor`)
+
+Now that we have the data in a data-frame, inspect that everything is loaded correctly. The first thing that we'll do now is get the frequency value for each variant. Read the comment lines in the VCF file to see how this value is stored. You'll see that the columns themselves contain more fields, separated by a colon (`:`) which we can use to *split* the data to get to the value we want.
+
+2. Split the column containing the frequency value using the `strsplit` function
+
+The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio). To get the frequency value from this list, here is some R magic that converts the result from `strsplit` into a data-frame (found on [Stackoverflow](https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list)):
+
+```{r, echo=TRUE}
+do.call(rbind, bed_splitted)
+```
+
+What it does is `rbind` all vectors into a data-frame, but we haven't seen (and probably won't see) the `do.call` function before (pure magic). Again, inspect this data-frame to see where the actual value is located that you want. Also note the data type of this column, is it numeric?
+
+3. Write a so called one-liner (multiple statements in a single line of code) that:
+    * replaces the `%` sign with nothing (an empty string; `''`) using the `gsub` function
+    * converts the data type of this column to `numeric`
+    * saves only this column into a new variable
+
+We now have the frequency value available for filtering and we'll do that by adding it to the `GRanges` object we create next:
+
+4. Create a `GRanges` object as we've done for assignment 3 by simply creating an `IRanges` object where the `start` and `end` parameters both get the variant position column. Also provide the `seqnames` parameter to `GRanges` which get the contents of the chromosome column.
+
+`GRanges` objects can contain other data as well, called *associated metadata*. Using the `mcols` function we can see existing or assign data to each variant. Adding this as a data-frame allows us to set a name for this column as demonstrated below with an example from the previous chapter:
+
+```{r, echo=TRUE}
+# Select and show data for a single gene (note that it specifies "... and 0 metadata columns")
+# ('granges' object is used from assignment 3)
+granges
+```
+
+```{r, echo=TRUE}
+# Generate some random values for 'gc-percentage'
+gc_percentage <- round(rnorm(5, mean = 50, sd = 10), 1)
+
+# Bind this data to the 'GRanges' object
+mcols(granges) <- DataFrame(GCperc=gc_percentage)
+
+granges
+```
+
+
+Use the example above to associate the frequency value with the created `GRanges` object. Now that we have both the BED-data (in a `GRangesList` object) and the VCF data in a `GRanges` object, we can 
+
+5. Get all variants that fall within an exon
+    * Use the `findOverlaps` function and store its output
+    * Convert the output to a data-frame
+    
+The result from `findOverlaps` contains two columns of which we are interested in the `subjectHits` column; the rows from the VCF data that lie within an exon. You can use this column to subset the `GRanges` VCF object with. Note that the `queryHits` column describes not the exons but the genes; meaning a queryHit value of `1` refers to a hit within any of the `ABCC9` gene exons.
+
+6. Filter the **remaining** variants based on their frequency, using a minimum of **30%**
+    * Instead of removing rows or creating another subset, make sure you know which rows are to be kept after both filtering steps as we are going to reconstruct the original VCF file (we need it in Galaxy)
+    * Manually sample a few rows to see if they do fall within an exon and have a frequency > 30%
+
+
+7. Now that you have all the row numbers of variants that we want to keep, you need to think of a way to re-construct the VCF file and save it to disk.
+    * Hint: read in the VCF file again for subsetting using the `readLines` function
+    * Note: do not forget to include the 24 header lines!
+
+
+8. Upload the new VCF file into Galaxy as we'll use it in the next chapter.
+
+
+### Assignment 9; Variant Visualization
+
+We will create two simple visualizations:
+
+* Visualize the **allele frequency** for all remaining variants using the `hist` function. Remember that you can use the `mcols` function to get a metadata column or use the `$`-sign and the name of the column. Pass the argument `breaks=20` to `hist` and answer the following question in your lab-journal:
+    - Can you explain the two peaks that you see in your histogram (around 50% and 100%)? 
+* Visualize the amount of variants per gene. A simple solution for getting the numbers is to use the `table` function on the `queryHits` column (output of `findOverlaps`). Convert it to a data frame and then use the gene indices to get the actual gene names. Now you should have a combination of gene and number of variants. Create a barplot with this data as in the previous chapter and use `cex.names=0.7` to scale the gene names to make them all visible.

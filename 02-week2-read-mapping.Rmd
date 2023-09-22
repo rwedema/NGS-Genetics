@@ -1,0 +1,117 @@
+# Read Mapping
+Now that we know what the quality is of the NGS patient data and have corrected the reads on low quality and short read lengths, we can continue with the mapping of our reads against a reference genome. In this step we use the human genome as a reference to which we will map the cleaned reads using the tool BWA. After mapping the reads we can look for variations between the reference and our patient. 
+
+## Mapping with BWA
+Before starting with mapping the data to the human reference genome, we can calculate some important statistics to see what we can achieve with our data.
+
+## Assignment week 2
+The *[coverage][1]* is the number of reads that were mapped at a given position and it is considered a good measurement to determine if there was enough data for further analysis. To identify significant variations, we aim for a minimal coverage of **20**, any lower and it becomes hard to differentiate between a true variant and a sequencing error. Given the Illumina platform and given these facts:
+<ul>
+    <li>a minimal average coverage (read depth) of 20,</li>
+    <li>the read length is 2 * 150 (read pair with each read having 150 bases),</li>
+    <li>the human genome size is 3,137,161,264 bases and</li>
+    <li>the target region (captured region, size of the gene panel) totals 320,000 bases for the Cardio panel. This differs for your chosen case and has to be calculated by you.</li>
+</ul>
+
+we can use the Lander/Waterman equation to calculate our actual expected coverage: $$C = LN / G $$
+Where: 
+<ul>
+    <li>`C` is the coverage,</li>
+    <li>`L` is the read length and</li>
+    <li>`N` is the number of reads</li>
+</ul>
+
+From your own cleaned dataset, look up how many reads are left for mapping. Calculate the expected coverage if we use this data for your gene panel (`G` = captured region). An Illumina MiSeq V3 can produce up to 25 million reads of length 300, how many patients could you analyse per run if the minimum coverage is 20 and you where using your gene panel? Calculate these assignments in R within your document.
+
+Select the **Map with [BWA-MEM](https://arxiv.org/abs/1303.3997)** tool from the Tools menu. For the mapping we will be using a built-in genome (we made the human genome available in Galaxy). Select the <strong>Human reference HG19</strong> in the reference genome setting. Select paired end reads. 
+
+From your previous experiments with different FASTQ cleaning settings, select the R1 paired Trimmomatic data as the first set of reads and the R2 paired Trimmomatic as the second set of reads. Execute the tool, this will take a while to run (10 - 20 minutes).
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/BWAMEMSettings.png")
+```
+
+
+[1]: https://en.wikipedia.org/wiki/Coverage_(genetics)
+
+## Marking Duplicate Mapped Reads
+
+In the process of creating the reads, *[duplicates](http://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing/)* may have arisen by PCR artifacts. These duplicate reads are not real biological sequences in the sense that they originate from the sample, but are a technical artifact. In downstream analysis these duplicate reads may generate false positive variants. Can you think of a reason why this is the case?
+
+Before we are going to look at any differences between the reference and our patient, we first have to *mark* the duplicate mapped reads. To do this, select the [MarkDuplicates](http://broadinstitute.github.io/picard/) tool from the Tools menu. Select the *Map with BWA-MEM output on data ... and ....*, set the <strong>Assume input file is already sorted option</strong> to No and Execute the tool. This tool will add a *flag* to each read that it finds as being duplicate and other tools will ignore any read that has this flag. It will therefore not *remove* the read from the data.
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/removeDuplicates.png")
+```
+
+
+## Visualizing the Mapping Data
+
+We are going to look at the actual mapping to get a bit of feel for what has happend till now. To do this we will look at the mapping output from the previous step - with the marked duplicates - in a *Genome Browser*.  
+
+On our system the *Integrated Genome Viewer* ([IGV](http://software.broadinstitute.org/software/igv/)) has been installed. First we need to download the mapping data to our computer. To do this, download the <strong>dataset</strong> and <strong>bam_index</strong> files from the markduplicates output in Galaxy as shown below. 
+ 
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/bamDownload.png")
+```
+
+Select <strong>Save File</strong> in the pop up window.
+
+Open IGV either by going to the (Linux) <strong> Applications Menu -> Run Program...</strong> and type in <strong>igv</strong> and click on <strong>launch</strong> or by opening a terminal and entering the **igv** command. Next, you can load the mapping data into IGV by clicking on <strong>File -> load from File...</strong>. Look in your <strong>Downloads</strong> folder for a file name starting with **Galaxy** and ending with <strong>.bam</strong> (you only need to open the BAM file, the index file is automatically loaded).
+
+<!--
+The IGV program is standard installed with version 18 of the human reference genome. In our galaxy workflow we have been using the newer 19 version. The first thing we should do is tell IGV where to find the newer genome. 
+In IGV select the <strong>genomes menu</strong> and select <strong>Load Genome from File...</strong>. The <strong>Look in:</strong> will show that you are in your home directory. First go to <strong>/</strong>, than select the <strong>commons</strong> folder, next click on the <strong>minor</strong>, <strong>projectgenomics</strong> and <strong>genomes</strong> folders. From the last folder select the <strong>hg19.genome</strong> and click on <strong>Open</strong>.
+-->
+
+Because our sequence reads are from captured exomes (totaling 320.000 bases for the example Cardio panel, which is just 0,001% of the total genome), you have to zoom in quite a bit to see any of the mappings. Too help you find where to zoom in, we can add an extra layer to the genome browser (called a track). I have uploaded files containing all the exome regions of each genepanel to the galaxy server. You can download the file for your case by going to <strong>Shared Data -> Data Libraries -> case_name</strong> in the Galaxy browser. Select <strong>case_name.BED</strong> and click on the <strong>to History</strong> button. `replace the case_name with your actual case`. Please have a look at the file in you History. The file consists of 4 columns, which describe the chromosome number, start location exome, end location exome and gene name. Download this file (*Save File*) to your computer.
+
+Now from IGV, again select <strong>File -> Load from File..</strong>. Look in your Downloads folders for a file ending in **.bed** and open this file. Your screen should look like this now:
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/igvMain.png")
+```
+
+
+From the 4th column in the bed file, choose a couple of gene names. I will take `SOD2` as an example (`SOD2` lays on chr6 and has 5 exomes and is part of the Cardio gene panel).
+
+In IGV type in the name of your selected gene in the search box and click on Go. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/IGVSearch.png")
+```
+
+
+The screen will load the mapping results of the region that includes the example `SOD2` gene. 
+A couple of regions are important in this genome browser screen. The top row shows the location you are looking at now. 
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/IGVlocation.png")
+```
+
+
+The bottom row are the locations of the reference human genes and the locations of our cardiopanel captured exomes. 
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/IGVrefseqBed.png")
+```
+
+
+The middle row is the actual mapping data. The first row shows a coverage plot. You can hover over the plot with the mouse. It will show how many reads where mapped at this position and what the nucloetide distribution is at this position. Also the number of forward and reverse reads is shown. In this case at this position there where 328 reads mapped. It also tells us that 100% of the reads have a G at that position (157 in the forward mapped reads and 171 in the reverse mapped reads)
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/IGVcoverage.png")
+```
+
+
+The middle row shows the mapped reads. We mapped paired-end reads and to make this visible in IGV, right click the mapping track and select <strong>View as pairs</strong>. Reads are colored according to their read orientation and insert size. Look in the [IGV online manual](http://www.broadinstitute.org/software/igv/AlignmentData) for the explaination of the colors. 
+
+Zoom in on your gene of interest. Regions of reads that are grey of color indicate a simular region as the reference. Variants are shown by colored vertical bars (each nucleotide has its own color). Zoom in till you have the nucleotide sequence showing for a variant. In our example we are looking at a T variant for this patient at this position.  We see that a total of 117 reads were mapped at this position and that from all reads 64 had a T and 53 had a A at this position. The patient is heterozygous for this allele. Can you see if this variant is in an exon or not?, what are the consequences of a variant in an exon location? Look for a variant in an exon. The bottom row will show the translation from DNA to protein. Does the found variant causes a change (*non-synonymous*) or is the aminoacid sequence the same (*synonymous*)?
+
+```{r, echo=FALSE}
+knitr::include_graphics("_main_files/figure-html/IGVvariant.png")
+```
+
+
+Look at the reads at the end of an exon. The cardiopanel captured exons + 20 bases of 55 genes. Why are some reads outside of this location? 
+
+During the following steps we will answer the following questions *for each gene*: how many variants are found?, how many are in the exons? how many variants actually cause the aminoacid sequence to change? IGV uses a very naive variant calling method and this will result in many false positives. So we are going to use a more sophisticated method in the downstream steps.
