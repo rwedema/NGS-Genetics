@@ -65,7 +65,7 @@ the following settings:
 instructions above.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/MPilup.png")
+knitr::include_graphics("images/MPilup.png")
 ```
 
 This tool adds two elements to your history, a log-file that we won't
@@ -237,7 +237,7 @@ BED-data)). Let's first see an example of representing a few exons from
 the BED file into `IRanges` objects (you don't need to replicate this
 example).
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, eval=FALSE}
 ## Only needed when the package is missing
 if (!require("BiocManager"))
     install.packages("BiocManager")
@@ -245,14 +245,14 @@ if (!require("BiocManager"))
 BiocManager::install("GenomicRanges")
 ```
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 # This package contains the 'IRanges', 'GRanges' and 'GRangesList' classes we will use
 library(GenomicRanges)
 ```
 
 ```{r, echo=TRUE}
 # Loading the BED data (note: use your own data from assignment 1)
-load("_main_files/data/bed_data.RData")
+load("data/bed_data.RData")
 
 ```
 
@@ -332,7 +332,7 @@ which would require a rather large for-loop in most other languages. When we do 
 ```{r, echo=TRUE}
 # Load the stored data; do not repeat. Object name in this
 # example is 'bed_data' 
-load('_main_files/data/bed_data_GRangesList.RData')
+load('data/bed_data_GRangesList.RData')
 
 # Split the data by gene, resulting in a list with named elements
 bed_splitted <- split(bed_file, bed_file$gene)
@@ -372,14 +372,13 @@ Although we used Galaxy to create our Pileup file, we will not be using this fil
 
 Again, we have to briefly introduce this library before you will be able to use it. Rsamtools is described as "*an interface to BAM files*", the file that contains all the mapping information. As we've seen when looking at the Pileup file, we have a lot of information for each mapped base, information that we would like to get for all of our exons to report on.
 
-```{r, echo=TRUE}
+```{r, echo=TRUE, eval=FALSE}
 # Installing required library
 BiocManager::install("Rsamtools")
 
 # Loading the RSamtools library
 library(Rsamtools)
 ```
-
 
 Functions from `Rsamtools` that we will use - in order - are:
 * `BamFile`: Reference to the BAM data and its index (`.bam.bai`)
@@ -391,15 +390,12 @@ Functions from `Rsamtools` that we will use - in order - are:
 
 #### Instructions
 
-
 1. Create a `BamFile` object by providing both the `file` and `index` parameters
-
 
 2. Create a `ScanBamParam` object
     * What this does is defining all the ranges that we want to get from the mapping, in this case the ranges of all exons for a gene
     * Do this by selecting a single gene from your `GRangesList` object (using the `[["geneName"]]` syntax) and store this in an object (it's type will be a `GRanges`)
     * Give this `GRanges` object to the `ScanBamParam` function and store this in a variable
-
 
 3. Get the actual Pileup data for our region of interest
     * Call the `pileup` function providing - in order - the objects created at points 1-2. Note that you need to tell `pileup` what the parameter is, so use `pileup(file = ..., scanBamParam = ...)`
@@ -410,14 +406,13 @@ Look at the data that we get for each position and note that we have - at least 
 
 ```{r, echo=TRUE}
 # Load the example Pileup data for the SOD2 gene (do not repeat)
-load("_main_files/data/sod2_pileup.RData")
+load("data/sod2_pileup.RData")
 head(sod2, n = 5)
 ```
 
 The first position of the SOD2 gene in this case shows three rows; two on the positive strand and one on the negative strand. The `count` column shows that there is a single read that has a `T` nucleotide at this position instead of a `C` that the other 297 reads show. With such a big difference, this can be attributed to a sequencing error.
 
 Note though that what we have now is a *summary* of the actual pileup compared to the very detailed line we see in the actual Pileup file within Galaxy. This data is also available using `RSamtools` but we only require this summary.
-
 
 ## Assignment 6; Pileup Processing
 
@@ -496,32 +491,20 @@ Below is an example of data you might get when you have completed this assignmen
 
 ```{r, echo=TRUE}
 # Load example data
-load("_main_files/data/statistics.RData")
+load("data/statistics.RData")
 
 statistics
 ```
 
-
-
-
-## Finding Variants using `Varscan`
+## Finding Variants using `LoFreq`
 
 Most likely you've already seen how a true variant (not a single or few mismatches) looks when we looked at the data in the IGV-browser. For such a variant you see a number of reads having a different base at that positions compared to the reference genome. As we've mentioned before, we are interested in all these variants in our patient data for the all the genes in our genepanel. The previous *visualize-your-data* assignment did not ask to find all these variants using the IGV-browser because in this section we are going to use a program to do this for us.
 
-The tool that we will use is the [Varscan 2](http://genome.cshlp.org/content/22/3/568) tool that scans the pileup file for variants. This tool has a number of settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that's why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.
-
-<!-- 
-http://genome.cshlp.org/content/22/3/568
-http://varscan.sourceforge.net/using-varscan.html
--->
-
-From the toolbox select the <strong>Varscan</strong> tool, select your pileup file as input and leave all the settings to their defaults and execute the tool (this will take 5 to 10 minutes to complete as it has to analyze 100 million lines of data):
-knitr::include_graphics("_main_files/figure-html/varScan.png")
-
-knitr::include_graphics("_main_files/figure-html/varScan_output.png)
+The tool that we will use is the [LoFreq](https://csb5.github.io/lofreq/) tool that scans the BAM file for variants. This tool has a few settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that's why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.
 
 ### VCF File Filtering
-The result of the Varscan tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; over 7000 in the example shown to the right. Note the 24 comment-lines at the top of the file.
+
+The result of the LoFreq tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; over 7000 in the example shown to the right. Note the 24 comment-lines at the top of the file.
 
 When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you've seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. Varscan also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the [allele frequency](https://en.wikipedia.org/wiki/Allele_frequency) value included in the VCF file. In our case, this value describes the percentage of reads having the **variant** base.
 

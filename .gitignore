@@ -2,6 +2,9 @@
 .Rhistory
 .Rapp.history
 
+# Bookdown tmp files
+_main.Rmd
+
 # Session Data files
 .RData
 .RDataTmp

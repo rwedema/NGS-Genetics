@@ -13,6 +13,11 @@ link-citations: yes
 github-repo: ''
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(cache = TRUE)
+```
+
 # About {-}
 
 This is the syllabus for the module 2.1.1 NGS_en_Genetics. 

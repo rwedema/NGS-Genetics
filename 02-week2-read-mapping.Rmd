@@ -28,7 +28,7 @@ Select the **Map with [BWA-MEM](https://arxiv.org/abs/1303.3997)** tool from the
 From your previous experiments with different FASTQ cleaning settings, select the R1 paired Trimmomatic data as the first set of reads and the R2 paired Trimmomatic as the second set of reads. Execute the tool, this will take a while to run (10 - 20 minutes).
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/BWAMEMSettings.png")
+knitr::include_graphics("images/BWAMEMSettings.png")
 ```
 
 
@@ -41,7 +41,7 @@ In the process of creating the reads, *[duplicates](http://www.cureffi.org/2012/
 Before we are going to look at any differences between the reference and our patient, we first have to *mark* the duplicate mapped reads. To do this, select the [MarkDuplicates](http://broadinstitute.github.io/picard/) tool from the Tools menu. Select the *Map with BWA-MEM output on data ... and ....*, set the <strong>Assume input file is already sorted option</strong> to No and Execute the tool. This tool will add a *flag* to each read that it finds as being duplicate and other tools will ignore any read that has this flag. It will therefore not *remove* the read from the data.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/removeDuplicates.png")
+knitr::include_graphics("images/removeDuplicates.png")
 ```
 
 
@@ -52,7 +52,7 @@ We are going to look at the actual mapping to get a bit of feel for what has hap
 On our system the *Integrated Genome Viewer* ([IGV](http://software.broadinstitute.org/software/igv/)) has been installed. First we need to download the mapping data to our computer. To do this, download the <strong>dataset</strong> and <strong>bam_index</strong> files from the markduplicates output in Galaxy as shown below. 
  
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/bamDownload.png")
+knitr::include_graphics("images/bamDownload.png")
 ```
 
 Select <strong>Save File</strong> in the pop up window.
@@ -69,7 +69,7 @@ Because our sequence reads are from captured exomes (totaling 320.000 bases for 
 Now from IGV, again select <strong>File -> Load from File..</strong>. Look in your Downloads folders for a file ending in **.bed** and open this file. Your screen should look like this now:
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/igvMain.png")
+knitr::include_graphics("images/igvMain.png")
 ```
 
 
@@ -78,7 +78,7 @@ From the 4th column in the bed file, choose a couple of gene names. I will take 
 In IGV type in the name of your selected gene in the search box and click on Go. 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/IGVSearch.png")
+knitr::include_graphics("images/IGVsearch.png")
 ```
 
 
@@ -86,20 +86,20 @@ The screen will load the mapping results of the region that includes the example
 A couple of regions are important in this genome browser screen. The top row shows the location you are looking at now. 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/IGVlocation.png")
+knitr::include_graphics("images/IGVlocation.png")
 ```
 
 
 The bottom row are the locations of the reference human genes and the locations of our cardiopanel captured exomes. 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/IGVrefseqBed.png")
+knitr::include_graphics("images/IGVrefseqBed.png")
 ```
 
 
 The middle row is the actual mapping data. The first row shows a coverage plot. You can hover over the plot with the mouse. It will show how many reads where mapped at this position and what the nucloetide distribution is at this position. Also the number of forward and reverse reads is shown. In this case at this position there where 328 reads mapped. It also tells us that 100% of the reads have a G at that position (157 in the forward mapped reads and 171 in the reverse mapped reads)
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/IGVcoverage.png")
+knitr::include_graphics("images/IGVcoverage.png")
 ```
 
 
@@ -108,7 +108,7 @@ The middle row shows the mapped reads. We mapped paired-end reads and to make th
 Zoom in on your gene of interest. Regions of reads that are grey of color indicate a simular region as the reference. Variants are shown by colored vertical bars (each nucleotide has its own color). Zoom in till you have the nucleotide sequence showing for a variant. In our example we are looking at a T variant for this patient at this position.  We see that a total of 117 reads were mapped at this position and that from all reads 64 had a T and 53 had a A at this position. The patient is heterozygous for this allele. Can you see if this variant is in an exon or not?, what are the consequences of a variant in an exon location? Look for a variant in an exon. The bottom row will show the translation from DNA to protein. Does the found variant causes a change (*non-synonymous*) or is the aminoacid sequence the same (*synonymous*)?
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/IGVvariant.png")
+knitr::include_graphics("images/IGVvariant.png")
 ```
 
 

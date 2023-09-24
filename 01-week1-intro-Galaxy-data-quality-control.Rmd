@@ -9,7 +9,7 @@ All course material can be found in this document, some theory, a *lot*
 of links to resources, questions and assignments.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/cardiomyopathy.png")
+knitr::include_graphics("images/cardiomyopathy.png")
 ```
 As with many diseases, one of the causes of cardiomyopathy are a combination of genetic mutation(s). According to Wikipedia, the following forms of cardiomyopaty have a genetic base:
 
@@ -97,7 +97,7 @@ called [*exome
 sequencing*](https://en.wikipedia.org/wiki/Exome_sequencing). 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/exons.png")
+knitr::include_graphics("images/exons.png")
 ```
 
 By targeting specific genes (called a gene panel) we omit the bulk of the genome, and this has an
@@ -258,11 +258,11 @@ will use throughout this course which is available at:
 tools. 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/galaxyServer.png")
+knitr::include_graphics("images/galaxyServer.png")
 ```
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/galaxyTools.png")
+knitr::include_graphics("images/galaxyTools.png")
 ```
 
 The Galaxy server 
@@ -294,7 +294,7 @@ these 55 genes is about 320,000 bases. Which again, is just a very small
 fraction of the complete exome lenght.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/genepanel.png")
+knitr::include_graphics("images/genepanel.png")
 ```
 
 
@@ -377,7 +377,7 @@ bases are: `NTCATGTACG` and the quality scores for these bases are:
 table. 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/ASCII.png")
+knitr::include_graphics("images/ASCII.png")
 ```
 
 If we look for example at the
@@ -475,12 +475,12 @@ this first go to the <strong>Shared Data</strong> menu and click on
 <strong>Data Libraries</strong>
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/dataLibrariesMenu.png")
+knitr::include_graphics("images/dataLibrariesMenu.png")
 ```
 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/patientDataMenu.png")
+knitr::include_graphics("images/patientDataMenu.png")
 ```
 
 Open the `patientData` library. Here you will find the sequence data
@@ -515,7 +515,7 @@ menu and upload the files.
 
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/patientData.png")
+knitr::include_graphics("images/patientData.png")
 ```
 
 
@@ -524,7 +524,7 @@ available to work on. If all went correct, you should now see the two
 sequence files in your History of Galaxy.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/historyPatient.png")
+knitr::include_graphics("images/historyPatient.png")
 ```
 
 
@@ -577,7 +577,7 @@ data from your current history</strong> and press
 <strong>Execute</strong>.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/fastQCSettings.png")
+knitr::include_graphics("images/fastQCSettings.png")
 ```
 
 
@@ -592,7 +592,7 @@ short read datasets. Click on the **View Data** (eye-icon) for the
 webpage output for data 1
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/fastQCHistory.png")
+knitr::include_graphics("images/fastQCHistory.png")
 ```
 
 
@@ -615,7 +615,7 @@ For further information on the box plot, please have a look at:
 <https://en.wikipedia.org/wiki/Box_plot>
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/fastQCPlot.png")
+knitr::include_graphics("images/fastQCPlot.png")
 ```
 
 
@@ -658,7 +658,7 @@ length to **70** (can you think of a reason why you do not want to have too many
   - Execute the tool.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/trimmomatic.png")
+knitr::include_graphics("images/trimmomatic.png")
 ```
 
 

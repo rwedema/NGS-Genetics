@@ -8,7 +8,7 @@ In the - for now - final Galaxy workflow step for analyzing our patient, we are 
 <strong>NOTE:</strong> In the previous step we removed the first 24 lines from the vcf file. These first 24 lines are actualy needed by this step. So before we proceed, we should rerun our previuous script and not delete those lines, but write them also to the output file. You can upload your filtered vcf file to galaxy to work on. Select the <strong>upload button</strong> which is in the upper left corner next to the <strong>Tools</strong>. Select the <strong>Choose local file</strong>. Set the type to <strong>vcf</strong> and the genome to <strong>hg19[Human feb. 2009(GRCh37/hg19)]</strong>
 -->
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/upload.png")
+knitr::include_graphics("images/upload.png")
 ```
 
 
@@ -17,6 +17,7 @@ knitr::include_graphics("_main_files/figure-html/upload.png")
 Select the [**ANNOVAR**](http://annovar.openbioinformatics.org/en/latest/) tool by searching for its name or selecting it from the *Diagnostic Genome Analysis* tool menu. This tool offers a lot of configuration options in the form of selectable sources for comparison. Note that not all of these sources are actually available in our Galaxy server, so take care when selecting the proposed options below.
 
 Set the following settings and data sources from the tool configuration as follows:
+
 * **Reference**: `hg19` [Human Feb. 2009 (GRCh37/hg19)]
 * **Select file to annotatte**: your uploaded **filtered** VCF file
 * **Select filetype**: `VCF4 file`
@@ -32,7 +33,7 @@ Set the following settings and data sources from the tool configuration as follo
 With all these options selected, Execute the tool.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/annovar.png")
+knitr::include_graphics("images/annovar.png")
 ```
 
 
@@ -120,7 +121,7 @@ With the complete analysis nicely packaged into a single workflow, one thing tha
 These features can be of many types and in our case they are the variants. A simple tool is available in Galaxy called *VCF-VCFintersect* that performs either *intersection* or *union* on two VCF datasets containing variant data. This tool compares two VCF files and retains either the shared variants (intersection) or all variants combined (union) as shown in the diagram below.
 
 ```{r, echo=FALSE}
-knitr::include_graphics("_main_files/figure-html/intersect_union.png")
+knitr::include_graphics("images/intersect_union.png")
 ```
 
 
