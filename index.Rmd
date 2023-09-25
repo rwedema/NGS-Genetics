@@ -10,7 +10,7 @@ bibliography:
 description: "This is the background and assignments needed to complete module 2.1.1
   \nset in the _output.yml file.\nThe HTML output format for this example is bookdown::gitbook,\n"
 link-citations: yes
-github-repo: ''
+github-repo: 'https://github.com/rwedema/NGS-Genetics/'
 ---
 
 ```{r setup, include=FALSE}
@@ -27,7 +27,6 @@ This bookdown document will provide you with enough background material and exer
 
 Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case and preparing for the genetics exam.
 
-
 ## Learning outcomes
 
 - You have a good understanding of all the concepts of the central dogma, different types of macromolecules, and enzymes, and you can describe their interconnections.
@@ -36,7 +35,6 @@ Chapters are divided into subjects. Each subject (chapter) should last you a wee
 - You have a clear understanding of the quality requirements for NGS data, depending on both the NGS technique used and the objective. You can also apply tools to assess and improve the quality of the data.
 - You are aware of the available tools and algorithms for mapping NGS reads to a reference genome, and you can justify which one is best suited for a given dataset and question.
 - You can provide arguments and present the choices made during the process of achieving a high-quality mapping.
-
 
 ## End Products
 
@@ -56,9 +54,8 @@ The two items above are weighted and combined to get a single end graded. See al
 | Case | Questions regarding the presentation and the obtained results of the worked-out case are answered clearly and in a structured manner. | 2 |
 | Case | During the lessons and in response to presentations by others, the student asks meaningful, focused, and clear questions, and also contributes additional information to the answers provided by others. | 1 |
 
-
-
 ## Schedule and deliverables
+
 | Week  | Subject  |  Background reading | Note | 
 |---|---|---|---|---|--|
 | 1  | Central Dogma en NGS techniques |  see Blackboard |
@@ -71,4 +68,3 @@ The two items above are weighted and combined to get a single end graded. See al
 | 8 | | |
 | 9 | Resit Genetics exam | | 
  
-

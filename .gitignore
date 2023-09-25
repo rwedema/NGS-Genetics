@@ -3,7 +3,8 @@
 .Rapp.history
 
 # Bookdown tmp files
-_main.Rmd
+_main.*
+_book/
 
 # Session Data files
 .RData
@@ -41,9 +42,6 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
-
-# pkgdown site
-docs/
 
 # translation temp files
 po/*~

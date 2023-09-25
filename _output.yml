@@ -1,13 +1,8 @@
-bookdown::gitbook:
+bookdown::bs4_book:
   css: style.css
-  config:
-    toc:
-      before: |
-        <li><a href="./"Module 2.1.1 NGS and Genetics</a></li>
-      after: |
-        <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
-    edit: https://github.com/USERNAME/REPO/edit/BRANCH/%s
-    download: ["pdf", "epub"]
+  theme:
+    primary: "#096B72"
+  repo: https://github.com/rwedema/NGS-Genetics/
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex
@@ -15,3 +10,5 @@ bookdown::pdf_book:
   citation_package: natbib
   keep_tex: yes
 bookdown::epub_book: default
+bookdown::gitbook:
+  css: style.css

@@ -72,7 +72,6 @@ Now from IGV, again select <strong>File -> Load from File..</strong>. Look in yo
 knitr::include_graphics("images/igvMain.png")
 ```
 
-
 From the 4th column in the bed file, choose a couple of gene names. I will take `SOD2` as an example (`SOD2` lays on chr6 and has 5 exomes and is part of the Cardio gene panel).
 
 In IGV type in the name of your selected gene in the search box and click on Go. 
@@ -81,7 +80,6 @@ In IGV type in the name of your selected gene in the search box and click on Go.
 knitr::include_graphics("images/IGVsearch.png")
 ```
 
-
 The screen will load the mapping results of the region that includes the example `SOD2` gene. 
 A couple of regions are important in this genome browser screen. The top row shows the location you are looking at now. 
 
@@ -89,19 +87,16 @@ A couple of regions are important in this genome browser screen. The top row sho
 knitr::include_graphics("images/IGVlocation.png")
 ```
 
-
 The bottom row are the locations of the reference human genes and the locations of our cardiopanel captured exomes. 
 ```{r, echo=FALSE}
 knitr::include_graphics("images/IGVrefseqBed.png")
 ```
-
 
 The middle row is the actual mapping data. The first row shows a coverage plot. You can hover over the plot with the mouse. It will show how many reads where mapped at this position and what the nucloetide distribution is at this position. Also the number of forward and reverse reads is shown. In this case at this position there where 328 reads mapped. It also tells us that 100% of the reads have a G at that position (157 in the forward mapped reads and 171 in the reverse mapped reads)
 
 ```{r, echo=FALSE}
 knitr::include_graphics("images/IGVcoverage.png")
 ```
-
 
 The middle row shows the mapped reads. We mapped paired-end reads and to make this visible in IGV, right click the mapping track and select <strong>View as pairs</strong>. Reads are colored according to their read orientation and insert size. Look in the [IGV online manual](http://www.broadinstitute.org/software/igv/AlignmentData) for the explaination of the colors. 
 
@@ -110,7 +105,6 @@ Zoom in on your gene of interest. Regions of reads that are grey of color indica
 ```{r, echo=FALSE}
 knitr::include_graphics("images/IGVvariant.png")
 ```
-
 
 Look at the reads at the end of an exon. The cardiopanel captured exons + 20 bases of 55 genes. Why are some reads outside of this location? 
 

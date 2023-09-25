@@ -23,16 +23,17 @@ As with many diseases, one of the causes of cardiomyopathy are a combination of 
 The human genetics department of the University Medical Center Groningen diagnoses patients suspected to suffer from cardiomyopathy. During the diagnosis, the patients genome is compared to a set of reference genes known to be involved in the disease (called a *gene panel*). If variations are found they are checked and compared to known variants to classify or score their *severity*. Using these variations the type (dilated, restrictive, etc.) of the disease and how severe it is can be diagnosed, combined with regular data sources (physical exam, EKG, etc.).
 
 
-```{block, type='rmdtip' }
+::: {.rmdnote}
 Investigate the case in more detail and log your findings. Report on the following:
- - What is the impact of the disease for the patient 
- - Is there just one type of the disease or can it be divided into multiple categories 
- - Are there known genes involved and is the association backed-up by the scientific literature 
-```
+
+* What is the impact of the disease for the patient 
+* Is there just one type of the disease or can it be divided into multiple categories 
+* Are there known genes involved and is the association backed-up by the scientific literature
+
+:::
 
 During the diagnosis, the patients genome is compared to a set of
-reference genes known to be involved in the disease (called a *gene
-panel*). If variations are found they are checked and compared to known
+reference genes known to be involved in the disease (called a *gene panel*). If variations are found they are checked and compared to known
 variants to classify or score their *severity*. Using these variations
 the disease can be detected and diagnosed.
 
@@ -42,10 +43,12 @@ In this project we will work with many different software tools to
 replicate the genetic diagnoses process, both available either for
 download or on the computer you are now using. Other tools we are going
 to create ourselves! All of these tools however perform important steps
-in the analysis process and involve: \* checking the quality of input
-data, \* mapping the data to a reference genome (comparing with 'known'
-data), \* finding variations in respect to the reference and \* scoring
-the found variations on the probabilty that they are disease causing.
+in the analysis process and involve: 
+
+* checking the quality of input data, 
+* mapping the data to a reference genome (comparing with 'known' data), 
+* finding variations in respect to the reference and 
+* scoring the found variations on the probabilty that they are disease causing.
 
 Normally these steps involve many seperate tools which need to be run on
 the commandline, however for this course we will be using a [*worflow
@@ -151,26 +154,19 @@ of this week is primarily for you to understand:
   - how is this data generated?
   - which analysis steps are needed to answer our research question?
 
-```
+::: {.rmdnote}
 If you are good at scanning documents you can easily spot the actual
 assignments in the first chapter and complete them in under two hours
 (note; this is not a challenge!). However, if I were to ask you to
 answer or explain some of the above questions you will probably have a
 hard time. To summarize, make sure that the general theory of what is
-shown here is clear at the end of this chapter. Either follow all the
-links to external resources, use google or (and this works pretty well)
-search for some of the terms or techniques on Youtube. Without this
-knowledge, you will manage to follow the steps during the first few
-weeks but will surely struggle later on when you need to make decisions
-on your own. Your final grade is not based on how you complete your
-assignments, but also on the level of understanding that you show in
-your final presentation on the subject.
-```
+shown here is clear at the end of this chapter. 
+
+Either follow all the links to external resources, use google or (and this works pretty well) search for some of the terms or techniques on Youtube. Without this knowledge, you will manage to follow the steps during the first few weeks but will surely struggle later on when you need to make decisions on your own. Your final grade is not based on how you complete your assignments, but also on the level of understanding that you show in your final presentation on the subject.
+:::
 
 We begin the practical of each new week (chapter) by first having a group discussing on what we did in the
 previous week.
-
-
 
 ## Literature
 

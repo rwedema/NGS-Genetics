@@ -1,126 +1,18 @@
-# The PileUp dataformat
+# Analysis of Cardiopanel Variants
 
-The output of the mapping and marking of the duplicate reads step is in
-a non-human readable form (binary data is only readable by computers).
-Here, the output is transformed to a more human readable format. We will
-run a program that gets the mapped and duplicate removed data and
-describe for **each** mapped position what the base-pair information is.
-This program will go over the mapping and report the following details
-for each position that was mapped (file format description [available
-here](http://samtools.sourceforge.net/pileup.shtml) and
-[here](https://en.wikipedia.org/wiki/Pileup_format)):
+Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called *LoFreq* that will report on found variants and their statistics such as allele frequency, number of supported reads, average base quality at the found position, etc. 
 
--   the chromosome name [1],
--   reference position [2],
--   reference base [3],
--   number of supporting reads [4],
--   the match [5], either:
-    -   a dot for a match in the forward strand or
-    -   a comma for a match in the reverse strand
-    -   a nucleotide in case of a mismatch (upper case for the forward
-        strand, lower case for the reverse strand)
-    -   insertions/ deletions (defined by a `+` or `-` sign followed by
-        a number defining the size of the insert/ deletion, followed by
-        the bases that form the insert/ deletion).
--   the quality [6] (taken from the FASTQ file) can be seen in the last
-    column, one value for each read
-
-```         
-1       2      3    4   5    6  
-chr1     10004   c  1   ,    [  
-chr1     10005   g    3    ,,.   ?1>
-```
-
-The reason this format is called *pileup* is because for each *position*
-it will pile (or stack) the data from all mapped reads for that
-position. In the first example line above (chromosome 1, position 10004)
-there was only one read with a match (the reference is a C as shown in
-column 3) in the reverse strand and the second line has three supporting
-reads with a match. See below for some other examples where multiple
-reads are mapped on the same position, including mismatches.
+Before finding the actual variants, we will perform analysis assessing the achieved coverage. As you might have seen in IGV, coverages range from very high numbers (300+) to places where there are only a few reads present. In this chapter we will use R with a number of libraries often used for genetics research to report on these numbers for all cardiopanel genes. 
 
 ## Assignment week 3
 
-Choose the <strong>MPileUp</strong> program from the toolbox and select
-the following settings:
-
--   *Choose the source for the reference genome*
-    -   *Use a built-in genome* and
--   for the *BAM file(s)*
-    -   Select the output BAM dataset from the previous step (output of
-        the *MarkDuplicates* tool)
--   *Using reference genome* with
-    -   the *Human reference HG19* selected
--   Set *Genotype Likelihood Computation* to
-    -   *Do not perform genotype likelihood computation (output pileup)*
-        selected
--   Set *Output base positions on reads* to
-    -   *False*
--   Set *Output mapping quality* to
-    -   *False*
--   And finally, *Set advanced options* to
-    -   *Basic*
-
-**Note:** screenshot below shows the wrong input-file selected, read
-instructions above.
-
-```{r, echo=FALSE}
-knitr::include_graphics("images/MPilup.png")
-```
-
-This tool adds two elements to your history, a log-file that we won't
-use and a text file in the *pileup* format that we will examine. You can
-click on the 'eye'-icon to view the contents of this file. Most likely,
-the first few (tens of) thousands of lines only show data as shown above
-in the example where only one read mapped. This file can be **very**
-large, both in size (2 - 3 GB) and in number of lines (100.000.000+
-lines).
-
-The line below is an example where multiple reads (30 in total, as shown
-in column 4 and by the lengths of columns 5 and 6) mapped on a single
-position. Here on chromosome 1 we see that in column 5 there is
-something going on. Read 8 contained a `C` whereas the reference (and
-the other 29 reads) show a `T` at this position, so this is classified
-as a mismatch which will be the subject of further analysis steps.
-
-```         
-chr1    16888646    T   30  .......C........,.,.....,,....  WomHHGomooHmHFHHGGFH1GDHHHHGFF
-```
-
-Besides mismatches, we can also have *insertions* and *deletions* such
-as shown in the example below with a `-` sign followed by a number and a
-number of bases that are missing.
-
-```         
-chr1    16888710    a   31  ..,.,..,..,,-2ct,,..,.,,.-2CT,,.,,.,.,, nGFkGUlFF?DFHFGGEnHFFHHGFHG5GGB
-```
-
 ### Programming Assignments; Coverage Overview for Cardiopanel Genes
 
-Somewhere in this enormous pileup file we can see how (well) our
+Within the output of the previous mapping step (the BAM file) we can see how (well) our
 panel-genes are covered by our reads, a very important statistic on the
-quality of our data. But in a file with that much data we definitely
-should not do this manually! This section contains a number of small
-assignments that - once completed - will give us a clear indication
-whether our mapping is of sufficient quality. Depending on this outcome
-we might need to revisit our previous step(s) such as the trimming
-process to increase our mapping quality. Steps that we need to take
-might include the following: \* Load the BED file containing the
-information (names, chromosome and exon coordinates) of all panel genes
-\* Load the `pileup` file containing the mapping data \* For each exon
-found in the BED file: \* read the start- and end-coordinate \* find all
-entries in the pileup file for this chromosome and within these
-coordinates \* for each pileup-entry: \* store the coverage number (data
-from column 4) \* Given the found coverage for each position in all
-**exons**: \* Calculate the average coverage per **gene** \* Count the
-number of positions with a coverage \< 30 \* Create a table that
-contains statistics for each of the genes; length, average coverage and
-the number of low-coverage positions \* Visualize the coverage for all
-the genes (similar as to what can be seen by using IGV)
+quality of our data. We could assess this manually using IGV, but that is definitely not the method to use for such a task even though there are 'only' about 50 genes in total. This section contains a number of small assignments that - once completed - will give us a clear indication whether our mapping is of sufficient quality. Depending on this outcome we might need to revisit our previous step(s) such as the trimming process to increase our mapping quality. 
 
-During these assignments we will not only perform these tasks but also
-visualize in between the steps to get a good understanding of the data
-that we have.
+During these assignments we will gain insight into the coverage of all of our genes of interest as well as their variants. We will use the BED-file describing the locations of all exons, the BAM file containing the mapped reads and - which we'll create later - a VCF-file listing all found variants. A number of assignments asks to visualize the results to get a good understanding of what we're looking at.
 
 ### Assignment Instructions
 
@@ -145,19 +37,25 @@ For each of these assignments, create at least one code-chunk, name it
 accordingly and in between the assignments reflect on what you did. For
 instance as the end product of assignment one is a dataframe with a
 proper header and an overview plot of the number of exons per
-chromosome, you could end this assignment by stating *"After loading and
-processing the data, the overview shows all chromosomes on which exons
-are located for the opanel genes"*.
+chromosome, you could end this assignment by stating *"After loading and processing the data, the overview shows all chromosomes on which exons are located for the opanel genes"*.
 
 ### Assignment 1; Loading the BED-data
 
 The first step of our program is to read the BED file to get the exon
 locations for our opanel genes. We already viewed the contents of the
-BED file in Galaxy, where we saw that this file contains 4 columns: \*
-The chromosome number, \* exon start location, \* exon end location and
-the \* gene name
+BED file in Galaxy, where we saw that this file contains 4 columns: 
 
-`This example shows the cardiopanel 10  75399683    75399795    MYOZ1   10  75757946    75758153    VCL   10  75802821    75802931    VCL`
+* The chromosome number, 
+* exon start location, 
+* exon end location and the 
+* gene name
+
+For example:
+```
+10  75399683    75399795    MYOZ1   
+10  75757946    75758153    VCL   
+10  75802821    75802931    VCL
+```
 
 Perform these tasks:
 
@@ -224,17 +122,15 @@ consisting of `IRanges`
 ([website](http://bioconductor.org/packages/release/bioc/html/IRanges.html),
 [manual](http://bioconductor.org/packages/release/bioc/vignettes/IRanges/inst/doc/IRangesOverview.pdf))
 objects. These '*objects*' (they hold data in a combination of vectors,
-lists and data frames amongst other data structures) are used to store
+lists and data frames among other data structures) are used to store
 information about features on the genome. These features (introns,
 exons, variants, etc.) are always defined by their coordinates such as
 start and stop positions and the name of the sequence (in our case,
 chromosome) on which they lie.
 
-The BED-file and the Pileup file for instance can be represented using
-`IRanges` since both files contain simple positional data (chromosome
-and position (either a single position for Pileup or start/ stop for
-BED-data)). Let's first see an example of representing a few exons from
-the BED file into `IRanges` objects (you don't need to replicate this
+The BED-file for instance can be represented using
+`IRanges` since it contain simple positional data (chromosome
+and position (start/ stop for BED-data). Let's first see an example of representing a few exons from the BED file into `IRanges` objects (you don't need to replicate this
 example).
 
 ```{r, echo=TRUE, eval=FALSE}
@@ -253,7 +149,6 @@ library(GenomicRanges)
 ```{r, echo=TRUE}
 # Loading the BED data (note: use your own data from assignment 1)
 load("data/bed_data.RData")
-
 ```
 
 ```{r, echo=TRUE}
@@ -290,7 +185,6 @@ granges <- GRanges(seqnames = paste0("chr", sod2$chromosome),
                    ranges = ranges)
 granges
 ```
-
 
 When comparing the `IRanges` object with the `GRanges` object, it looks rather similar with yet again some missing data (the *width*) and some extra data (the *strand*). Nothing is lost though, as objects often have a lot of *accessor* methods that you can use for getting to the actual data, as the example above is a *representation* of the object that you get when you print it. Functions such as `width()` applied to an `IRanges` object gives the `width` column and the `ranges()` function applied to a `GRanges` object gives the `IRanges` object contained within. When needed, the assignments will hint to their usage but the linked manuals also describe the most important ones.
 
@@ -364,13 +258,13 @@ As you will notice, there is one gene that is very long compared to the others a
 
 
 
-### Assignment 5; Pileup Loading
+### Assignment 5; Loading the Mapped Reads
 
-Although we used Galaxy to create our Pileup file, we will not be using this file within R (luckily, since it's around 2 - 3 GB in size!). We *will* be using the complete Pileup file within Galaxy in our next analysis step to find our variant positions, but in R we will use the output of the *mapping* step (the BAM file) as there is an R library that can read this data much more efficiently (`RSamtools` [website](https://bioconductor.org/packages/release/bioc/html/Rsamtools.html) and [manual](https://bioconductor.org/packages/release/bioc/vignettes/Rsamtools/inst/doc/Rsamtools-Overview.pdf)) into `GRanges`. We have already downloaded the data as it was the input for the IGV tool in the previous chapter. 
+In R we will use the output of the *mapping* step (the BAM file) to inspect the coverage of all mapped positions of our panel genes. There is an R library that can read this data (`RSamtools` [website](https://bioconductor.org/packages/release/bioc/html/Rsamtools.html) and [manual](https://bioconductor.org/packages/release/bioc/vignettes/Rsamtools/inst/doc/Rsamtools-Overview.pdf)) into `GRanges` objects. We have already downloaded the data as it was the input for the IGV tool in the previous chapter. 
 
 ### Rsamtools
 
-Again, we have to briefly introduce this library before you will be able to use it. Rsamtools is described as "*an interface to BAM files*", the file that contains all the mapping information. As we've seen when looking at the Pileup file, we have a lot of information for each mapped base, information that we would like to get for all of our exons to report on.
+Again, we have to briefly introduce this library before you will be able to use it. Rsamtools is described as "*an interface to BAM files*", the file that contains all the mapping information.
 
 ```{r, echo=TRUE, eval=FALSE}
 # Installing required library
@@ -381,11 +275,13 @@ library(Rsamtools)
 ```
 
 Functions from `Rsamtools` that we will use - in order - are:
+
 * `BamFile`: Reference to the BAM data and its index (`.bam.bai`)
 * `ScanBamParam`: Sets the *parameters* for selecting a certain region from the genome using `GRanges` (i.e., a gene from our BED-data)
 * `pileup`: Actually retrieves the region of interest given the `BamFile` and parameters supplied.
 
 **Assignment**:
+
 * Load the BAM mapping data into a list of data-frames covering all mapped positions of interest
 
 #### Instructions
@@ -397,10 +293,65 @@ Functions from `Rsamtools` that we will use - in order - are:
     * Do this by selecting a single gene from your `GRangesList` object (using the `[["geneName"]]` syntax) and store this in an object (it's type will be a `GRanges`)
     * Give this `GRanges` object to the `ScanBamParam` function and store this in a variable
 
-3. Get the actual Pileup data for our region of interest
+3. Get the actual mapping data for our region of interest
     * Call the `pileup` function providing - in order - the objects created at points 1-2. Note that you need to tell `pileup` what the parameter is, so use `pileup(file = ..., scanBamParam = ...)`
     * The output of the `pileup` function is a data-frame, store this result
     * Print the first lines of the data-frame (use the `head` function)
+
+::: {.rmdnote}
+
+The mention of `pileup` in this assignment means looking at a single genomic position like we've seen in IGV. There are tools available to generate a *pileup* file from a BAM file (file format description [available
+here](http://samtools.sourceforge.net/pileup.shtml) and
+[here](https://en.wikipedia.org/wiki/Pileup_format)) containing the following information for **all** mapped positions:
+
+-   the chromosome name (1)
+-   reference position (2),
+-   reference base (3),
+-   number of supporting reads (4),
+-   the match (5), either:
+    -   a dot for a match in the forward strand or
+    -   a comma for a match in the reverse strand
+    -   a nucleotide in case of a mismatch (upper case for the forward
+        strand, lower case for the reverse strand)
+    -   insertions/ deletions (defined by a `+` or `-` sign followed by
+        a number defining the size of the insert/ deletion, followed by
+        the bases that form the insert/ deletion).
+-   the quality [6] (taken from the FASTQ file) can be seen in the last
+    column, one value for each read
+
+```
+  1          2   3    4   5     6
+chr1     10004   c    1   ,     [ 
+chr1     10005   g    3   ,,.   ?1>
+```
+
+The reason this format is called *pileup* is because for each *position*
+it will pile (or stack) the data from all mapped reads for that
+position. In the first example line above (chromosome 1, position 10004)
+there was only one read with a match (the reference is a C as shown in
+column 3) in the reverse strand and the second line has three supporting
+reads with a match. 
+
+The line below is an example where multiple reads (30 in total, as shown
+in column 4 and by the lengths of columns 5 and 6) mapped on a single
+position. Here on chromosome 1 we see that in column 5 there is
+something going on. Read 8 contained a `C` whereas the reference (and
+the other 29 reads) show a `T` at this position, so this is classified
+as a mismatch which will be the subject of further analysis steps.
+
+```
+chr1    16888646    T   30  .......C........,.,.....,,....  WomHHGomooHmHFHHGGFH1GDHHHHGFF
+```
+
+Besides mismatches, we can also have *insertions* and *deletions* such
+as shown in the example below with a `-` sign followed by a number and a
+number of bases that are missing.
+
+```
+chr1    16888710    a   31  ..,.,..,..,,-2ct,,..,.,,.-2CT,,.,,.,.,, nGFkGUlFF?DFHFGGEnHFFHHGFHG5GGB
+```
+
+:::
 
 Look at the data that we get for each position and note that we have - at least - two rows of data per position; one on each strand (as we've also seen in IGV). If we have *more* than two rows of data for a single position, it might be a variant which is coincidentally demonstrated in the example data below:
 
@@ -437,6 +388,7 @@ Instead of performing all kinds of programming steps to check if positions are s
 Given a column to group on (our `pos` column) it will perform a function on a different column (our `count` column containing the coverage. The result of aggregate is a two-column data-frame with the position and the sum of all count values for this position; the total coverage.
 
 We provide the arguments as follows:
+
 * `x`: the `count` column (we provide it as a list so it gets a name in the resulting data-frame as well)
 * `by`: the `pos` column the grouping is applied to
 * `FUN`: the function to perform on all grouped rows (in this case, the `sum` function)
@@ -450,6 +402,7 @@ head(coverage)
 ```
 
 Your task now is to calculate this per-position coverage for all genes and to calculate and report on - for each gene:
+
 * the number of bases sequenced for this gene,
 * the average coverage of the gene and
 * the number of low-coverage positions (coverage < 30) both in number **and** as the calculated percentage.
@@ -525,7 +478,7 @@ Now that we have the data in a data-frame, inspect that everything is loaded cor
 The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio). To get the frequency value from this list, here is some R magic that converts the result from `strsplit` into a data-frame (found on [Stackoverflow](https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list)):
 
 ```{r, echo=TRUE}
-do.call(rbind, bed_splitted)
+head( do.call(rbind, bed_splitted), n=20)
 ```
 
 What it does is `rbind` all vectors into a data-frame, but we haven't seen (and probably won't see) the `do.call` function before (pure magic). Again, inspect this data-frame to see where the actual value is located that you want. Also note the data type of this column, is it numeric?
@@ -570,14 +523,11 @@ The result from `findOverlaps` contains two columns of which we are interested i
     * Instead of removing rows or creating another subset, make sure you know which rows are to be kept after both filtering steps as we are going to reconstruct the original VCF file (we need it in Galaxy)
     * Manually sample a few rows to see if they do fall within an exon and have a frequency > 30%
 
-
 7. Now that you have all the row numbers of variants that we want to keep, you need to think of a way to re-construct the VCF file and save it to disk.
     * Hint: read in the VCF file again for subsetting using the `readLines` function
     * Note: do not forget to include the 24 header lines!
 
-
 8. Upload the new VCF file into Galaxy as we'll use it in the next chapter.
-
 
 ### Assignment 9; Variant Visualization
 
