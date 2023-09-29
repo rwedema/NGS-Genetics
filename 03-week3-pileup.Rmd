@@ -455,42 +455,48 @@ Most likely you've already seen how a true variant (not a single or few mismatch
 
 The tool that we will use is the [LoFreq](https://csb5.github.io/lofreq/) tool that scans the BAM file for variants. This tool has a few settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that's why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.
 
+**Instructions**:
+
+Run the `Call variants with LoFreq` tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available `GRCh38` reference genome. Feel free to explore the other options but leave the `Call variants across` settings on `Whole reference` (this setting allows using a BED file for only selecting variants of interest which is basically the following assignment).
+
 ### VCF File Filtering
 
-The result of the LoFreq tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; over 7000 in the example shown to the right. Note the 24 comment-lines at the top of the file.
+The result of the LoFreq tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the 17 comment-lines at the top of the file.
 
-When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you've seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. Varscan also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the [allele frequency](https://en.wikipedia.org/wiki/Allele_frequency) value included in the VCF file. In our case, this value describes the percentage of reads having the **variant** base.
+When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you've seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. LoFreq also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the [allele frequency](https://en.wikipedia.org/wiki/Allele_frequency) value included in the VCF file. In our case, this value describes the percentage of reads having the **variant** base.
+
+
 
 ### Assignment 8; VCF File Processing
 
-Please briefly read the linked wikipedia page to understand why this value is of importance. As we are working with patient data, we use the protocol as described by the UMCG that states that variants with a minimum frequency of **30%** are retained. This means we will filter out any variants with a *lower* value. 
+Please briefly read the linked wikipedia page to understand why this value is of importance. As we are working with patient data, we use the protocol as described by the UMCG that states that variants with a minimum frequency of **30%** are retained. This means we will filter out any variants with a *lower* value. Note that LoFreq stores this value as a fraction so we filter for values $>= 0.3$.
 
 There are once again step-by-step instructions for completing this assignment. It is however possible to do it without these instructions as we partly repeat steps we've taken in the previous assignments.
 
 1. Read in the data into a data-frame using the `read.delim` function
-    * Make sure the data has a proper header (line 24 in the data)
+    * Make sure the data has a proper header (line 18 in the data)
     * Provide the `stringsAsFactors = FALSE` argument, otherwise the next part won't work (we cannot split an R `factor`)
 
-Now that we have the data in a data-frame, inspect that everything is loaded correctly. The first thing that we'll do now is get the frequency value for each variant. Read the comment lines in the VCF file to see how this value is stored. You'll see that the columns themselves contain more fields, separated by a colon (`:`) which we can use to *split* the data to get to the value we want.
+Now that we have the data in a data-frame, inspect that everything is loaded correctly. The first thing that we'll do now is get the frequency value for each variant. Read the comment lines in the VCF file to see how this value is stored. You'll see that the columns themselves contain more fields, separated by a semicolon (`;`) which we can use to *split* the data to get to the value we want.
 
 2. Split the column containing the frequency value using the `strsplit` function
 
-The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio). To get the frequency value from this list, here is some R magic that converts the result from `strsplit` into a data-frame (found on [Stackoverflow](https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list)):
+The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio). To get the frequency value from this list, here is some R magic that converts the result from `strsplit` into a matrix (found on [Stackoverflow](https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list)):
 
 ```{r, echo=TRUE}
 head( do.call(rbind, bed_splitted), n=20)
 ```
 
-What it does is `rbind` all vectors into a data-frame, but we haven't seen (and probably won't see) the `do.call` function before (pure magic). Again, inspect this data-frame to see where the actual value is located that you want. Also note the data type of this column, is it numeric?
+What it does is `rbind`s all vectors into a matrix. Again, inspect this object to see where the actual value is located that you want (use the `View` function in RStudio or click on the name in the `Environment` tab).
 
 3. Write a so called one-liner (multiple statements in a single line of code) that:
-    * replaces the `%` sign with nothing (an empty string; `''`) using the `gsub` function
+    * removes the `AF=` part using the `gsub` function
     * converts the data type of this column to `numeric`
     * saves only this column into a new variable
 
 We now have the frequency value available for filtering and we'll do that by adding it to the `GRanges` object we create next:
 
-4. Create a `GRanges` object as we've done for assignment 3 by simply creating an `IRanges` object where the `start` and `end` parameters both get the variant position column. Also provide the `seqnames` parameter to `GRanges` which get the contents of the chromosome column.
+4. Create a `GRanges` object as we've done for assignment 3 by simply creating an `IRanges` object where the `start` and `end` parameters both get the variant position column (`POS` column). Also provide the `seqnames` parameter to `GRanges` which get the contents of the chromosome column.
 
 `GRanges` objects can contain other data as well, called *associated metadata*. Using the `mcols` function we can see existing or assign data to each variant. Adding this as a data-frame allows us to set a name for this column as demonstrated below with an example from the previous chapter:
 
@@ -501,11 +507,11 @@ granges
 ```
 
 ```{r, echo=TRUE}
-# Generate some random values for 'gc-percentage'
-gc_percentage <- round(rnorm(5, mean = 50, sd = 10), 1)
+# Generate some random values for 'allele frequency'
+allele_frequency <- round(rnorm(5, mean = 0.45, sd = 0.35), 1)
 
 # Bind this data to the 'GRanges' object
-mcols(granges) <- DataFrame(GCperc=gc_percentage)
+mcols(granges) <- DataFrame(AF=allele_frequency)
 
 granges
 ```

@@ -615,32 +615,34 @@ number of bases that are missing.</p>
 </h2>
 <p>Most likely you’ve already seen how a true variant (not a single or few mismatches) looks when we looked at the data in the IGV-browser. For such a variant you see a number of reads having a different base at that positions compared to the reference genome. As we’ve mentioned before, we are interested in all these variants in our patient data for the all the genes in our genepanel. The previous <em>visualize-your-data</em> assignment did not ask to find all these variants using the IGV-browser because in this section we are going to use a program to do this for us.</p>
 <p>The tool that we will use is the <a href="https://csb5.github.io/lofreq/">LoFreq</a> tool that scans the BAM file for variants. This tool has a few settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that’s why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.</p>
+<p><strong>Instructions</strong>:</p>
+<p>Run the <code>Call variants with LoFreq</code> tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available <code>GRCh38</code> reference genome. Feel free to explore the other options but leave the <code>Call variants across</code> settings on <code>Whole reference</code> (this setting allows using a BED file for only selecting variants of interest which is basically the following assignment).</p>
 <div id="vcf-file-filtering" class="section level3" number="3.4.1">
 <h3>
 <span class="header-section-number">3.4.1</span> VCF File Filtering<a class="anchor" aria-label="anchor" href="#vcf-file-filtering"><i class="fas fa-link"></i></a>
 </h3>
-<p>The result of the LoFreq tool is a single new file in your history in the <a href="http://www.internationalgenome.org/wiki/Analysis/vcf4.0/"><strong>vcf</strong></a> file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; over 7000 in the example shown to the right. Note the 24 comment-lines at the top of the file.</p>
-<p>When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you’ve seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. Varscan also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the <a href="https://en.wikipedia.org/wiki/Allele_frequency">allele frequency</a> value included in the VCF file. In our case, this value describes the percentage of reads having the <strong>variant</strong> base.</p>
+<p>The result of the LoFreq tool is a single new file in your history in the <a href="http://www.internationalgenome.org/wiki/Analysis/vcf4.0/"><strong>vcf</strong></a> file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the 17 comment-lines at the top of the file.</p>
+<p>When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you’ve seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. LoFreq also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the <a href="https://en.wikipedia.org/wiki/Allele_frequency">allele frequency</a> value included in the VCF file. In our case, this value describes the percentage of reads having the <strong>variant</strong> base.</p>
 </div>
 <div id="assignment-8-vcf-file-processing" class="section level3" number="3.4.2">
 <h3>
 <span class="header-section-number">3.4.2</span> Assignment 8; VCF File Processing<a class="anchor" aria-label="anchor" href="#assignment-8-vcf-file-processing"><i class="fas fa-link"></i></a>
 </h3>
-<p>Please briefly read the linked wikipedia page to understand why this value is of importance. As we are working with patient data, we use the protocol as described by the UMCG that states that variants with a minimum frequency of <strong>30%</strong> are retained. This means we will filter out any variants with a <em>lower</em> value.</p>
+<p>Please briefly read the linked wikipedia page to understand why this value is of importance. As we are working with patient data, we use the protocol as described by the UMCG that states that variants with a minimum frequency of <strong>30%</strong> are retained. This means we will filter out any variants with a <em>lower</em> value. Note that LoFreq stores this value as a fraction so we filter for values <span class="math inline">\(&gt;= 0.3\)</span>.</p>
 <p>There are once again step-by-step instructions for completing this assignment. It is however possible to do it without these instructions as we partly repeat steps we’ve taken in the previous assignments.</p>
 <ol style="list-style-type: decimal">
 <li>Read in the data into a data-frame using the <code>read.delim</code> function
 <ul>
-<li>Make sure the data has a proper header (line 24 in the data)</li>
+<li>Make sure the data has a proper header (line 18 in the data)</li>
 <li>Provide the <code>stringsAsFactors = FALSE</code> argument, otherwise the next part won’t work (we cannot split an R <code>factor</code>)</li>
 </ul>
 </li>
 </ol>
-<p>Now that we have the data in a data-frame, inspect that everything is loaded correctly. The first thing that we’ll do now is get the frequency value for each variant. Read the comment lines in the VCF file to see how this value is stored. You’ll see that the columns themselves contain more fields, separated by a colon (<code>:</code>) which we can use to <em>split</em> the data to get to the value we want.</p>
+<p>Now that we have the data in a data-frame, inspect that everything is loaded correctly. The first thing that we’ll do now is get the frequency value for each variant. Read the comment lines in the VCF file to see how this value is stored. You’ll see that the columns themselves contain more fields, separated by a semicolon (<code>;</code>) which we can use to <em>split</em> the data to get to the value we want.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Split the column containing the frequency value using the <code>strsplit</code> function</li>
 </ol>
-<p>The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio). To get the frequency value from this list, here is some R magic that converts the result from <code>strsplit</code> into a data-frame (found on <a href="https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list">Stackoverflow</a>):</p>
+<p>The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio). To get the frequency value from this list, here is some R magic that converts the result from <code>strsplit</code> into a matrix (found on <a href="https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list">Stackoverflow</a>):</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">bed_splitted</span><span class="op">)</span>, n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##           chromosome    begin      end  gene
@@ -664,11 +666,11 @@ number of bases that are missing.</p>
 ## ABCC9.831         12 22005011 22005176 ABCC9
 ## ABCC9.832         12 22005282 22005459 ABCC9
 ## ABCC9.833         12 22012500 22012620 ABCC9</code></pre>
-<p>What it does is <code>rbind</code> all vectors into a data-frame, but we haven’t seen (and probably won’t see) the <code>do.call</code> function before (pure magic). Again, inspect this data-frame to see where the actual value is located that you want. Also note the data type of this column, is it numeric?</p>
+<p>What it does is <code>rbind</code>s all vectors into a matrix. Again, inspect this object to see where the actual value is located that you want (use the <code>View</code> function in RStudio or click on the name in the <code>Environment</code> tab).</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Write a so called one-liner (multiple statements in a single line of code) that:
 <ul>
-<li>replaces the <code>%</code> sign with nothing (an empty string; <code>''</code>) using the <code>gsub</code> function</li>
+<li>removes the <code>AF=</code> part using the <code>gsub</code> function</li>
 <li>converts the data type of this column to <code>numeric</code>
 </li>
 <li>saves only this column into a new variable</li>
@@ -677,7 +679,7 @@ number of bases that are missing.</p>
 </ol>
 <p>We now have the frequency value available for filtering and we’ll do that by adding it to the <code>GRanges</code> object we create next:</p>
 <ol start="4" style="list-style-type: decimal">
-<li>Create a <code>GRanges</code> object as we’ve done for assignment 3 by simply creating an <code>IRanges</code> object where the <code>start</code> and <code>end</code> parameters both get the variant position column. Also provide the <code>seqnames</code> parameter to <code>GRanges</code> which get the contents of the chromosome column.</li>
+<li>Create a <code>GRanges</code> object as we’ve done for assignment 3 by simply creating an <code>IRanges</code> object where the <code>start</code> and <code>end</code> parameters both get the variant position column (<code>POS</code> column). Also provide the <code>seqnames</code> parameter to <code>GRanges</code> which get the contents of the chromosome column.</li>
 </ol>
 <p><code>GRanges</code> objects can contain other data as well, called <em>associated metadata</em>. Using the <code>mcols</code> function we can see existing or assign data to each variant. Adding this as a data-frame allows us to set a name for this column as demonstrated below with an example from the previous chapter:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
@@ -695,21 +697,21 @@ number of bases that are missing.</p>
 ##   -------
 ##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Generate some random values for 'gc-percentage'</span></span>
-<span><span class="va">gc_percentage</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5</span>, mean <span class="op">=</span> <span class="fl">50</span>, sd <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Generate some random values for 'allele frequency'</span></span>
+<span><span class="va">allele_frequency</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5</span>, mean <span class="op">=</span> <span class="fl">0.45</span>, sd <span class="op">=</span> <span class="fl">0.35</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bind this data to the 'GRanges' object</span></span>
-<span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">mcols</a></span><span class="op">(</span><span class="va">granges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html">DataFrame</a></span><span class="op">(</span>GCperc<span class="op">=</span><span class="va">gc_percentage</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/Vector-class.html">mcols</a></span><span class="op">(</span><span class="va">granges</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/DataFrame-class.html">DataFrame</a></span><span class="op">(</span>AF<span class="op">=</span><span class="va">allele_frequency</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">granges</span></span></code></pre></div>
 <pre><code>## GRanges object with 5 ranges and 1 metadata column:
-##        seqnames              ranges strand |    GCperc
+##        seqnames              ranges strand |        AF
 ##           &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-##   SOD2     chr6 160103505-160103690      * |      45.6
-##   SOD2     chr6 160105866-160106085      * |      52.6
-##   SOD2     chr6 160109138-160109294      * |      53.2
-##   SOD2     chr6 160113673-160113915      * |      59.3
-##   SOD2     chr6 160114157-160114219      * |      43.2
+##   SOD2     chr6 160103505-160103690      * |       0.5
+##   SOD2     chr6 160105866-160106085      * |       0.6
+##   SOD2     chr6 160109138-160109294      * |       0.1
+##   SOD2     chr6 160113673-160113915      * |       0.7
+##   SOD2     chr6 160114157-160114219      * |       0.8
 ##   -------
 ##   seqinfo: 1 sequence from an unspecified genome; no seqlengths</code></pre>
 <p>Use the example above to associate the frequency value with the created <code>GRanges</code> object. Now that we have both the BED-data (in a <code>GRangesList</code> object) and the VCF data in a <code>GRanges</code> object, we can</p>
@@ -804,7 +806,7 @@ number of bases that are missing.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2023-09-25.</p>
+    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2023-09-29.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
