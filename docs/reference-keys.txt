@@ -39,8 +39,9 @@ finding-variants-using-lofreq
 vcf-file-filtering
 assignment-8-vcf-file-processing
 assignment-9-variant-visualization
-annotations
-running-annovar
+variant-annotation
+snpeff-and-snpsift
+assignment
 programming-assignment-analyzing-variant-annotation
 assignment-10-data-preparation
 assignment-11-finding-variants-of-interest

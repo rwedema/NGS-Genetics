@@ -1,65 +1,110 @@
-# Annotations
+# Variant Annotation
 
-<!-- http://nar.oxfordjournals.org/content/38/16/e164 -->
+In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with the `LoFreq` tool. This involves comparing all our variants against a number of databases containing *annotation data* for known variants. We will use our filtered `VCF`-file resulting from LoFreq so we need to upload our newly created VCF file to Galaxy. Make sure that Galaxy recognizes the file type by selecting the correct file type when uploading or change it afterwards using the *Edit attributes* button.
 
-In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with the `Varscan` tool. This involves comparing all our variants against a number of databases containing *annotation data* for known variants. We will use our filtered `VCF`-file resulting from Varscan so we need to upload our newly created VCF file (the output from `deliverable8.py`) to Galaxy. Make sure that Galaxy recognizes the file type by selecting the correct file type when uploading or change it afterwards using the *Edit attributes* button.
-
-<!--
-<strong>NOTE:</strong> In the previous step we removed the first 24 lines from the vcf file. These first 24 lines are actualy needed by this step. So before we proceed, we should rerun our previuous script and not delete those lines, but write them also to the output file. You can upload your filtered vcf file to galaxy to work on. Select the <strong>upload button</strong> which is in the upper left corner next to the <strong>Tools</strong>. Select the <strong>Choose local file</strong>. Set the type to <strong>vcf</strong> and the genome to <strong>hg19[Human feb. 2009(GRCh37/hg19)]</strong>
--->
 ```{r, echo=FALSE}
 knitr::include_graphics("images/upload.png")
 ```
 
+## SnpEff and SnpSift
 
-## Running Annovar
+There are multiple methods of annotating found variants. Most of these will require extra data to predict the effect of a variant or to compare it with a known set of variants. Here we use a set of tools that does both types of annotation. See for further details and a manual the [Github documentation](http://pcingola.github.io/SnpEff/).
 
-Select the [**ANNOVAR**](http://annovar.openbioinformatics.org/en/latest/) tool by searching for its name or selecting it from the *Diagnostic Genome Analysis* tool menu. This tool offers a lot of configuration options in the form of selectable sources for comparison. Note that not all of these sources are actually available in our Galaxy server, so take care when selecting the proposed options below.
+* **`SnpEff`**: *is a variant annotation and effect prediction tool. It annotates and predicts the effects of genetic variants (such as amino acid changes)*
+* **`SnpSift`**: *is a toolbox that allows you to filter and manipulate annotated files.*
+  - actually, this tool also annotates variants using a variety of data sources, for which we will use it.
+  
+Both tools are available in Galaxy with numerous sub-tools depending on the task that you want to do. To get the most information for each variant, we will perform three annotation *runs*:
 
-Set the following settings and data sources from the tool configuration as follows:
+**Step 1**: Using SnpEff to annotate variants using the `GRCh38.86` database adding information related to the gene, transcript and protein that are affected by this variant. This results in a lot of extra data that is all documented in the changed VCF header. 
 
-* **Reference**: `hg19` [Human Feb. 2009 (GRCh37/hg19)]
-* **Select file to annotatte**: your uploaded **filtered** VCF file
-* **Select filetype**: `VCF4 file`
-* **Select Gene Annotations**: `Select all`
-* **Select dbSNP version(s) to annotate with**: `138 (hg19 only)`
-* **Select 1000Genomes Annotation**: `2015aug (hg19/hg38) (6 populations: AMR,AFR,EUR,EAS,SAS,ALL)`
-* **Select Exome Variant Server version(s) to annotate with**: `ESP6500si European Americans`
-* **Annotate with ExAC 03?**: `Yes`
-* **CLINVAR Annotation? (hg19 only)**: `Yes`
-* **Select functional impact scores (LJB2)**: `Select all`
-* **Also get predictions where possible?**: `Yes`
+For example, given the following variant as input:
 
-With all these options selected, Execute the tool.
+> `*chr1	237550644	.	C	A	91.0	PASS	DP=578;AF=0.017301;SB=1;DP4=252,316,5,5*`
 
-```{r, echo=FALSE}
-knitr::include_graphics("images/annovar.png")
-```
+This is the result after SnpEff:
+
+> `*chr1	237550644	.	C	A	91.0	PASS	DP=578;AF=0.017301;SB=1;DP4=252,316,5,5*;**ANN**=A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000366574.6|protein_coding|27/105|c.3167C>A|p.Thr1056Lys|3484/16562|3167/14904|1056/4967||,A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000360064.7|protein_coding|25/103|c.3119C>A|p.Thr1040Lys|3119/14850|3119/14850|1040/4949||WARNING_TRANSCRIPT_NO_START_CODON,A|downstream_gene_variant|MODIFIER|SNORA25|ENSG00000252290|transcript|ENST00000516481.1|snoRNA||n.*4396G>T|||||4396|`
+
+All details are added in the `ANN` field. See the description in the VCF header for a field-by-field explanation of the values. 
+
+**Running SnpEff**:
+
+* Select the `SnpEff Variant effect and annotation` tool from the `Variant Calling` tool menu in Galaxy. 
+* Select the uploaded VCF file containing the variants filtered for the cardiopanel genes. 
+* Check if the by default selected `GRCh38.86` *Genome Source* is selected. 
+* All other settings can be left default, execute the tool.
+
+The result consists of two files: an annotated VCF file and a web-report on all the variants and their predicted effects.
+  
+**Step 2**: Adding `dbSnp` entries using `SnpSift`. The [dbSnp](https://www.ncbi.nlm.nih.gov/snp/) database contains information on known variants. The version that also includes clinical significance (combining the ClinVar database) is available for the SnpSift tool in Galaxy. 
+
+**Running SnpSift for dbsnp**: 
+
+* SnpSift requires the `dbSnp` database to be available in your history:
+  - In Galaxy, go to `Shared Data` (top menu) --> `Data Libraries` --> `dbSnp` library
+  - Select both files shown there and use the `Add to history` --> `as datasets` option to get them in your own history
+* Select the `SnpSift Annotate SNPs from dbSnp` tool from the `Variant Calling` tool menu in Galaxy.
+  - **Note**: this is a different tool from the `dbNSFP` database, see step #3 below.
+* Select the output VCF file created by SnpEff in step #1 as the `Variant input file`.
+* Select the `dbSnp_clinvar.vcf.gz` file as the `VCF File with ID field annotated`.
+* For `Fields to annotate` select the `Add also INFO fields` option and execute the tool.
+
+This tool adds annotations in two columns. First, the `ID` column will describe the `dbSnp` ID (rs number) that can be used to look up the variant. Second, the `INFO` column is expanded with (a lot of) extra information if the variant is known. For instance, the ClinVar data might report on diseases the variant is related to, such as:
+
+> `CLNDN=Cardiovascular_phenotype|Charcot-Marie-Tooth_disease|Lipoatrophy_with_Diabetes,_Hepatic_Steatosis,_Hypertrophic_Cardiomyopathy,_and_Leukomelanodermic_Papules`
+
+**Step 3**: Annotating using the `dbNSFP` database and SnpSift. The dbNSFP database is a huge collection (over 300GB of text files) of annotation sources combined into a single database. The SnpSift tool can compare our variants with known variants from all of these annotation sources and - like the first few steps - adds them to our VCF file. As you can expect, our VCF file will become very large and most likely unreadable. Therefore, we re-use the VCF file gained from step #1 instead of the VCF file from SnpSift in step #2. We can later combine the data after parsing both files separately.
+
+**Running SnpSift for dbNSFP**:
+
+* Select the `SnpSift dbNSFP` tool from the `Variant Calling` tool menu in Galaxy.
+* Use the VCF file from step #1 as input
+* Select the locally available `GRCh38 dbNSFP4.3c` Genome database
+
+Note that the tool description lists output not available for selection, we will look into the specifics of all selected databases later on.
 
 
+<!--
 
-Download the resulting `.tabular` file to your computer and open it with Excel or the Linux alternative (you might need to change the file extension to `.tsv` (for *tab separated values* format) for Excel to recognize the file). As you will see, the file looks like the input-VCF file, but a large number of columns are added containing the annotation data from all the selected data sources. 
-* Create a table in your report where you summarize the added columns (very!) briefly;
+Commandline SnpEff and SnpSift for 2.1.2
+
+Step #1 SnpEff
+
+cd /local-fs/datasets/dbNSFP/snpEff/;
+java -jar snpEff.jar ann GRCh38.105 /homes/marcelk/Development/NGS-Genetics/solution/bed_variants.vcf > /homes/marcelk/Development/NGS-Genetics/solution/bed_annotation.vcf
+----------
+
+Step #2 SnpSift - dbSnp
+
+/local-fs/datasets/dbNSFP/snpEff/scripts/snpSift annotate /local-fs/datasets/dbNSFP/snpEff/data/clinvar.vcf.gz /homes/marcelk/Development/NGS-Genetics/solution/bed_variants.vcf > /homes/marcelk/Development/NGS-Genetics/solution/bed_annotation.vcf
+----------
+
+Step #3 SnpSift - dbNSFP with all options:
+
+/local-fs/datasets/dbNSFP/snpEff/scripts/snpSift DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP4.3c.txt.gz /homes/marcelk/Development/NGS-Genetics/solution/bed_variants.vcf > /homes/marcelk/Development/NGS-Genetics/solution/bed_annotation.vcf
+----------
+
+-->
+
+
+### Assignment
+
+* Create a table in your report where you summarize the added annotation data (very!) briefly;
     * The database where the data comes from
     * The result or value (is it an identifier, a percentage, etc.). Section 7.2 below contains links to sources for some of the most important annotation sources.
     * **Hint**: you can add formatted tables in markdown with some syntax which is easiest generated at [https://www.tablesgenerator.com](www.tablesgenerator.com/markdown_tables)
 
 
-## 7.2 Programming Assignment; Analyzing Variant Annotation
+## Programming Assignment; Analyzing Variant Annotation
 
-Given the possibly hundreds of annotated variants with data from multiple data sources, it's time to do one last *filtering* on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we've written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by ANNOVAR and it is your task to come up with an approach for **combining** data from these data sources to *rank* the annotated variants.
+Given the possibly hundreds of annotated variants with data from multiple data sources, it's time to do one last *filtering* on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we've written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by SnpEff and it is your task to come up with an approach for **combining** data from these data sources to *rank* the annotated variants.
 
 From all the annotation columns we need to get - at least - the following data for each variant. 
 Note: for some of these data sources only a few of your variants are actually annotated.
-Note: the list below links to the Annovar documentation regarding this value; read these documents to at least *know* what they mean.
-* The gene name from the `RefSeq_Gene` column,
-* the gene 'function' from the `RefSeq_Func` column (see the [table of possible values](http://annovar.openbioinformatics.org/en/latest/user-guide/gene/#output-file-1-refseq-gene-annotation) for this column),
-* the [**dbsnp**](http://annovar.openbioinformatics.org/en/latest/articles/dbSNP/) identifier,
-* the 1000-genomes data for the `EUR` population group (the others are not of interest),
-* the [**sift**](http://annovar.openbioinformatics.org/en/latest/user-guide/filter/#-sift-annotation) value from the `LJB2_SIFT` column,
-* the [**polyphen**](http://annovar.openbioinformatics.org/en/latest/user-guide/filter/#-polyphen-2-annotation) value from one of the `LJB2_PolyPhen2_*` columns and
-* the [**clinvar**](http://annovar.openbioinformatics.org/en/latest/user-guide/filter/#clinvar-annotations) value.
+Note: the list below links to the SnpEff documentation regarding this value; read these documents to at least *know* what they mean.
 
+**TODO**: add descriptions to important fields and the location where they can be found
 
 ### Assignment 10; Data Preparation
 
@@ -93,16 +138,16 @@ You can use the following online sources amongst others:
 * http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/  
 * http://www.ncbi.nlm.nih.gov/projects/SNP/
 
-## 7.5 Galaxy Workflow
+## Galaxy Workflow
 
-Now that we have completed our analysis steps we can create a **Galaxy workflow**. In this workflow we will combine all the tools that we have used in Galaxy (FastQ files --> ANNOVAR annotated output) so that when we receive new patient data in the future we can analyze that dataset with a single click!
+Now that we have completed our analysis steps we can create a **Galaxy workflow**. In this workflow we will combine all the tools that we have used in Galaxy (FastQ files --> SnpEff/SnpSift annotated output) so that when we receive new patient data in the future we can analyze that dataset with a single click!
 
-There are many [online resources](https://galaxyproject.org/learn/advanced-workflow/) giving instructions and examples for creating Galaxy workflows, use these resources to create a workflow including all used analysis tools. Note that you can convert Galaxy histories into workflow(s), which saves a lot of time with Annovar for instance as this tool requires a lot of configuration.
+There are many [online resources](https://galaxyproject.org/learn/advanced-workflow/) giving instructions and examples for creating Galaxy workflows, use these resources to create a workflow including all used analysis tools. Note that you can convert Galaxy histories into workflow(s), which saves a lot of time with configuring all the tools from that workfow.
 
 Once you have a workflow, make sure it is shared with your project partner and create a screenshot of it for your report (try to fit all tools in a single image).
 
 
-**Note**; this assignment has a very low priority and should be done once you are satisfied with all other parts of your work! At the bare minimum, open your last history (including Annovar) and explore/ play with the `Extract Workflow` option.
+**Note**; this assignment has a very low priority and should be done once you are satisfied with all other parts of your work! At the bare minimum, open your last history (including SnpEff/SnpSift) and explore/ play with the `Extract Workflow` option.
 
 <!--
 ## Project Deadlines
@@ -112,7 +157,7 @@ There are multiple deadlines for finalizing this project:
 * Journal/'report': the OneNote documents are downloaded for grading on **Thursday November the 16th** and the final grade is available on Friday the 17th of November. 
 -->
 
-## 7.6 Comparative Genomics
+## Comparative Genomics
 
 With the complete analysis nicely packaged into a single workflow, one thing that we can use it for is to do *comparative genomics*. This term contains many different types of comparisons and is described on Wikipedia as 
 
@@ -128,14 +173,14 @@ knitr::include_graphics("images/intersect_union.png")
 **Assignment**
 
 * Process another patient sample (use a new history) by running your complete workflow. 
-    + Note that you have to filter the resulting ANNOVAR output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the Varscan tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with ANNOVAR
+    + Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the Varscan tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff
 * Calculate the following three statistics:
     + The number of variants unique to patient 1
     + The number of variants unique to patient 2
     + The number of variants found in both patients
 * Create a VENN-diagram (like the image above) displaying these numbers.
 
-## 7.7 Galaxy Data Cleanup
+## Galaxy Data Cleanup
 
 As a final closing assignment we ask you to clean up the Galaxy histories to save some space because it is difficult for the admin(s) to perform this cleaning for you. Once all products are finished, please consider removing all large files from your history, such as the outputs of the trimming (Trimmomatic), mapping (BWA), duplicate read marking (MarkDuplicates) and the pileup steps (Mpileup). For the large files, please make sure that you *also* click the *Permanently remove it from disk* link.
 
