@@ -61,9 +61,9 @@ This tool adds annotations in two columns. First, the `ID` column will describe 
 * Select the `SnpSift dbNSFP` tool from the `Variant Calling` tool menu in Galaxy.
 * Use the VCF file from step #1 as input
 * Select the locally available `GRCh38 dbNSFP4.3c` Genome database
+* Select all options for the `Annotate with` option
 
 Note that the tool description lists output not available for selection, we will look into the specifics of all selected databases later on.
-
 
 <!--
 
@@ -86,7 +86,6 @@ Step #3 SnpSift - dbNSFP with all options:
 ----------
 
 -->
-
 
 ### Assignment
 
@@ -167,7 +166,7 @@ knitr::include_graphics("images/intersect_union.png")
 **Assignment**
 
 * Process another patient sample (use a new history) by running your complete workflow. 
-    + Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the Varscan tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff
+    + Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the LoFreq tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff
 * Calculate the following three statistics:
     + The number of variants unique to patient 1
     + The number of variants unique to patient 2
