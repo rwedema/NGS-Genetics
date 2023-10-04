@@ -81,11 +81,11 @@
 <p><strong>Step 1</strong>: Using SnpEff to annotate variants using the <code>GRCh38.86</code> database adding information related to the gene, transcript and protein that are affected by this variant. This results in a lot of extra data that is all documented in the changed VCF header.</p>
 <p>For example, given the following variant as input:</p>
 <blockquote>
-<p><code>*chr1    237550644   .   C   A   91.0    PASS    DP=578;AF=0.017301;SB=1;DP4=252,316,5,5*</code></p>
+<p><code>chr1 237550644   .   C   A   91.0    PASS    DP=578;AF=0.017301;SB=1;DP4=252,316,5,5</code></p>
 </blockquote>
 <p>This is the result after SnpEff:</p>
 <blockquote>
-<p><code>*chr1    237550644   .   C   A   91.0    PASS    DP=578;AF=0.017301;SB=1;DP4=252,316,5,5*;**ANN**=A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000366574.6|protein_coding|27/105|c.3167C&gt;A|p.Thr1056Lys|3484/16562|3167/14904|1056/4967||,A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000360064.7|protein_coding|25/103|c.3119C&gt;A|p.Thr1040Lys|3119/14850|3119/14850|1040/4949||WARNING_TRANSCRIPT_NO_START_CODON,A|downstream_gene_variant|MODIFIER|SNORA25|ENSG00000252290|transcript|ENST00000516481.1|snoRNA||n.*4396G&gt;T|||||4396|</code></p>
+<p><code>chr1 237550644   .   C   A   91.0    PASS    DP=578;AF=0.017301;SB=1;DP4=252,316,5,5;ANN=A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000366574.6|protein_coding|27/105|c.3167C&gt;A|p.Thr1056Lys|3484/16562|3167/14904|1056/4967||,A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000360064.7|protein_coding|25/103|c.3119C&gt;A|p.Thr1040Lys|3119/14850|3119/14850|1040/4949||WARNING_TRANSCRIPT_NO_START_CODON,A|downstream_gene_variant|MODIFIER|SNORA25|ENSG00000252290|transcript|ENST00000516481.1|snoRNA||n.*4396G&gt;T|||||4396|</code></p>
 </blockquote>
 <p>All details are added in the <code>ANN</code> field. See the description in the VCF header for a field-by-field explanation of the values.</p>
 <p><strong>Running SnpEff</strong>:</p>
@@ -156,10 +156,25 @@ Step #3 SnpSift - dbNSFP with all options:
 <li>Create a table in your report where you summarize the added annotation data (very!) briefly;
 <ul>
 <li>The database where the data comes from</li>
-<li>The result or value (is it an identifier, a percentage, etc.). Section 7.2 below contains links to sources for some of the most important annotation sources.</li>
+<li>The result or value (is it an identifier, a percentage, etc.).</li>
 <li>
 <strong>Hint</strong>: you can add formatted tables in markdown with some syntax which is easiest generated at <a href="www.tablesgenerator.com/markdown_tables">https://www.tablesgenerator.com</a>
 </li>
+</ul>
+</li>
+</ul>
+<p>The VCF header only describes the names of the databases the data originates from and does not give a clear explanation. There might be a single source for the documentation (please let us know if you find it!), but for now the best method of getting information about the added data is:</p>
+<ul>
+<li>
+<strong>Step #1</strong>: the output of the first step also includes a web report that at least gives more details on the results. Either use your biological knowledge or search for terms if they’re unclear</li>
+<li>
+<strong>Step #2</strong>: data from the <code>dbSnp</code> database comes from the ‘ClinVar’ version of this database, which is documented <a href="https://www.ncbi.nlm.nih.gov/variation/docs/ClinVar_vcf_files/">on its NCBI website</a>.</li>
+<li>
+<strong>Step #3</strong>: for the <code>dbNSFP</code> database there are descriptions available on the online version:
+<ul>
+<li>Go to <a href="http://database.liulab.science/dbNSFPconn">the online dbNSFP instance</a>, select the <strong>Academic</strong> option and click <strong>Connect</strong>.</li>
+<li>If you hover over any of the selectable Variant fields, you can read a brief description of the data that is added.</li>
+<li>Note that this is for dbNSFP version 4.4a and we use version 4.3c (very minor differences)</li>
 </ul>
 </li>
 </ul>
@@ -170,40 +185,39 @@ Step #3 SnpSift - dbNSFP with all options:
 <span class="header-section-number">4.2</span> Programming Assignment; Analyzing Variant Annotation<a class="anchor" aria-label="anchor" href="#programming-assignment-analyzing-variant-annotation"><i class="fas fa-link"></i></a>
 </h2>
 <p>Given the possibly hundreds of annotated variants with data from multiple data sources, it’s time to do one last <em>filtering</em> on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we’ve written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by SnpEff and it is your task to come up with an approach for <strong>combining</strong> data from these data sources to <em>rank</em> the annotated variants.</p>
-<p>From all the annotation columns we need to get - at least - the following data for each variant.
-Note: for some of these data sources only a few of your variants are actually annotated.
-Note: the list below links to the SnpEff documentation regarding this value; read these documents to at least <em>know</em> what they mean.</p>
-<p><strong>TODO</strong>: add descriptions to important fields and the location where they can be found</p>
 <div id="assignment-10-data-preparation" class="section level3" number="4.2.1">
 <h3>
 <span class="header-section-number">4.2.1</span> Assignment 10; Data Preparation<a class="anchor" aria-label="anchor" href="#assignment-10-data-preparation"><i class="fas fa-link"></i></a>
 </h3>
-<p>This programming assignment asks to take another good look at the data, but now in R to see if everything is in a suitable format to eventually sort the data and extract a top-set of variants related to the condition.</p>
-<ul>
-<li>Load the data into R using your function of choice. Note that choosing the proper separator character is important.</li>
-<li>Print the structure of the resulting data-frame and inspect all columns on their data type.</li>
-<li>Columns that contain mixed data, in a single value, should be converted such that sorting is possible (look at the <code>LJB2_PolyPhen2_*</code> columns)</li>
-</ul>
+<p>This programming assignment asks to take another good look at the data, but now in R to see if everything is in a suitable format to eventually sort the data and extract a top-set of variants related to the condition. As you have seen, all data is essentially stored in a single column that contains multiple separators (such as <code>|</code> and <code>;</code>). You need to think of and implement a good strategy to convert all this information into a workable data format, such as a data frame.</p>
+<div class="rmdnote">
+<p>After converting the data pick a few variants and <em>manually</em> confirm that converting into the data format was successful. A small mistake (off by one) makes the data unusable so it doesn’t just need to ‘look good’, it needs to <em>be</em> good.
+If after inspection of the data you come to the conclusion that there is either duplicate data (there most likely is) or other results that are not going to be used, it is fine to both discard those from the data set or for instance revisit step #3 and de-select the unused tools. The setup is a data overload on purpose so that you can decide what is and what isn’t useful in selecting the variants of interest.</p>
+</div>
 </div>
 <div id="assignment-11-finding-variants-of-interest" class="section level3" number="4.2.2">
 <h3>
 <span class="header-section-number">4.2.2</span> Assignment 11; Finding Variants of Interest<a class="anchor" aria-label="anchor" href="#assignment-11-finding-variants-of-interest"><i class="fas fa-link"></i></a>
 </h3>
 <p>Given the knowledge we have on the data stored in the data-frame, we can now formulate questions to this data to find a set of variants which are most likely linked to the cardiomyopathy condition. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines <em>if</em> someone suffers from cardiomyopathy but also how <em>badly</em> their condition is.</p>
-<p>The physisian who diagnoses patients uses the genetic information of the found variants as one of the sources for confirming the condition. However, presenting a list of 100+ variant positions with a list of numbers from some tools is not how that works in practice; we need to present a short, ordered list of variants that can be related to the condition.</p>
-<p>Next, define your own sorting, filtering, selecting, etc. procedure to filter and order a top-list of variants that you’d present as aid to a diagnoses. For instance, you might have a variant that had a hit in the Clinvar database which directly links it to cardiomyopathy, this should probably be somewhere around the top of your list. Again, look at the output description that you’ve written earlier to come up with combination(s) of values. There is no golden standard for selecting these variants so it is very important to properly document and argument your decisions.</p>
+<p>The physician who diagnoses patients uses the genetic information of the found variants as one of the sources for confirming the condition. However, presenting a list of 100+ variant positions with a list of numbers from some tools is not how that works in practice; we need to present a short, ordered list of variants that can be related to the condition.</p>
+<p>Next, define your own sorting, filtering, selecting, etc. procedure to filter and order a top-list of variants that you’d present as aid to a diagnoses. For instance, you might have a variant that had a hit in the ClinVar database which directly links it to cardiomyopathy, this should probably be somewhere around the top of your list. Again, look at the output description that you’ve written earlier to come up with combination(s) of values. There is no golden standard for selecting these variants so it is very important to properly document and argument your decisions.</p>
 <p>As an end product for this step you are expected to include a nice table including at least 10 variants in your report that contains all relevant information for each of them, i.e. the chromomsome, position, reference and variant nucleotides, gene name and all relevant scores.</p>
-<p>For all of your variants, try to (briefly!) answer the following questions for each variant:
-* Can you find a link between cardiomyopathy and the variant?
-* What is the effect of the variant?
-* Is it validated?
-* Are there scientific studies supporting the evidence?
-* What does the score indicate?
-* What else can you find about the variant?</p>
-<p>You can use the following online sources amongst others:<br>
-* <a href="http://www.ncbi.nlm.nih.gov/snp/" class="uri">http://www.ncbi.nlm.nih.gov/snp/</a><br>
-* <a href="http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/" class="uri">http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/</a><br>
-* <a href="http://www.ncbi.nlm.nih.gov/projects/SNP/" class="uri">http://www.ncbi.nlm.nih.gov/projects/SNP/</a></p>
+<p>For all of your variants, try to (briefly!) answer the following questions for each variant:</p>
+<ul>
+<li>Can you find a link between cardiomyopathy and the variant?</li>
+<li>What is the effect of the variant?</li>
+<li>Is it validated?</li>
+<li>Are there scientific studies supporting the evidence?</li>
+<li>What does the score indicate?</li>
+<li>What else can you find about the variant?</li>
+</ul>
+<p>You can use the following online sources among others:</p>
+<ul>
+<li><a href="http://www.ncbi.nlm.nih.gov/snp/" class="uri">http://www.ncbi.nlm.nih.gov/snp/</a></li>
+<li><a href="http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/" class="uri">http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/</a></li>
+<li><a href="http://www.ncbi.nlm.nih.gov/projects/SNP/" class="uri">http://www.ncbi.nlm.nih.gov/projects/SNP/</a></li>
+</ul>
 </div>
 </div>
 <div id="galaxy-workflow" class="section level2" number="4.3">
@@ -214,13 +228,6 @@ Note: the list below links to the SnpEff documentation regarding this value; rea
 <p>There are many <a href="https://galaxyproject.org/learn/advanced-workflow/">online resources</a> giving instructions and examples for creating Galaxy workflows, use these resources to create a workflow including all used analysis tools. Note that you can convert Galaxy histories into workflow(s), which saves a lot of time with configuring all the tools from that workfow.</p>
 <p>Once you have a workflow, make sure it is shared with your project partner and create a screenshot of it for your report (try to fit all tools in a single image).</p>
 <p><strong>Note</strong>; this assignment has a very low priority and should be done once you are satisfied with all other parts of your work! At the bare minimum, open your last history (including SnpEff/SnpSift) and explore/ play with the <code>Extract Workflow</code> option.</p>
-<!--
-## Project Deadlines
-
-There are multiple deadlines for finalizing this project:
-* Programming assignments: all graded deliverables (7, 8, 9 and 12) *must* be available on your BitBucket repository on **Friday November the 3rd, 24.00h** (even if incomplete, make sure that the latest version(s) are available).
-* Journal/'report': the OneNote documents are downloaded for grading on **Thursday November the 16th** and the final grade is available on Friday the 17th of November. 
--->
 </div>
 <div id="comparative-genomics" class="section level2" number="4.4">
 <h2>
@@ -254,8 +261,6 @@ There are multiple deadlines for finalizing this project:
 <span class="header-section-number">4.5</span> Galaxy Data Cleanup<a class="anchor" aria-label="anchor" href="#galaxy-data-cleanup"><i class="fas fa-link"></i></a>
 </h2>
 <p>As a final closing assignment we ask you to clean up the Galaxy histories to save some space because it is difficult for the admin(s) to perform this cleaning for you. Once all products are finished, please consider removing all large files from your history, such as the outputs of the trimming (Trimmomatic), mapping (BWA), duplicate read marking (MarkDuplicates) and the pileup steps (Mpileup). For the large files, please make sure that you <em>also</em> click the <em>Permanently remove it from disk</em> link.</p>
-<p>First click on the <code>deleted</code> link at the top of your history<br><img src="pics/show_deleted.png"><br>
-Then, find the deleted elements and click on the permanently remove link.<br><img src="pics/perm_delete.png"></p>
 
 </div>
 </div>
@@ -295,7 +300,7 @@ Then, find the deleted elements and click on the permanently remove link.<br><im
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2023-10-03.</p>
+    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2023-10-04.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
