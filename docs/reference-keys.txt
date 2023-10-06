@@ -44,6 +44,8 @@ snpeff-and-snpsift
 assignment
 programming-assignment-analyzing-variant-annotation
 assignment-10-data-preparation
+step-1-2-snpeff-ann-data-and-snpsift-clinvar-data
+step-3-snpsift-dbnsfp
 assignment-11-finding-variants-of-interest
 galaxy-workflow
 comparative-genomics

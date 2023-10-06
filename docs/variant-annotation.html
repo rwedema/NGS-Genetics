@@ -125,6 +125,7 @@
 <li>Select the <code>SnpSift dbNSFP</code> tool from the <code>Variant Calling</code> tool menu in Galaxy.</li>
 <li>Use the VCF file from step #1 as input</li>
 <li>Select the locally available <code>GRCh38 dbNSFP4.3c</code> Genome database</li>
+<li>Select all options for the <code>Annotate with</code> option</li>
 </ul>
 <p>Note that the tool description lists output not available for selection, we will look into the specifics of all selected databases later on.</p>
 <!--
@@ -184,22 +185,59 @@ Step #3 SnpSift - dbNSFP with all options:
 <h2>
 <span class="header-section-number">4.2</span> Programming Assignment; Analyzing Variant Annotation<a class="anchor" aria-label="anchor" href="#programming-assignment-analyzing-variant-annotation"><i class="fas fa-link"></i></a>
 </h2>
-<p>Given the possibly hundreds of annotated variants with data from multiple data sources, it’s time to do one last <em>filtering</em> on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we’ve written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by SnpEff and it is your task to come up with an approach for <strong>combining</strong> data from these data sources to <em>rank</em> the annotated variants.</p>
+<p>Given the possibly hundreds of annotated variants with data from multiple data sources, it’s time to do one last <em>filtering</em> on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we’ve written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by SnpEff/SnpSift and it is your task to come up with an approach for <strong>combining</strong> data from these data sources to <em>rank</em> the annotated variants.</p>
 <div id="assignment-10-data-preparation" class="section level3" number="4.2.1">
 <h3>
 <span class="header-section-number">4.2.1</span> Assignment 10; Data Preparation<a class="anchor" aria-label="anchor" href="#assignment-10-data-preparation"><i class="fas fa-link"></i></a>
 </h3>
 <p>This programming assignment asks to take another good look at the data, but now in R to see if everything is in a suitable format to eventually sort the data and extract a top-set of variants related to the condition. As you have seen, all data is essentially stored in a single column that contains multiple separators (such as <code>|</code> and <code>;</code>). You need to think of and implement a good strategy to convert all this information into a workable data format, such as a data frame.</p>
+<p>There are a few caveats though that can also be seen when looking at the SnpEff report (the ‘stats’ output). For instance, there are two lines in the overview table that describe the amount of variants and the amount of hits in the SnpEff database:</p>
+<ul>
+<li><code>Number of variants (before filter)       145</code></li>
+<li><code>Number of effects        1,332</code></li>
+</ul>
+<p>Which means that on average every variant has about 10 (!) hits of which all data is placed in the <code>INFO</code> column (most notably in the <code>ANN</code> part of the <code>INFO</code> column). This is caused most often by multiple transcripts (alternative splicing) being affected by this variant. This makes it very difficult to parse and therefore this section gives tips and example code to assist in that task. With this much data from three different steps it is too complex to assess in a single run so we will assess annotation data step by step.</p>
+<div id="step-1-2-snpeff-ann-data-and-snpsift-clinvar-data" class="section level4" number="4.2.1.1">
+<h4>
+<span class="header-section-number">4.2.1.1</span> Step #1 &amp; #2; SnpEff ANN data and SnpSift ClinVar data<a class="anchor" aria-label="anchor" href="#step-1-2-snpeff-ann-data-and-snpsift-clinvar-data"><i class="fas fa-link"></i></a>
+</h4>
+<p>According to the VCF header, the <code>ANN</code> data contains the values explained in the <a href="https://pcingola.github.io/SnpEff/se_inputoutput/#ann-field-vcf-output-files">SnpEff documentation</a>. Some, or all of them could be of interest. There is a Galaxy tool available to extract interesting fields from the added data.</p>
+<ul>
+<li>Select the <code>SnpSift Extract Fields from a VCF file into a tabular file</code> tool from the tool menu
+<ul>
+<li>the tool help or <a href="https://pcingola.github.io/SnpEff/snpsift/extractfields/">this manual</a> can provide more details</li>
+</ul>
+</li>
+<li>Select the annotated VCF file as input</li>
+<li>Provide the names of the columns of interest. For instance, the following could be used as a query for the ‘Fields to extract’:
+<ul>
+<li><code>CHROM POS REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG</code></li>
+<li>Add or remove any other column you find interesting to the above query.</li>
+</ul>
+</li>
+<li>Enable the ‘One effect per line’ option</li>
+<li>Run the tool and download the resulting tabular file for analysis in R
+<ul>
+<li>The resulting file contains as many rows as effects reported by SnpEff (1332 in this example)</li>
+</ul>
+</li>
+</ul>
 <div class="rmdnote">
-<p>After converting the data pick a few variants and <em>manually</em> confirm that converting into the data format was successful. A small mistake (off by one) makes the data unusable so it doesn’t just need to ‘look good’, it needs to <em>be</em> good.
-If after inspection of the data you come to the conclusion that there is either duplicate data (there most likely is) or other results that are not going to be used, it is fine to both discard those from the data set or for instance revisit step #3 and de-select the unused tools. The setup is a data overload on purpose so that you can decide what is and what isn’t useful in selecting the variants of interest.</p>
+<p>Note: always include the <code>CHROM POS REF ALT</code> columns which are needed to identify the variant in the original file.</p>
+</div>
+</div>
+<div id="step-3-snpsift-dbnsfp" class="section level4" number="4.2.1.2">
+<h4>
+<span class="header-section-number">4.2.1.2</span> Step #3; SnpSift dbNSFP<a class="anchor" aria-label="anchor" href="#step-3-snpsift-dbnsfp"><i class="fas fa-link"></i></a>
+</h4>
+<p>Similar to the previous step, extract the fields of interest using the <code>SnpSift Extract Fields from a VCF file into a tabular file</code> tool. The <code>dbNSFP</code> entries are all prefixed with <code>dbNSFP_</code>, for instance: <code>dbNSFP_MutationAssessor_score</code> and <code>dbNSFP_SIFT_pred</code>. Once done, download this tabular file too for further analysis.</p>
 </div>
 </div>
 <div id="assignment-11-finding-variants-of-interest" class="section level3" number="4.2.2">
 <h3>
 <span class="header-section-number">4.2.2</span> Assignment 11; Finding Variants of Interest<a class="anchor" aria-label="anchor" href="#assignment-11-finding-variants-of-interest"><i class="fas fa-link"></i></a>
 </h3>
-<p>Given the knowledge we have on the data stored in the data-frame, we can now formulate questions to this data to find a set of variants which are most likely linked to the cardiomyopathy condition. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines <em>if</em> someone suffers from cardiomyopathy but also how <em>badly</em> their condition is.</p>
+<p>Given the knowledge we have on the data stored in the two dataframes, we can now formulate questions for this data to find a set of variants which are most likely linked to the cardiomyopathy condition. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines <em>if</em> someone suffers from cardiomyopathy but also how <em>badly</em> their condition is.</p>
 <p>The physician who diagnoses patients uses the genetic information of the found variants as one of the sources for confirming the condition. However, presenting a list of 100+ variant positions with a list of numbers from some tools is not how that works in practice; we need to present a short, ordered list of variants that can be related to the condition.</p>
 <p>Next, define your own sorting, filtering, selecting, etc. procedure to filter and order a top-list of variants that you’d present as aid to a diagnoses. For instance, you might have a variant that had a hit in the ClinVar database which directly links it to cardiomyopathy, this should probably be somewhere around the top of your list. Again, look at the output description that you’ve written earlier to come up with combination(s) of values. There is no golden standard for selecting these variants so it is very important to properly document and argument your decisions.</p>
 <p>As an end product for this step you are expected to include a nice table including at least 10 variants in your report that contains all relevant information for each of them, i.e. the chromomsome, position, reference and variant nucleotides, gene name and all relevant scores.</p>
@@ -243,7 +281,7 @@ If after inspection of the data you come to the conclusion that there is either 
 <ul>
 <li>Process another patient sample (use a new history) by running your complete workflow.
 <ul>
-<li>Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the Varscan tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff</li>
+<li>Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the LoFreq tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff</li>
 </ul>
 </li>
 <li>Calculate the following three statistics:
@@ -300,7 +338,7 @@ If after inspection of the data you come to the conclusion that there is either 
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2023-10-04.</p>
+    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2023-10-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

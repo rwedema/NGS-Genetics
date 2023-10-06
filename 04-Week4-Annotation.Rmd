@@ -105,20 +105,44 @@ The VCF header only describes the names of the databases the data originates fro
 
 ## Programming Assignment; Analyzing Variant Annotation
 
-Given the possibly hundreds of annotated variants with data from multiple data sources, it's time to do one last *filtering* on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we've written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by SnpEff and it is your task to come up with an approach for **combining** data from these data sources to *rank* the annotated variants.
+Given the possibly hundreds of annotated variants with data from multiple data sources, it's time to do one last *filtering* on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we've written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by SnpEff/SnpSift and it is your task to come up with an approach for **combining** data from these data sources to *rank* the annotated variants.
 
 ### Assignment 10; Data Preparation
 
 This programming assignment asks to take another good look at the data, but now in R to see if everything is in a suitable format to eventually sort the data and extract a top-set of variants related to the condition. As you have seen, all data is essentially stored in a single column that contains multiple separators (such as `|` and `;`). You need to think of and implement a good strategy to convert all this information into a workable data format, such as a data frame.
 
+There are a few caveats though that can also be seen when looking at the SnpEff report (the 'stats' output). For instance, there are two lines in the overview table that describe the amount of variants and the amount of hits in the SnpEff database:
+
+* `Number of variants (before filter)   	145`
+* `Number of effects	    1,332`
+
+Which means that on average every variant has about 10 (!) hits of which all data is placed in the `INFO` column (most notably in the `ANN` part of the `INFO` column). This is caused most often by multiple transcripts (alternative splicing) being affected by this variant. This makes it very difficult to parse and therefore this section gives tips and example code to assist in that task. With this much data from three different steps it is too complex to assess in a single run so we will assess annotation data step by step.
+
+#### Step #1 & #2; SnpEff ANN data and SnpSift ClinVar data
+
+According to the VCF header, the `ANN` data contains the values explained in the [SnpEff documentation](https://pcingola.github.io/SnpEff/se_inputoutput/#ann-field-vcf-output-files. Some, or all of them could be of interest. There is a Galaxy tool available to extract interesting fields from the added data.
+
+* Select the `SnpSift Extract Fields from a VCF file into a tabular file` tool from the tool menu
+  - the tool help or [this manual](https://pcingola.github.io/SnpEff/snpsift/extractfields/) can provide more details
+* Select the annotated VCF file as input
+* Provide the names of the columns of interest. For instance, the following could be used as a query for the 'Fields to extract':
+  - ```CHROM POS REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG```
+  - Add or remove any other column you find interesting to the above query.
+* Enable the 'One effect per line' option
+* Run the tool and download the resulting tabular file for analysis in R
+  - The resulting file contains as many rows as effects reported by SnpEff (1332 in this example)
+
 ::: {.rmdnote}
-After converting the data pick a few variants and *manually* confirm that converting into the data format was successful. A small mistake (off by one) makes the data unusable so it doesn't just need to 'look good', it needs to *be* good. 
-If after inspection of the data you come to the conclusion that there is either duplicate data (there most likely is) or other results that are not going to be used, it is fine to both discard those from the data set or for instance revisit step #3 and de-select the unused tools. The setup is a data overload on purpose so that you can decide what is and what isn't useful in selecting the variants of interest.
+Note: always include the `CHROM POS REF ALT` columns which are needed to identify the variant in the original file.
 :::
+
+#### Step #3; SnpSift dbNSFP
+
+Similar to the previous step, extract the fields of interest using the `SnpSift Extract Fields from a VCF file into a tabular file` tool. The `dbNSFP` entries are all prefixed with `dbNSFP_`, for instance: `dbNSFP_MutationAssessor_score` and `dbNSFP_SIFT_pred`. Once done, download this tabular file too for further analysis.
 
 ### Assignment 11; Finding Variants of Interest
 
-Given the knowledge we have on the data stored in the data-frame, we can now formulate questions to this data to find a set of variants which are most likely linked to the cardiomyopathy condition. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines *if* someone suffers from cardiomyopathy but also how *badly* their condition is. 
+Given the knowledge we have on the data stored in the two dataframes, we can now formulate questions for this data to find a set of variants which are most likely linked to the cardiomyopathy condition. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines *if* someone suffers from cardiomyopathy but also how *badly* their condition is. 
 
 The physician who diagnoses patients uses the genetic information of the found variants as one of the sources for confirming the condition. However, presenting a list of 100+ variant positions with a list of numbers from some tools is not how that works in practice; we need to present a short, ordered list of variants that can be related to the condition. 
 
