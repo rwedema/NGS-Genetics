@@ -120,7 +120,7 @@ Which means that on average every variant has about 10 (!) hits of which all dat
 
 #### Step #1 & #2; SnpEff ANN data and SnpSift ClinVar data
 
-According to the VCF header, the `ANN` data contains the values explained in the [SnpEff documentation](https://pcingola.github.io/SnpEff/se_inputoutput/#ann-field-vcf-output-files. Some, or all of them could be of interest. There is a Galaxy tool available to extract interesting fields from the added data.
+According to the VCF header, the `ANN` data contains the values explained in the [SnpEff documentation](https://pcingola.github.io/SnpEff/se_inputoutput/#ann-field-vcf-output-files). Some, or all of them could be of interest. There is a Galaxy tool available to extract interesting fields from the added data.
 
 * Select the `SnpSift Extract Fields from a VCF file into a tabular file` tool from the tool menu
   - the tool help or [this manual](https://pcingola.github.io/SnpEff/snpsift/extractfields/) can provide more details
