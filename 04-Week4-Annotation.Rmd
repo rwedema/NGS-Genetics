@@ -99,7 +99,7 @@ The VCF header only describes the names of the databases the data originates fro
 * **Step #1**: the output of the first step also includes a web report that at least gives more details on the results. Either use your biological knowledge or search for terms if they're unclear
 * **Step #2**: data from the `dbSnp` database comes from the 'ClinVar' version of this database, which is documented [on its NCBI website](https://www.ncbi.nlm.nih.gov/variation/docs/ClinVar_vcf_files/).
 * **Step #3**: for the `dbNSFP` database there are descriptions available on the online version:
-  - Go to [the online dbNSFP instance](http://database.liulab.science/dbNSFPconn), select the **Academic** option and click **Connect**. 
+  - Go to [the online dbNSFP instance](http://database.liulab.science/dbNSFP), select the **Academic** option and click **Connect**. 
   - If you hover over any of the selectable Variant fields, you can read a brief description of the data that is added.
   - Note that this is for dbNSFP version 4.4a and we use version 4.3c (very minor differences)
 

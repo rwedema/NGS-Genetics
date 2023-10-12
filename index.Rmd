@@ -23,7 +23,7 @@ knitr::opts_chunk$set(cache = TRUE)
 This is the syllabus for the module 2.1.1 NGS_en_Genetics. 
 This bookdown document will provide you with enough background material and exercises to complete the Case part of the module. Also links to the genetics presentations given can be found in the schedule here.
 
-## Usage{-}
+## Usage {-}
 
 Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case and preparing for the genetics exam.
 
@@ -66,5 +66,5 @@ The two items above are weighted and combined to get a single end graded. See al
 | 6  | Presentation case   |   | The repair of the case is in consultation with the teacher.|
 | 7  | Genetics exam   |   |
 | 8 | | |
-| 9 | Resit Genetics exam | | 
+| 9 | | | 
  
