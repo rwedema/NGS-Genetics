@@ -12,3 +12,9 @@ pre {
 pre code {
   white-space: inherit;
 }
+.inline-figure {
+  border: none !important;
+}
+.inline-table {
+      font-size:13px
+}
