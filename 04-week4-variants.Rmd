@@ -1,4 +1,4 @@
-# Finding and Annotating Variants
+# Finding and Annotating Variants {#variants}
 
 Most likely you've already seen how a true variant (not a single or few mismatches) looks when we looked at the data in the IGV-browser. For such a variant you see a number of reads having a different base at that positions compared to the reference genome. As we've mentioned before, we are interested in all these variants in our patient data for the all the genes in our gene panel. The previous *visualize-your-data* assignment did not ask to find all these variants using the IGV-browser because in this section we are going to use a program to do this for us.
 
@@ -264,39 +264,3 @@ You can use the following online sources among others:
 * http://www.ncbi.nlm.nih.gov/snp/
 * http://www.ncbi.nlm.nih.gov/variation/tools/1000genomes/
 * http://www.ncbi.nlm.nih.gov/projects/SNP/
-
-## Galaxy Workflow
-
-Now that we have completed our analysis steps we can create a **Galaxy workflow**. In this workflow we will combine all the tools that we have used in Galaxy (FastQ files --> SnpEff/SnpSift annotated output) so that when we receive new patient data in the future we can analyze that dataset with a single click!
-
-There are many [online resources](https://galaxyproject.org/learn/advanced-workflow/) giving instructions and examples for creating Galaxy workflows, use these resources to create a workflow including all used analysis tools. Note that you can convert Galaxy histories into workflow(s), which saves a lot of time with configuring all the tools from that workfow.
-
-Once you have a workflow, make sure it is shared with your project partner and create a screenshot of it for your report (try to fit all tools in a single image).
-
-**Note**; this assignment has a very low priority and should be done once you are satisfied with all other parts of your work! At the bare minimum, open your last history (including SnpEff/SnpSift) and explore/ play with the `Extract Workflow` option.
-
-## Comparative Genomics
-
-With the complete analysis nicely packaged into a single workflow, one thing that we can use it for is to do *comparative genomics*. This term contains many different types of comparisons and is described on Wikipedia as 
-
-> *Comparative genomics is a field of biological research in which the genomic features of different organisms are compared.*
-
-These features can be of many types and in our case they are the variants. A simple tool is available in Galaxy called *VCF-VCFintersect* that performs either *intersection* or *union* on two VCF datasets containing variant data. This tool compares two VCF files and retains either the shared variants (intersection) or all variants combined (union) as shown in the diagram below.
-
-```{r, echo=FALSE}
-knitr::include_graphics("images/intersect_union.png")
-```
-
-**Assignment**
-
-* Process another patient sample (use a new history) by running your complete workflow. 
-    + Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the LoFreq tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff
-* Calculate the following three statistics:
-    + The number of variants unique to patient 1
-    + The number of variants unique to patient 2
-    + The number of variants found in both patients
-* Create a VENN-diagram (like the image above) displaying these numbers.
-
-## Galaxy Data Cleanup
-
-As a final closing assignment we ask you to clean up the Galaxy histories to save some space because it is difficult for the admin(s) to perform this cleaning for you. Once all products are finished, please consider removing all large files from your history, such as the outputs of the trimming (Trimmomatic), mapping (BWA), duplicate read marking (MarkDuplicates) and the pileup steps (Mpileup). For the large files, please make sure that you *also* click the *Permanently remove it from disk* link.
