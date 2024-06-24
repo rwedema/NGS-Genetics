@@ -1,4 +1,4 @@
-# Analysis of Variants
+# Analysis of Variants {#pileup}
 
 Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called *LoFreq* that will report on found variants and their statistics such as allele frequency, number of supported reads, average base quality at the found position, etc. 
 

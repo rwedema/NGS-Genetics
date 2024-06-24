@@ -1,4 +1,4 @@
-# Intro *NGS and Genetics* Project
+# Intro *NGS and Genetics* Project {#intro}
 
 In this project you will learn the bioinformatic basics of how to analyse *Next-Generation Sequence* (NGS) data of patients diagnosed with either [cardiomyopathy](https://en.wikipedia.org/wiki/Cardiomyopathy) or [Medulloblastoma](https://en.wikipedia.org/wiki/Medulloblastoma). Using this case we will discover genetic variations present in the genomic data of a patient having a suspected condition. The end-goal is to identify and report on those genomic variations that are possibly disease causing. All course material can be found in this document, some theory, a *lot* of links to resources, questions and assignments.
 

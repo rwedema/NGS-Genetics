@@ -1,10 +1,13 @@
-# Read Mapping
+# Read Mapping {#mapping}
+
 Now that we know what the quality is of the NGS patient data and have corrected the reads on low quality and short read lengths, we can continue with the mapping of our reads against a reference genome. In this step we use the human genome as a reference to which we will map the cleaned reads using the tool BWA. After mapping the reads we can look for variations between the reference and our patient. 
 
-## Mapping with BWA
+## Mapping with BWA {-}
+
 Before starting with mapping the data to the human reference genome, we can calculate some important statistics to see what we can achieve with our data.
 
 ## Assignment week 2
+
 The *[coverage][1]* is the number of reads that were mapped at a given position and it is considered a good measurement to determine if there was enough data for further analysis. To identify significant variations, we aim for a minimal coverage of **20**, any lower and it becomes hard to differentiate between a true variant and a sequencing error. Given the Illumina platform and given these facts:
 <ul>
     <li>a minimal average coverage (read depth) of 20,</li>
@@ -31,7 +34,6 @@ From your previous experiments with different FASTQ cleaning settings, select th
 knitr::include_graphics("images/BWAMEMSettings.png")
 ```
 
-
 [1]: https://en.wikipedia.org/wiki/Coverage_(genetics)
 
 ## Marking Duplicate Mapped Reads
@@ -43,7 +45,6 @@ Before we are going to look at any differences between the reference and our pat
 ```{r, echo=FALSE, fig.align="center", out.width="80%"}
 knitr::include_graphics("images/removeDuplicates.png")
 ```
-
 
 ## Visualizing the Mapping Data
 
