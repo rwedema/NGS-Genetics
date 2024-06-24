@@ -44,10 +44,11 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">About</a></li>
-<li><a class="" href="intro-ngs-and-genetics-project.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></li>
-<li><a class="active" href="read-mapping.html"><span class="header-section-number">2</span> Read Mapping</a></li>
-<li><a class="" href="analysis-of-variants.html"><span class="header-section-number">3</span> Analysis of Variants</a></li>
-<li><a class="" href="finding-and-annotating-variants.html"><span class="header-section-number">4</span> Finding and Annotating Variants</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></li>
+<li><a class="active" href="mapping.html"><span class="header-section-number">2</span> Read Mapping</a></li>
+<li><a class="" href="pileup.html"><span class="header-section-number">3</span> Analysis of Variants</a></li>
+<li><a class="" href="variants.html"><span class="header-section-number">4</span> Finding and Annotating Variants</a></li>
+<li><a class="" href="presentation.html"><span class="header-section-number">5</span> Presentation</a></li>
 </ul>
 
         <div class="book-extra">
@@ -55,20 +56,19 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="read-mapping" class="section level1" number="2">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="mapping" class="section level1" number="2">
 <h1>
-<span class="header-section-number">Week 2</span> Read Mapping<a class="anchor" aria-label="anchor" href="#read-mapping"><i class="fas fa-link"></i></a>
+<span class="header-section-number">Week 2</span> Read Mapping<a class="anchor" aria-label="anchor" href="#mapping"><i class="fas fa-link"></i></a>
 </h1>
 <p>Now that we know what the quality is of the NGS patient data and have corrected the reads on low quality and short read lengths, we can continue with the mapping of our reads against a reference genome. In this step we use the human genome as a reference to which we will map the cleaned reads using the tool BWA. After mapping the reads we can look for variations between the reference and our patient.</p>
-<div id="mapping-with-bwa" class="section level2" number="2.1">
-<h2>
-<span class="header-section-number">2.1</span> Mapping with BWA<a class="anchor" aria-label="anchor" href="#mapping-with-bwa"><i class="fas fa-link"></i></a>
+<div id="mapping-with-bwa" class="section level2 unnumbered">
+<h2>Mapping with BWA<a class="anchor" aria-label="anchor" href="#mapping-with-bwa"><i class="fas fa-link"></i></a>
 </h2>
 <p>Before starting with mapping the data to the human reference genome, we can calculate some important statistics to see what we can achieve with our data.</p>
 </div>
-<div id="assignment-week-2" class="section level2" number="2.2">
+<div id="assignment-week-2" class="section level2" number="2.1">
 <h2>
-<span class="header-section-number">2.2</span> Assignment week 2<a class="anchor" aria-label="anchor" href="#assignment-week-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.1</span> Assignment week 2<a class="anchor" aria-label="anchor" href="#assignment-week-2"><i class="fas fa-link"></i></a>
 </h2>
 The <em><a href="https://en.wikipedia.org/wiki/Coverage_(genetics)">coverage</a></em> is the number of reads that were mapped at a given position and it is considered a good measurement to determine if there was enough data for further analysis. To identify significant variations, we aim for a minimal coverage of <strong>20</strong>, any lower and it becomes hard to differentiate between a true variant and a sequencing error. Given the Illumina platform and given these facts:
 <ul>
@@ -103,17 +103,17 @@ Where:
 <p>From your previous experiments with different FASTQ cleaning settings, select the R1 paired Trimmomatic data as the first set of reads and the R2 paired Trimmomatic as the second set of reads. Execute the tool, this will take a while to run (10 - 20 minutes).</p>
 <div class="inline-figure"><img src="images/BWAMEMSettings.png" width="80%" style="display: block; margin: auto;"></div>
 </div>
-<div id="marking-duplicate-mapped-reads" class="section level2" number="2.3">
+<div id="marking-duplicate-mapped-reads" class="section level2" number="2.2">
 <h2>
-<span class="header-section-number">2.3</span> Marking Duplicate Mapped Reads<a class="anchor" aria-label="anchor" href="#marking-duplicate-mapped-reads"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.2</span> Marking Duplicate Mapped Reads<a class="anchor" aria-label="anchor" href="#marking-duplicate-mapped-reads"><i class="fas fa-link"></i></a>
 </h2>
 <p>In the process of creating the reads, <em><a href="http://www.cureffi.org/2012/12/11/how-pcr-duplicates-arise-in-next-generation-sequencing/">duplicates</a></em> may have arisen by PCR artifacts. These duplicate reads are not real biological sequences in the sense that they originate from the sample, but are a technical artifact. In downstream analysis these duplicate reads may generate false positive variants. Can you think of a reason why this is the case?</p>
 <p>Before we are going to look at any differences between the reference and our patient, we first have to <em>mark</em> the duplicate mapped reads. To do this, select the <a href="http://broadinstitute.github.io/picard/">MarkDuplicates</a> tool from the Tools menu. Select the <em>Map with BWA-MEM output on data … and ….</em>, set the <strong>Assume input file is already sorted option</strong> to No and Execute the tool. This tool will add a <em>flag</em> to each read that it finds as being duplicate and other tools will ignore any read that has this flag. It will therefore not <em>remove</em> the read from the data.</p>
 <div class="inline-figure"><img src="images/removeDuplicates.png" width="80%" style="display: block; margin: auto;"></div>
 </div>
-<div id="visualizing-the-mapping-data" class="section level2" number="2.4">
+<div id="visualizing-the-mapping-data" class="section level2" number="2.3">
 <h2>
-<span class="header-section-number">2.4</span> Visualizing the Mapping Data<a class="anchor" aria-label="anchor" href="#visualizing-the-mapping-data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">2.3</span> Visualizing the Mapping Data<a class="anchor" aria-label="anchor" href="#visualizing-the-mapping-data"><i class="fas fa-link"></i></a>
 </h2>
 <p>We are going to look at the actual mapping to get a bit of feel for what has happend till now. To do this we will look at the mapping output from the previous step - with the marked duplicates - in a <em>Genome Browser</em>.</p>
 <p>On our system the <em>Integrated Genome Viewer</em> (<a href="http://software.broadinstitute.org/software/igv/">IGV</a>) has been installed. First we need to download the mapping data to our computer. To do this, download the <strong>dataset</strong> and <strong>bam_index</strong> files from the markduplicates output in Galaxy as shown below.</p>
@@ -142,16 +142,16 @@ A couple of regions are important in this genome browser screen. The top row sho
 </div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="intro-ngs-and-genetics-project.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></div>
-<div class="next"><a href="analysis-of-variants.html"><span class="header-section-number">3</span> Analysis of Variants</a></div>
+<div class="prev"><a href="intro.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></div>
+<div class="next"><a href="pileup.html"><span class="header-section-number">3</span> Analysis of Variants</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#read-mapping"><span class="header-section-number">2</span> Read Mapping</a></li>
-<li><a class="nav-link" href="#mapping-with-bwa"><span class="header-section-number">2.1</span> Mapping with BWA</a></li>
-<li><a class="nav-link" href="#assignment-week-2"><span class="header-section-number">2.2</span> Assignment week 2</a></li>
-<li><a class="nav-link" href="#marking-duplicate-mapped-reads"><span class="header-section-number">2.3</span> Marking Duplicate Mapped Reads</a></li>
-<li><a class="nav-link" href="#visualizing-the-mapping-data"><span class="header-section-number">2.4</span> Visualizing the Mapping Data</a></li>
+<li><a class="nav-link" href="#mapping"><span class="header-section-number">2</span> Read Mapping</a></li>
+<li><a class="nav-link" href="#mapping-with-bwa">Mapping with BWA</a></li>
+<li><a class="nav-link" href="#assignment-week-2"><span class="header-section-number">2.1</span> Assignment week 2</a></li>
+<li><a class="nav-link" href="#marking-duplicate-mapped-reads"><span class="header-section-number">2.2</span> Marking Duplicate Mapped Reads</a></li>
+<li><a class="nav-link" href="#visualizing-the-mapping-data"><span class="header-section-number">2.3</span> Visualizing the Mapping Data</a></li>
 </ul>
 
       <div class="book-extra">
