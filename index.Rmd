@@ -7,9 +7,9 @@ documentclass: book
 bibliography:
 - book.bib
 - packages.bib
-description: "This is the background and assignments needed to complete module 2.1.1"
-link-citations: yes
-github-repo: 'https://github.com/rwedema/NGS-Genetics/'
+description: This is the background and assignments needed to complete module 2.1.1
+link-citations: true
+github-repo: "https://github.com/rwedema/NGS-Genetics/"
 ---
 
 ```{r setup, include=FALSE}
@@ -60,9 +60,9 @@ The two items above are weighted and combined to get a single final grade. See a
 | 1    | Central Dogma en NGS techniques | [Chapter 1](#intro)        | see Blackboard                |                                                             |     |
 | 2    | Gene regulation                 | [Chapter 2](#mapping)      | see Blackboard                |                                                             |     |
 | 3    | Mutations and effects thereof   | [Chapter 3](#pileup)       | see Blackboard                |                                                             |     |
-| 4    | Finalize Case                   | [Chapter 4](#variants)     |                               |                                                             |     |
-| 5    | Finalize Case                   | [Chapter 5](#presentation) |                               |                                                             |     |
-| 6    | Presentation case               |                            |                               | The repair of the case is in consultation with the teacher. |     |
-| 7    | Genetics exam                   |                            |                               |                                                             |     |
-| 8    |                                 |                            |                               |                                                             |     |
+| 4    | Finalize case                   | [Chapter 4](#variants)     |                               |                                                             |     |
+| 5    | Finalize case                   | [Chapter 5](#presentation) |                               |                                                             |     |
+| 6    | Finalize case                                |                            |                               | The repair of the case is the bufferweek of quarter 2       |     |
+| 7    | Presentation case               |                            |                               |                                                             |     |
+| 8    | Genetics exam                   |                            |                               |                                                             |     |
 | 9    |                                 |                            |                               |                                                             |     |
