@@ -64,7 +64,7 @@ The subjects discussed during the genetics lessons can be found in the [ ]() boo
 -   Biotechnology and genomics: [17.1](https://openstax.org/books/biology-2e/pages/17-1-biotechnology), [17.2](https://openstax.org/books/biology-2e/pages/17-2-mapping-genomes), [17.3](https://openstax.org/books/biology-2e/pages/17-3-whole-genome-sequencing), [17.4](https://openstax.org/books/biology-2e/pages/17-4-applying-genomics) (part regarding metagenomics), [17.5](https://openstax.org/books/biology-2e/pages/17-5-genomics-and-proteomics)
 
 | Week | Topic                           | Case Chapter               | Genetics Subject                |
-|-----------------|-----------------|------------------|----------------------|
+|-----------------|-----------------|-----------------|---------------------|
 | 1    | NGS Techniques, Quality Control | [Chapter 1](#intro)        | Central Dogma en NGS techniques |
 | 2    | Read Mapping                    | [Chapter 2](#mapping)      | Transcription & Translation     |
 | 3    | Pileup                          | [Chapter 3](#pileup)       | Mutations and effects thereof   |

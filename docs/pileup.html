@@ -1,250 +1,89 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Week 3 Analysis of Variants | Case background information and exercises</title>
-  <meta name="description" content="This is the background and assignments needed to complete module 2.1.1" />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Week 3 Analysis of Variants | Case background information and exercises" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="This is the background and assignments needed to complete module 2.1.1" />
-  <meta name="github-repo" content="https://github.com/rwedema/NGS-Genetics/" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Week 3 Analysis of Variants | Case background information and exercises" />
-  
-  <meta name="twitter:description" content="This is the background and assignments needed to complete module 2.1.1" />
-  
-
-<meta name="author" content="Marcel Kempenaar and Ronald Wedema" />
-
-
-<meta name="date" content="2024-09-03" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="mapping.html"/>
-<link rel="next" href="variants.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Week 3 Analysis of Variants | Case background information and exercises</title>
+<meta name="author" content="Marcel Kempenaar and Ronald Wedema">
+<meta name="description" content="Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called LoFreq that will report...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content="Week 3 Analysis of Variants | Case background information and exercises">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called LoFreq that will report...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Week 3 Analysis of Variants | Case background information and exercises">
+<meta name="twitter:description" content="Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called LoFreq that will report...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a>
-<ul>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i>Usage</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-outcomes"><i class="fa fa-check"></i>Learning outcomes</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#end-products"><i class="fa fa-check"></i>End Products</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#rubric"><i class="fa fa-check"></i>Rubric</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#schedule-and-deliverables"><i class="fa fa-check"></i>Schedule and deliverables</a></li>
-</ul></li>
-<li class="chapter" data-level="1" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>1</b> Intro <em>NGS and Genetics</em> Project</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="intro.html"><a href="intro.html#cardiomyopathy"><i class="fa fa-check"></i><b>1.1</b> Cardiomyopathy</a></li>
-<li class="chapter" data-level="1.2" data-path="intro.html"><a href="intro.html#medulloblastoma"><i class="fa fa-check"></i><b>1.2</b> Medulloblastoma</a></li>
-<li class="chapter" data-level="1.3" data-path="intro.html"><a href="intro.html#tools"><i class="fa fa-check"></i><b>1.3</b> Tools</a></li>
-<li class="chapter" data-level="1.4" data-path="intro.html"><a href="intro.html#data"><i class="fa fa-check"></i><b>1.4</b> Data</a></li>
-<li class="chapter" data-level="1.5" data-path="intro.html"><a href="intro.html#analysis"><i class="fa fa-check"></i><b>1.5</b> Analysis</a></li>
-<li class="chapter" data-level="1.6" data-path="intro.html"><a href="intro.html#literature"><i class="fa fa-check"></i><b>1.6</b> Literature</a></li>
-<li class="chapter" data-level="1.7" data-path="intro.html"><a href="intro.html#reporting"><i class="fa fa-check"></i><b>1.7</b> Reporting</a>
-<ul>
-<li class="chapter" data-level="1.7.1" data-path="intro.html"><a href="intro.html#galaxy-server"><i class="fa fa-check"></i><b>1.7.1</b> Galaxy Server</a></li>
-<li class="chapter" data-level="1.7.2" data-path="intro.html"><a href="intro.html#data-and-quality-control"><i class="fa fa-check"></i><b>1.7.2</b> Data and quality control</a></li>
-<li class="chapter" data-level="1.7.3" data-path="intro.html"><a href="intro.html#fastq-format"><i class="fa fa-check"></i><b>1.7.3</b> FASTQ format</a></li>
-<li class="chapter" data-level="1.7.4" data-path="intro.html"><a href="intro.html#quality-control"><i class="fa fa-check"></i><b>1.7.4</b> Quality Control</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="mapping.html"><a href="mapping.html"><i class="fa fa-check"></i><b>2</b> Read Mapping</a>
-<ul>
-<li class="chapter" data-level="" data-path="mapping.html"><a href="mapping.html#mapping-with-bwa"><i class="fa fa-check"></i>Mapping with BWA</a></li>
-<li class="chapter" data-level="2.1" data-path="mapping.html"><a href="mapping.html#assignment-week-2"><i class="fa fa-check"></i><b>2.1</b> Assignment week 2</a></li>
-<li class="chapter" data-level="2.2" data-path="mapping.html"><a href="mapping.html#marking-duplicate-mapped-reads"><i class="fa fa-check"></i><b>2.2</b> Marking Duplicate Mapped Reads</a></li>
-<li class="chapter" data-level="2.3" data-path="mapping.html"><a href="mapping.html#visualizing-the-mapping-data"><i class="fa fa-check"></i><b>2.3</b> Visualizing the Mapping Data</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="pileup.html"><a href="pileup.html"><i class="fa fa-check"></i><b>3</b> Analysis of Variants</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="pileup.html"><a href="pileup.html#assignment-week-3"><i class="fa fa-check"></i><b>3.1</b> Assignment week 3</a>
-<ul>
-<li class="chapter" data-level="" data-path="pileup.html"><a href="pileup.html#programming-assignments-coverage-overview-for-panel-genes"><i class="fa fa-check"></i>Programming Assignments; Coverage Overview for Panel Genes</a></li>
-<li class="chapter" data-level="" data-path="pileup.html"><a href="pileup.html#assignment-instructions"><i class="fa fa-check"></i>Assignment Instructions</a></li>
-<li class="chapter" data-level="3.1.1" data-path="pileup.html"><a href="pileup.html#assignment-1-loading-the-bed-data"><i class="fa fa-check"></i><b>3.1.1</b> Assignment 1; Loading the BED-data</a></li>
-<li class="chapter" data-level="3.1.2" data-path="pileup.html"><a href="pileup.html#assignment-2-bed-visualization"><i class="fa fa-check"></i><b>3.1.2</b> Assignment 2; BED-visualization</a></li>
-<li class="chapter" data-level="3.1.3" data-path="pileup.html"><a href="pileup.html#assignment-3-bioconductor"><i class="fa fa-check"></i><b>3.1.3</b> Assignment 3; Bioconductor</a></li>
-<li class="chapter" data-level="3.1.4" data-path="pileup.html"><a href="pileup.html#assignment-4-gene-lengths"><i class="fa fa-check"></i><b>3.1.4</b> Assignment 4; Gene Lengths</a></li>
-<li class="chapter" data-level="3.1.5" data-path="pileup.html"><a href="pileup.html#assignment-5-loading-the-mapped-reads"><i class="fa fa-check"></i><b>3.1.5</b> Assignment 5; Loading the Mapped Reads</a></li>
-<li class="chapter" data-level="3.1.6" data-path="pileup.html"><a href="pileup.html#assignment-6-pileup-processing"><i class="fa fa-check"></i><b>3.1.6</b> Assignment 6; Pileup Processing</a></li>
-<li class="chapter" data-level="3.1.7" data-path="pileup.html"><a href="pileup.html#assignment-7-coverage-calculation-and-reporting"><i class="fa fa-check"></i><b>3.1.7</b> Assignment 7; Coverage calculation and reporting</a></li>
-<li class="chapter" data-level="" data-path="pileup.html"><a href="pileup.html#end-result"><i class="fa fa-check"></i>End Result</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="variants.html"><a href="variants.html"><i class="fa fa-check"></i><b>4</b> Finding and Annotating Variants</a>
-<ul>
-<li class="chapter" data-level="" data-path="variants.html"><a href="variants.html#finding-variants"><i class="fa fa-check"></i>Finding Variants</a>
-<ul>
-<li class="chapter" data-level="" data-path="variants.html"><a href="variants.html#vcf-file-filtering"><i class="fa fa-check"></i>VCF File Filtering</a></li>
-<li class="chapter" data-level="4.0.1" data-path="variants.html"><a href="variants.html#assignment-8-vcf-file-processing"><i class="fa fa-check"></i><b>4.0.1</b> Assignment 8; VCF File Processing</a></li>
-<li class="chapter" data-level="4.0.2" data-path="variants.html"><a href="variants.html#assignment-9-variant-visualization"><i class="fa fa-check"></i><b>4.0.2</b> Assignment 9; Variant Visualization</a></li>
-</ul></li>
-<li class="chapter" data-level="4.1" data-path="variants.html"><a href="variants.html#variant-annotation"><i class="fa fa-check"></i><b>4.1</b> Variant Annotation</a></li>
-<li class="chapter" data-level="4.2" data-path="variants.html"><a href="variants.html#snpeff-and-snpsift"><i class="fa fa-check"></i><b>4.2</b> SnpEff and SnpSift</a>
-<ul>
-<li class="chapter" data-level="" data-path="variants.html"><a href="variants.html#assignment"><i class="fa fa-check"></i>Assignment</a></li>
-</ul></li>
-<li class="chapter" data-level="4.3" data-path="variants.html"><a href="variants.html#programming-assignment-analyzing-variant-annotation"><i class="fa fa-check"></i><b>4.3</b> Programming Assignment; Analyzing Variant Annotation</a>
-<ul>
-<li class="chapter" data-level="4.3.1" data-path="variants.html"><a href="variants.html#assignment-10-data-preparation"><i class="fa fa-check"></i><b>4.3.1</b> Assignment 10; Data Preparation</a></li>
-<li class="chapter" data-level="4.3.2" data-path="variants.html"><a href="variants.html#assignment-11-finding-variants-of-interest"><i class="fa fa-check"></i><b>4.3.2</b> Assignment 11; Finding Variants of Interest</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="presentation.html"><a href="presentation.html"><i class="fa fa-check"></i><b>5</b> Presentation</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="presentation.html"><a href="presentation.html#galaxy-workflow"><i class="fa fa-check"></i><b>5.1</b> Galaxy Workflow</a></li>
-<li class="chapter" data-level="5.2" data-path="presentation.html"><a href="presentation.html#comparative-genomics-optional"><i class="fa fa-check"></i><b>5.2</b> Comparative Genomics [OPTIONAL]</a></li>
-</ul></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Case background information and exercises</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Case background information and exercises</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">About</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></li>
+<li><a class="" href="mapping.html"><span class="header-section-number">2</span> Read Mapping</a></li>
+<li><a class="active" href="pileup.html"><span class="header-section-number">3</span> Analysis of Variants</a></li>
+<li><a class="" href="variants.html"><span class="header-section-number">4</span> Finding and Annotating Variants</a></li>
+<li><a class="" href="presentation.html"><span class="header-section-number">5</span> Presentation</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rwedema/NGS-Genetics/">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="pileup" class="section level1 hasAnchor" number="3">
-<h1><span class="header-section-number">Week 3</span> Analysis of Variants<a href="pileup.html#pileup" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="pileup" class="section level1" number="3">
+<h1>
+<span class="header-section-number">Week 3</span> Analysis of Variants<a class="anchor" aria-label="anchor" href="#pileup"><i class="fas fa-link"></i></a>
+</h1>
 <p>Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called <em>LoFreq</em> that will report on found variants and their statistics such as allele frequency, number of supported reads, average base quality at the found position, etc.</p>
 <p>Before finding the actual variants, we will perform analysis assessing the achieved coverage. As you might have seen in IGV, coverages range from very high numbers (300+) to places where there are only a few reads present. In this chapter we will use R with a number of libraries often used for genetics research to report on these numbers for all panel genes.</p>
-<div id="assignment-week-3" class="section level2 hasAnchor" number="3.1">
-<h2><span class="header-section-number">3.1</span> Assignment week 3<a href="pileup.html#assignment-week-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="programming-assignments-coverage-overview-for-panel-genes" class="section level3 unnumbered hasAnchor">
-<h3>Programming Assignments; Coverage Overview for Panel Genes<a href="pileup.html#programming-assignments-coverage-overview-for-panel-genes" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-week-3" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Assignment week 3<a class="anchor" aria-label="anchor" href="#assignment-week-3"><i class="fas fa-link"></i></a>
+</h2>
+<div id="programming-assignments-coverage-overview-for-panel-genes" class="section level3 unnumbered">
+<h3>Programming Assignments; Coverage Overview for Panel Genes<a class="anchor" aria-label="anchor" href="#programming-assignments-coverage-overview-for-panel-genes"><i class="fas fa-link"></i></a>
+</h3>
 <p>Within the output of the previous mapping step (the BAM file) we can see how (well) our panel-genes are covered by our reads, a very important statistic on the quality of our data. We could assess this manually using IGV, but that is definitely not the method to use for such a task given that there can be 1-2000+ mapped exons in total. This section contains a number of small assignments that - once completed - will give us a clear indication whether our mapping is of sufficient quality. Depending on this outcome we might need to revisit our previous step(s) such as the trimming process to increase our mapping quality.</p>
 <p>During these assignments we will gain insight into the coverage of all of our genes of interest as well as their variants. We will use the BED-file describing the locations of all exons, the BAM file containing the mapped reads and - which we’ll create later - a VCF-file listing all found variants. A number of assignments asks to visualize the results to get a good understanding of what we’re looking at.</p>
 </div>
-<div id="assignment-instructions" class="section level3 unnumbered hasAnchor">
-<h3>Assignment Instructions<a href="pileup.html#assignment-instructions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-instructions" class="section level3 unnumbered">
+<h3>Assignment Instructions<a class="anchor" aria-label="anchor" href="#assignment-instructions"><i class="fas fa-link"></i></a>
+</h3>
 <p>Below are a number assignments that together perform the tasks as explained above. For each you are required to <strong>carefully read the instructions</strong> and make sure you understand the goal and data used for that particular assignment. Being able to <strong>critically reflect</strong> on the outcome of your analysis is the most important aspect of being a bioinformatician! Furthermore, these assignments are generally a guideline and while it should be considered the minimum tasks to complete, you are always invited to do <em>more</em> with the data that you have. Feel free to explore and keep that code in your lab-journal as
 well.</p>
 <p>To perform some of these tasks we do need to learn some theory that is specific for working with our data (BED and Pileup files among others). For that we will introduce the Bioconductor libraries later on. First though we will explore the most simple of our data files and create a few simple plots based on the BED data.</p>
 <p>For each of these assignments, create at least one code-chunk, name it accordingly and in between the assignments reflect on what you did. For instance as the end product of assignment one is a data frame with a proper header and an overview plot of the number of exons per chromosome, you could end this assignment by stating <em>“After loading and processing the data, the overview shows all chromosomes on which exons are located for the panel genes”</em>.</p>
 </div>
-<div id="assignment-1-loading-the-bed-data" class="section level3 hasAnchor" number="3.1.1">
-<h3><span class="header-section-number">3.1.1</span> Assignment 1; Loading the BED-data<a href="pileup.html#assignment-1-loading-the-bed-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-1-loading-the-bed-data" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> Assignment 1; Loading the BED-data<a class="anchor" aria-label="anchor" href="#assignment-1-loading-the-bed-data"><i class="fas fa-link"></i></a>
+</h3>
 <p>The first step of our program is to read the BED file to get the exon locations for our panel genes. We already viewed the contents of the BED file in Galaxy, where we saw that this file contains 4 columns:</p>
 <ul>
 <li>The chromosome number,</li>
@@ -263,7 +102,8 @@ well.</p>
 <li>Since this data is stored in a text file using tabs as column
 separators, we can easily read this in using the <code>read.table</code>
 function.</li>
-</ul></li>
+</ul>
+</li>
 <li>Change the column names
 <ul>
 <li>There are no column names in the BED-file and <code>read.table</code> gives
@@ -271,13 +111,15 @@ default names in this case: <code>[1] "V1" "V2" "V3" "V4"</code>. Using the
 <code>names</code> function, we can assign new column names, do this by
 assigning a vector with four column names (see the help of
 <code>names</code>)</li>
-</ul></li>
+</ul>
+</li>
 <li>Print the number of exons per chromosome
 <ul>
 <li>An easy way to get an overview of large amounts of data (only
 1204 exons in this case) is by using the <code>table</code> function. Using
 this function, show the number of exons per chromosome.</li>
-</ul></li>
+</ul>
+</li>
 <li>Plot the number of exons per chromosome
 <ul>
 <li>The data from (3) can be used to create a plot by giving it to
@@ -286,11 +128,14 @@ something meaningful. Since the chromosome numbers can’t all fit
 on the x-axis you can change its orientation using the <code>las = 2</code>
 argument to <code>barplot</code>. Further options aren’t necessary and the
 plot doesn’t have to be very pretty at this stage.</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 </div>
-<div id="assignment-2-bed-visualization" class="section level3 hasAnchor" number="3.1.2">
-<h3><span class="header-section-number">3.1.2</span> Assignment 2; BED-visualization<a href="pileup.html#assignment-2-bed-visualization" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-2-bed-visualization" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> Assignment 2; BED-visualization<a class="anchor" aria-label="anchor" href="#assignment-2-bed-visualization"><i class="fas fa-link"></i></a>
+</h3>
 <ol style="list-style-type: decimal">
 <li>Visualize the number of genes per chromosome
 <ul>
@@ -304,16 +149,19 @@ that you gave in assignment 1.2) from the BED-data</li>
 per gene and store only the ‘chromosome’ column of the result</li>
 <li>Give this data to <code>table</code> and use that result as input for the
 <code>barplot</code> function using a proper label for the y-axis.</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 </div>
-<div id="assignment-3-bioconductor" class="section level3 hasAnchor" number="3.1.3">
-<h3><span class="header-section-number">3.1.3</span> Assignment 3; Bioconductor<a href="pileup.html#assignment-3-bioconductor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-3-bioconductor" class="section level3" number="3.1.3">
+<h3>
+<span class="header-section-number">3.1.3</span> Assignment 3; Bioconductor<a class="anchor" aria-label="anchor" href="#assignment-3-bioconductor"><i class="fas fa-link"></i></a>
+</h3>
 <p>As software developers develop algorithms or solutions for common
 problems, they would like to publish their code so that others can use
 it too. For R (and many other programming languages) this code is
 packaged in a <em>library</em> that can then be easily distributed to others.
-You might already be familiar with the <code>library()</code> function in R to load
+You might already be familiar with the <code><a href="https://rdrr.io/r/base/library.html">library()</a></code> function in R to load
 external code into your environment and that is what we will do here
 too.</p>
 <p><a href="http://bioconductor.org">Bioconductor</a> is a <em>repository</em> that contains
@@ -341,17 +189,21 @@ chromosome) on which they lie.</p>
 <code>IRanges</code> since it contain simple positional data (chromosome
 and position (start/ stop for BED-data). Let’s first see an example of representing a few exons from the BED file into <code>IRanges</code> objects (you don’t need to replicate this
 example).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="pileup.html#cb2-1" tabindex="-1"></a><span class="do">## Only needed when the package is missing</span></span>
-<span id="cb2-2"><a href="pileup.html#cb2-2" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(<span class="st">&quot;BiocManager&quot;</span>))</span>
-<span id="cb2-3"><a href="pileup.html#cb2-3" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
-<span id="cb2-4"><a href="pileup.html#cb2-4" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="pileup.html#cb2-5" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;GenomicRanges&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="pileup.html#cb3-1" tabindex="-1"></a><span class="co"># This package contains the &#39;IRanges&#39;, &#39;GRanges&#39; and &#39;GRangesList&#39; classes we will use</span></span>
-<span id="cb3-2"><a href="pileup.html#cb3-2" tabindex="-1"></a><span class="fu">library</span>(GenomicRanges)</span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="pileup.html#cb4-1" tabindex="-1"></a><span class="co"># Loading the BED data (note: use your own data from assignment 1)</span></span>
-<span id="cb4-2"><a href="pileup.html#cb4-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/bed_data.RData&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="pileup.html#cb5-1" tabindex="-1"></a><span class="co"># Print all rows where the gene name is for example &#39;SOD2&#39;</span></span>
-<span id="cb5-2"><a href="pileup.html#cb5-2" tabindex="-1"></a>bed_file[bed_file<span class="sc">$</span>gene <span class="sc">==</span> <span class="st">&quot;SOD2&quot;</span>, ]</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Only needed when the package is missing</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/">"BiocManager"</a></span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"GenomicRanges"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># This package contains the 'IRanges', 'GRanges' and 'GRangesList' classes we will use</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/GenomicRanges">GenomicRanges</a></span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Loading the BED data (note: use your own data from assignment 1)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/bed_data.RData"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Print all rows where the gene name is for example 'SOD2'</span></span>
+<span><span class="va">bed_file</span><span class="op">[</span><span class="va">bed_file</span><span class="op">$</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"SOD2"</span>, <span class="op">]</span></span></code></pre></div>
 <pre><code>##     chromosome     begin       end gene
 ## 649          6 160103505 160103690 SOD2
 ## 650          6 160105866 160106085 SOD2
@@ -363,15 +215,16 @@ exons of the <code>SOD2</code> gene located on chromosome 6. For each exon we ha
 a begin and end coordinate. This data can be converted into <code>IRanges</code> by
 using the similar named function and providing the correct columns as
 shown below:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="pileup.html#cb7-1" tabindex="-1"></a><span class="co"># Get the data as a subset of the cardiopanel data</span></span>
-<span id="cb7-2"><a href="pileup.html#cb7-2" tabindex="-1"></a>sod2 <span class="ot">&lt;-</span> bed_file[bed_file<span class="sc">$</span>gene <span class="sc">==</span> <span class="st">&quot;SOD2&quot;</span>, ]</span>
-<span id="cb7-3"><a href="pileup.html#cb7-3" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="pileup.html#cb7-4" tabindex="-1"></a><span class="co"># Assign whole columns to the IRanges arguments</span></span>
-<span id="cb7-5"><a href="pileup.html#cb7-5" tabindex="-1"></a>ranges <span class="ot">&lt;-</span> <span class="fu">IRanges</span>(<span class="at">start =</span> sod2<span class="sc">$</span>begin,</span>
-<span id="cb7-6"><a href="pileup.html#cb7-6" tabindex="-1"></a>                  <span class="at">end =</span> sod2<span class="sc">$</span>end,</span>
-<span id="cb7-7"><a href="pileup.html#cb7-7" tabindex="-1"></a>                  <span class="at">names =</span> sod2<span class="sc">$</span>gene)</span>
-<span id="cb7-8"><a href="pileup.html#cb7-8" tabindex="-1"></a><span class="co"># Print the object</span></span>
-<span id="cb7-9"><a href="pileup.html#cb7-9" tabindex="-1"></a>ranges</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Get the data as a subset of the cardiopanel data</span></span>
+<span><span class="va">sod2</span> <span class="op">&lt;-</span> <span class="va">bed_file</span><span class="op">[</span><span class="va">bed_file</span><span class="op">$</span><span class="va">gene</span> <span class="op">==</span> <span class="st">"SOD2"</span>, <span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Assign whole columns to the IRanges arguments</span></span>
+<span><span class="va">ranges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/IRanges-constructor.html">IRanges</a></span><span class="op">(</span>start <span class="op">=</span> <span class="va">sod2</span><span class="op">$</span><span class="va">begin</span>,</span>
+<span>                  end <span class="op">=</span> <span class="va">sod2</span><span class="op">$</span><span class="va">end</span>,</span>
+<span>                  names <span class="op">=</span> <span class="va">sod2</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="co"># Print the object</span></span>
+<span><span class="va">ranges</span></span></code></pre></div>
 <pre><code>## IRanges object with 5 ranges and 0 metadata columns:
 ##            start       end     width
 ##        &lt;integer&gt; &lt;integer&gt; &lt;integer&gt;
@@ -380,8 +233,9 @@ shown below:</p>
 ##   SOD2 160109138 160109294       157
 ##   SOD2 160113673 160113915       243
 ##   SOD2 160114157 160114219        63</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="pileup.html#cb9-1" tabindex="-1"></a><span class="co"># Calculate and print the length of a gene</span></span>
-<span id="cb9-2"><a href="pileup.html#cb9-2" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Length of SOD2:&quot;</span>, <span class="fu">sum</span>( <span class="fu">width</span>(ranges) ), <span class="st">&quot;bp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate and print the length of a gene</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Length of SOD2:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html">width</a></span><span class="op">(</span><span class="va">ranges</span><span class="op">)</span> <span class="op">)</span>, <span class="st">"bp"</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## Length of SOD2: 869 bp</code></pre>
 <p>We see the same data now represented as an <code>IRanges</code> object. We do however both miss some data (the chromosome) and get some extra data as well (the <em>width</em> (length) of each exon). As it’s important to know on which chromosome each gene lies we will convert our <code>ranges</code> object into a <code>GRanges</code> object that combines both data:</p>
 <pre><code>## GRanges object with 5 ranges and 0 metadata columns:
@@ -394,11 +248,12 @@ shown below:</p>
 ##   SOD2        6 160114157-160114219      *
 ##   -------
 ##   seqinfo: 18 sequences from an unspecified genome; no seqlengths</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="pileup.html#cb12-1" tabindex="-1"></a><span class="co"># Converts iRanges to GRanges, adding the chromosome name</span></span>
-<span id="cb12-2"><a href="pileup.html#cb12-2" tabindex="-1"></a>granges <span class="ot">&lt;-</span> <span class="fu">GRanges</span>(<span class="at">seqnames =</span> sod2<span class="sc">$</span>chromosome,</span>
-<span id="cb12-3"><a href="pileup.html#cb12-3" tabindex="-1"></a>                   <span class="at">ranges =</span> ranges)</span>
-<span id="cb12-4"><a href="pileup.html#cb12-4" tabindex="-1"></a>granges</span></code></pre></div>
-<p>When comparing the <code>IRanges</code> object with the <code>GRanges</code> object, it looks rather similar with yet again some missing data (the <em>width</em>) and some extra data (the <em>strand</em>). Nothing is lost though, as objects often have a lot of <em>accessor</em> methods that you can use for getting to the actual data, as the example above is a <em>representation</em> of the object that you get when you print it. Functions such as <code>width()</code> applied to an <code>IRanges</code> object gives the <code>width</code> column and the <code>ranges()</code> function applied to a <code>GRanges</code> object gives the <code>IRanges</code> object contained within. When needed, the assignments will hint to their usage but the linked manuals also describe the most important ones.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Converts iRanges to GRanges, adding the chromosome name</span></span>
+<span><span class="va">granges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/GenomicRanges/man/GRanges-class.html">GRanges</a></span><span class="op">(</span>seqnames <span class="op">=</span> <span class="va">sod2</span><span class="op">$</span><span class="va">chromosome</span>,</span>
+<span>                   ranges <span class="op">=</span> <span class="va">ranges</span><span class="op">)</span></span>
+<span><span class="va">granges</span></span></code></pre></div>
+<p>When comparing the <code>IRanges</code> object with the <code>GRanges</code> object, it looks rather similar with yet again some missing data (the <em>width</em>) and some extra data (the <em>strand</em>). Nothing is lost though, as objects often have a lot of <em>accessor</em> methods that you can use for getting to the actual data, as the example above is a <em>representation</em> of the object that you get when you print it. Functions such as <code><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html">width()</a></code> applied to an <code>IRanges</code> object gives the <code>width</code> column and the <code><a href="https://rdrr.io/pkg/IRanges/man/range-squeezers.html">ranges()</a></code> function applied to a <code>GRanges</code> object gives the <code>IRanges</code> object contained within. When needed, the assignments will hint to their usage but the linked manuals also describe the most important ones.</p>
 <p>Now that we have a gene within a <code>GRanges</code> object, what can we do with it? For now with just the BED data not a lot, but as we will also put the Pileup data into a similar <code>GRanges</code> object, we can start asking our data interesting questions with the <code>pileup</code> function for instance. This can be used to get the Pileup information specific for our exons and ignoring everything else. But before we can do that we need to get our BED-data into the proper format first and that is what we will do now.</p>
 <p>This more challenging assignment results in yet another type of object, named a <code>GRangesList</code> that contains multiple <code>GRanges</code> objects; one for each gene such as shown in the above example. So, in order to do that we need to:</p>
 <ol style="list-style-type: decimal">
@@ -407,12 +262,15 @@ shown below:</p>
 <ul>
 <li>Read the part about <code>iteration</code> below and</li>
 <li>the hints about the <code>split</code> function to get the gene names and data easily accessible.</li>
-</ul></li>
+</ul>
+</li>
 <li>For each gene, create a <code>GRanges</code> object and add it to the list, including the gene name (use the following form: <code>my_list[[gene_name]] &lt;- data</code>) and</li>
-<li><em>Convert</em> the complete list into a <code>GRangesList</code> object.
+<li>
+<em>Convert</em> the complete list into a <code>GRangesList</code> object.
 <ul>
 <li>Use the conversion as explained in the <code>GRanges</code> manual: <code>bed_data &lt;- GRangesList(bed_data)</code> given that the list is called <code>bed_data</code>.</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 <p>The techniques required for this assignment are mainly knowing how to work with lists (including how to create them, accessing single elements, adding to lists and iterating over its items). The following hints, the numbered list above and the examples are everything you need to do this assignment.</p>
 <p><strong>Hints and further instructions:</strong></p>
@@ -422,28 +280,30 @@ shown below:</p>
 <span id="cb13-2"><a href="pileup.html#cb13-2" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> x:</span>
 <span id="cb13-3"><a href="pileup.html#cb13-3" tabindex="-1"></a>    squared.append(value <span class="op">*</span> value)</span></code></pre></div>
 <p>This is still pretty readable code, but in R we never require this explicit form even though we <em>could</em>. This simple one liner in R for instance calculates the average log2 ratio of two columns from a data-frame that can contain thousands of rows and many columns, at once:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="pileup.html#cb14-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">log2</span>(dat[<span class="st">&#39;sample1&#39;</span>], dat[<span class="st">&#39;sample2&#39;</span>]))</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/mean.html">mean</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log2</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span><span class="st">'sample1'</span><span class="op">]</span>, <span class="va">dat</span><span class="op">[</span><span class="st">'sample2'</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>which would require a rather large for-loop in most other languages. When we do want to apply something to each element separately in R we often use the - rather complicated but efficient - <code>apply</code> functions. For now though we will use the easier to understand <code>for</code> loop to perform our code on data for each gene (point 1 above). With the following example on iterating over our <code>bed_data</code> you should be able to perform this assignment:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="pileup.html#cb15-1" tabindex="-1"></a><span class="co"># Load the stored data; do not repeat. Object name in this</span></span>
-<span id="cb15-2"><a href="pileup.html#cb15-2" tabindex="-1"></a><span class="co"># example is &#39;bed_data&#39; </span></span>
-<span id="cb15-3"><a href="pileup.html#cb15-3" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&#39;data/bed_data_GRangesList.RData&#39;</span>)</span>
-<span id="cb15-4"><a href="pileup.html#cb15-4" tabindex="-1"></a></span>
-<span id="cb15-5"><a href="pileup.html#cb15-5" tabindex="-1"></a><span class="co"># Split the data by gene, resulting in a list with named elements</span></span>
-<span id="cb15-6"><a href="pileup.html#cb15-6" tabindex="-1"></a>bed_splitted <span class="ot">&lt;-</span> <span class="fu">split</span>(bed_file, bed_file<span class="sc">$</span>gene)</span>
-<span id="cb15-7"><a href="pileup.html#cb15-7" tabindex="-1"></a><span class="co"># Print the names of the first 10 genes</span></span>
-<span id="cb15-8"><a href="pileup.html#cb15-8" tabindex="-1"></a><span class="cf">for</span> (gene <span class="cf">in</span> <span class="fu">names</span>(bed_splitted)[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]) {</span>
-<span id="cb15-9"><a href="pileup.html#cb15-9" tabindex="-1"></a>    <span class="fu">print</span>(gene)</span>
-<span id="cb15-10"><a href="pileup.html#cb15-10" tabindex="-1"></a>}</span></code></pre></div>
-<pre><code>## [1] &quot;ABCC9&quot;
-## [1] &quot;ACTC1&quot;
-## [1] &quot;ACTN2&quot;
-## [1] &quot;ANKRD1&quot;
-## [1] &quot;BAG3&quot;
-## [1] &quot;CALR3&quot;
-## [1] &quot;CAV3&quot;
-## [1] &quot;CRYAB&quot;
-## [1] &quot;CSRP3&quot;
-## [1] &quot;DES&quot;</code></pre>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the stored data; do not repeat. Object name in this</span></span>
+<span><span class="co"># example is 'bed_data' </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">'data/bed_data_GRangesList.RData'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Split the data by gene, resulting in a list with named elements</span></span>
+<span><span class="va">bed_splitted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/S4Vectors/man/splitAsList.html">split</a></span><span class="op">(</span><span class="va">bed_file</span>, <span class="va">bed_file</span><span class="op">$</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="co"># Print the names of the first 10 genes</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">gene</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">bed_splitted</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">gene</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] "ABCC9"
+## [1] "ACTC1"
+## [1] "ACTN2"
+## [1] "ANKRD1"
+## [1] "BAG3"
+## [1] "CALR3"
+## [1] "CAV3"
+## [1] "CRYAB"
+## [1] "CSRP3"
+## [1] "DES"</code></pre>
 <p><strong>Hints</strong></p>
 <ul>
 <li>As point 2 asks to iterate over all genes, we need to think of a way to group our data (exons) into genes which can be done using the <code>split</code> function. The result of <code>split</code> is a list with 55 named elements; one for each gene.
@@ -451,59 +311,76 @@ shown below:</p>
 <li>The <code>split</code> function requires two arguments: first the data-frame containing all of the data and the second argument is the column containing the gene names (i.e. <code>bed_file$gene</code>)</li>
 <li>You can get the gene names by executing the <code>names</code> function on the resulting list from <code>split</code>.</li>
 <li>You can get all the exon-rows easily by accessing the list items: <code>split_output[[gene_name]]</code>.</li>
-</ul></li>
+</ul>
+</li>
 <li>When iterating, the code that you execute for each gene could be (1) create an <code>IRanges</code> object, (2) create a <code>GRanges</code> object combining the chromosome with the <code>IRanges</code> object and finally appending this to a list.</li>
 <li>Note that this requires an empty list to be created <em>before</em> the <code>for</code>-loop, such as <code>exons &lt;- list()</code>.</li>
 </ul>
 <p>Revisit everything you’ve written to complete this task and make sure you understand what everything does (the exact <em>how</em> it works is of less importance). Also, you can use functions like <code>class</code> and <code>elementType</code> to confirm that your list is of class <code>GRangesList</code> (actually a <code>CompressedGRangesList</code>) and its contents are of type <code>GRanges</code>.</p>
 </div>
-<div id="assignment-4-gene-lengths" class="section level3 hasAnchor" number="3.1.4">
-<h3><span class="header-section-number">3.1.4</span> Assignment 4; Gene Lengths<a href="pileup.html#assignment-4-gene-lengths" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-4-gene-lengths" class="section level3" number="3.1.4">
+<h3>
+<span class="header-section-number">3.1.4</span> Assignment 4; Gene Lengths<a class="anchor" aria-label="anchor" href="#assignment-4-gene-lengths"><i class="fas fa-link"></i></a>
+</h3>
 <p>We’ll create one last visualization based on the BED-data - but now using the <code>GRanges</code> object - namely an overview of the gene lengths; another barplot. The following example code shows how to calculate the length of a single gene (using <code>ranges</code>, <code>width</code> and <code>sum</code>). The same code also works on the complete <code>GRangesList</code> object, use this to create a barplot showing the length of each gene.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="pileup.html#cb17-1" tabindex="-1"></a><span class="co"># Check the length (in basepairs) of a single gene (exons only)</span></span>
-<span id="cb17-2"><a href="pileup.html#cb17-2" tabindex="-1"></a>psen2_ranges <span class="ot">&lt;-</span> <span class="fu">ranges</span>(bed_data[[<span class="st">&#39;PSEN2&#39;</span>]])</span>
-<span id="cb17-3"><a href="pileup.html#cb17-3" tabindex="-1"></a><span class="fu">paste</span>(<span class="st">&quot;Length of the &#39;PSEN2&#39; gene:&quot;</span>, <span class="fu">sum</span>(<span class="fu">width</span>(psen2_ranges)), <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Check the length (in basepairs) of a single gene (exons only)</span></span>
+<span><span class="va">psen2_ranges</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/IRanges/man/range-squeezers.html">ranges</a></span><span class="op">(</span><span class="va">bed_data</span><span class="op">[[</span><span class="st">'PSEN2'</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/paste.html">paste</a></span><span class="op">(</span><span class="st">"Length of the 'PSEN2' gene:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/start.html">width</a></span><span class="op">(</span><span class="va">psen2_ranges</span><span class="op">)</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
 <p><strong>Hint:</strong></p>
 <p>As you might see, there can be some genes which are very long compared to the others and this makes the plot difficult to read. The <code>plotrix</code> library contains the <code>gap.barplot</code> function specifically for this purpose (also supports the <code>las = 2</code> argument). Try to use this function for creating the barplot. As a small challenge you can try to style the y-axis to show more values (‘ticks’) besides the minimum and maximum.</p>
 </div>
-<div id="assignment-5-loading-the-mapped-reads" class="section level3 hasAnchor" number="3.1.5">
-<h3><span class="header-section-number">3.1.5</span> Assignment 5; Loading the Mapped Reads<a href="pileup.html#assignment-5-loading-the-mapped-reads" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-5-loading-the-mapped-reads" class="section level3" number="3.1.5">
+<h3>
+<span class="header-section-number">3.1.5</span> Assignment 5; Loading the Mapped Reads<a class="anchor" aria-label="anchor" href="#assignment-5-loading-the-mapped-reads"><i class="fas fa-link"></i></a>
+</h3>
 <p>In R we will use the output of the <em>mapping</em> step (the BAM file) to inspect the coverage of all mapped positions of our panel genes. There is an R library that can read this data (<code>RSamtools</code> <a href="https://bioconductor.org/packages/release/bioc/html/Rsamtools.html">website</a> and <a href="https://bioconductor.org/packages/release/bioc/vignettes/Rsamtools/inst/doc/Rsamtools-Overview.pdf">manual</a>) into <code>GRanges</code> objects. We have already downloaded the data as it was the input for the IGV tool in the previous chapter.</p>
-<div id="rsamtools" class="section level4 unnumbered hasAnchor">
-<h4>Rsamtools<a href="pileup.html#rsamtools" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="rsamtools" class="section level4 unnumbered">
+<h4>Rsamtools<a class="anchor" aria-label="anchor" href="#rsamtools"><i class="fas fa-link"></i></a>
+</h4>
 <p>Again, we have to briefly introduce this library before you will be able to use it. Rsamtools is described as “<em>an interface to BAM files</em>”, the file that contains all the mapping information.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="pileup.html#cb18-1" tabindex="-1"></a><span class="co"># Installing required library</span></span>
-<span id="cb18-2"><a href="pileup.html#cb18-2" tabindex="-1"></a>BiocManager<span class="sc">::</span><span class="fu">install</span>(<span class="st">&quot;Rsamtools&quot;</span>)</span>
-<span id="cb18-3"><a href="pileup.html#cb18-3" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="pileup.html#cb18-4" tabindex="-1"></a><span class="co"># Loading the RSamtools library</span></span>
-<span id="cb18-5"><a href="pileup.html#cb18-5" tabindex="-1"></a><span class="fu">library</span>(Rsamtools)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Installing required library</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"Rsamtools"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Loading the RSamtools library</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://bioconductor.org/packages/Rsamtools">Rsamtools</a></span><span class="op">)</span></span></code></pre></div>
 <p>Functions from <code>Rsamtools</code> that we will use - in order - are:</p>
 <ul>
-<li><code>BamFile</code>: Reference to the BAM data and its index (<code>.bam.bai</code>)</li>
-<li><code>ScanBamParam</code>: Sets the <em>parameters</em> for selecting a certain region from the genome using <code>GRanges</code> (i.e., a gene from our BED-data)</li>
-<li><code>pileup</code>: Actually retrieves the region of interest given the <code>BamFile</code> and parameters supplied.</li>
+<li>
+<code>BamFile</code>: Reference to the BAM data and its index (<code>.bam.bai</code>)</li>
+<li>
+<code>ScanBamParam</code>: Sets the <em>parameters</em> for selecting a certain region from the genome using <code>GRanges</code> (i.e., a gene from our BED-data)</li>
+<li>
+<code>pileup</code>: Actually retrieves the region of interest given the <code>BamFile</code> and parameters supplied.</li>
 </ul>
 <p><strong>Assignment</strong>:</p>
 <ul>
 <li>Load the BAM mapping data into a list of data-frames covering all mapped positions of interest</li>
 </ul>
 </div>
-<div id="instructions" class="section level4 unnumbered hasAnchor">
-<h4>Instructions<a href="pileup.html#instructions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="instructions" class="section level4 unnumbered">
+<h4>Instructions<a class="anchor" aria-label="anchor" href="#instructions"><i class="fas fa-link"></i></a>
+</h4>
 <ol style="list-style-type: decimal">
 <li><p>Create a <code>BamFile</code> object by providing both the <code>file</code> and <code>index</code> parameters</p></li>
-<li><p>Create a <code>ScanBamParam</code> object</p>
+<li>
+<p>Create a <code>ScanBamParam</code> object</p>
 <ul>
 <li>What this does is defining all the ranges that we want to get from the mapping, in this case the ranges of all exons for a gene</li>
 <li>Do this by selecting a single gene from your <code>GRangesList</code> object (using the <code>[["geneName"]]</code> syntax) and store this in an object (it’s type will be a <code>GRanges</code>)</li>
 <li>Give this <code>GRanges</code> object to the <code>ScanBamParam</code> function and store this in a variable</li>
-</ul></li>
-<li><p>Get the actual mapping data for our region of interest</p>
+</ul>
+</li>
+<li>
+<p>Get the actual mapping data for our region of interest</p>
 <ul>
-<li>Call the <code>pileup</code> function providing - in order - the objects created at points 1-2. Note that you need to tell <code>pileup</code> what the parameter is, so use <code>pileup(file = ..., scanBamParam = ...)</code></li>
+<li>Call the <code>pileup</code> function providing - in order - the objects created at points 1-2. Note that you need to tell <code>pileup</code> what the parameter is, so use <code>pileup(file = ..., scanBamParam = ...)</code>
+</li>
 <li>The output of the <code>pileup</code> function is a data-frame, store this result</li>
 <li>Print the first lines of the data-frame (use the <code>head</code> function)</li>
-</ul></li>
+</ul>
+</li>
 </ol>
 <div class="rmdnote">
 <p>The mention of <code>pileup</code> in this assignment means looking at a single genomic position like we’ve seen in IGV. There are tools available to generate a <em>pileup</em> file from a BAM file (file format description <a href="http://samtools.sourceforge.net/pileup.shtml">available
@@ -523,7 +400,8 @@ strand, lower case for the reverse strand)</li>
 <li>insertions/ deletions (defined by a <code>+</code> or <code>-</code> sign followed by
 a number defining the size of the insert/ deletion, followed by
 the bases that form the insert/ deletion).</li>
-</ul></li>
+</ul>
+</li>
 <li>the quality [6] (taken from the FASTQ file) can be seen in the last
 column, one value for each read</li>
 </ul>
@@ -549,9 +427,10 @@ number of bases that are missing.</p>
 <pre><code>chr1    16888710    a   31  ..,.,..,..,,-2ct,,..,.,,.-2CT,,.,,.,.,, nGFkGUlFF?DFHFGGEnHFFHHGFHG5GGB</code></pre>
 </div>
 <p>Look at the data that we get for each position and note that we have - at least - two rows of data per position; one on each strand (as we’ve also seen in IGV). If we have <em>more</em> than two rows of data for a single position, it might be a variant which is coincidentally demonstrated in the example data below:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="pileup.html#cb22-1" tabindex="-1"></a><span class="co"># Load the example Pileup data for the SOD2 gene (do not repeat)</span></span>
-<span id="cb22-2"><a href="pileup.html#cb22-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/sod2_pileup.RData&quot;</span>)</span>
-<span id="cb22-3"><a href="pileup.html#cb22-3" tabindex="-1"></a><span class="fu">head</span>(sod2, <span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the example Pileup data for the SOD2 gene (do not repeat)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/sod2_pileup.RData"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sod2</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##   seqnames       pos strand nucleotide count              which_label
 ## 1     chr6 160103505      +          C   221 chr6:160103505-160103690
 ## 2     chr6 160103505      -          C    77 chr6:160103505-160103690
@@ -562,8 +441,10 @@ number of bases that are missing.</p>
 <p>Note though that what we have now is a <em>summary</em> of the actual pileup compared to the very detailed line we see in the actual Pileup file within Galaxy. This data is also available using <code>RSamtools</code> but we only require this summary.</p>
 </div>
 </div>
-<div id="assignment-6-pileup-processing" class="section level3 hasAnchor" number="3.1.6">
-<h3><span class="header-section-number">3.1.6</span> Assignment 6; Pileup Processing<a href="pileup.html#assignment-6-pileup-processing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-6-pileup-processing" class="section level3" number="3.1.6">
+<h3>
+<span class="header-section-number">3.1.6</span> Assignment 6; Pileup Processing<a class="anchor" aria-label="anchor" href="#assignment-6-pileup-processing"><i class="fas fa-link"></i></a>
+</h3>
 <p>In this assignment we will get the pileup data for all of our genes into a single object so that we can report on the average coverage of each gene and determine if there are positions with a low coverage that we might need to inspect, more on that later.</p>
 <p>Steps that need to be taken:</p>
 <ol style="list-style-type: decimal">
@@ -574,21 +455,27 @@ number of bases that are missing.</p>
 <li>Check by printing the <code>head</code> again for the same gene as used in assignment 5</li>
 </ol>
 </div>
-<div id="assignment-7-coverage-calculation-and-reporting" class="section level3 hasAnchor" number="3.1.7">
-<h3><span class="header-section-number">3.1.7</span> Assignment 7; Coverage calculation and reporting<a href="pileup.html#assignment-7-coverage-calculation-and-reporting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="assignment-7-coverage-calculation-and-reporting" class="section level3" number="3.1.7">
+<h3>
+<span class="header-section-number">3.1.7</span> Assignment 7; Coverage calculation and reporting<a class="anchor" aria-label="anchor" href="#assignment-7-coverage-calculation-and-reporting"><i class="fas fa-link"></i></a>
+</h3>
 <p>Calculating the actual coverage for each position is a little cumbersome as we need to sum the count of all rows for a single position since we don’t - yet - care about mismatches or the strand a read is mapped on.</p>
 <p>Instead of performing all kinds of programming steps to check if positions are similar and if so, summing the count values, we can use an R function to do this for us. We don’t expect you to understand the following example besides understanding what it produces. This summation can done by a function called <code>aggregate</code>, defined as “<em>Compute Summary Statistics of Data Subsets</em>”.</p>
 <p>Given a column to group on (our <code>pos</code> column) it will perform a function on a different column (our <code>count</code> column containing the coverage. The result of aggregate is a two-column data-frame with the position and the sum of all count values for this position; the total coverage.</p>
 <p>We provide the arguments as follows:</p>
 <ul>
-<li><code>x</code>: the <code>count</code> column (we provide it as a list so it gets a name in the resulting data-frame as well)</li>
-<li><code>by</code>: the <code>pos</code> column the grouping is applied to</li>
-<li><code>FUN</code>: the function to perform on all grouped rows (in this case, the <code>sum</code> function)</li>
+<li>
+<code>x</code>: the <code>count</code> column (we provide it as a list so it gets a name in the resulting data-frame as well)</li>
+<li>
+<code>by</code>: the <code>pos</code> column the grouping is applied to</li>
+<li>
+<code>FUN</code>: the function to perform on all grouped rows (in this case, the <code>sum</code> function)</li>
 </ul>
 <p>Use the code below but check and rename the used variables to suit your data.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="pileup.html#cb24-1" tabindex="-1"></a>coverage <span class="ot">=</span> <span class="fu">aggregate</span>(<span class="at">x =</span> <span class="fu">list</span>(<span class="at">count=</span>sod2<span class="sc">$</span>count), </span>
-<span id="cb24-2"><a href="pileup.html#cb24-2" tabindex="-1"></a>                     <span class="at">by =</span> <span class="fu">list</span>(<span class="at">pos=</span>sod2<span class="sc">$</span>pos), <span class="at">FUN=</span>sum)</span>
-<span id="cb24-3"><a href="pileup.html#cb24-3" tabindex="-1"></a><span class="fu">head</span>(coverage)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">coverage</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html">aggregate</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>count<span class="op">=</span><span class="va">sod2</span><span class="op">$</span><span class="va">count</span><span class="op">)</span>, </span>
+<span>                     by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pos<span class="op">=</span><span class="va">sod2</span><span class="op">$</span><span class="va">pos</span><span class="op">)</span>, FUN<span class="op">=</span><span class="va">sum</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">coverage</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##         pos count
 ## 1 160103505   299
 ## 2 160103506   297
@@ -604,28 +491,30 @@ number of bases that are missing.</p>
 </ul>
 <p>Given these tasks and your code from previous assignments, you should be able to do this. Store the calculated values (4 values) combined with the gene name in a new data-frame and show it completely in your lab-journal, ordered by the percentage of low-coverage positions, descending.</p>
 <p>The following code can be used to create an empty data-frame and add rows to the data. Note that this isn’t done very often, use and forget. The first line of code (the <code>options</code> function) is needed to stop some annoying R behaviour.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="pileup.html#cb26-1" tabindex="-1"></a><span class="co"># Tell R not to complain...</span></span>
-<span id="cb26-2"><a href="pileup.html#cb26-2" tabindex="-1"></a><span class="fu">options</span>(<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb26-3"><a href="pileup.html#cb26-3" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="pileup.html#cb26-4" tabindex="-1"></a><span class="co"># Create empty data-frame, but specify columns and data types</span></span>
-<span id="cb26-5"><a href="pileup.html#cb26-5" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Name=</span><span class="fu">character</span>(), <span class="at">Course=</span><span class="fu">character</span>(), <span class="at">Grade=</span><span class="fu">numeric</span>())</span>
-<span id="cb26-6"><a href="pileup.html#cb26-6" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="pileup.html#cb26-7" tabindex="-1"></a><span class="co"># Create a new row of data, stored as a named list (important)</span></span>
-<span id="cb26-8"><a href="pileup.html#cb26-8" tabindex="-1"></a>new_row <span class="ot">=</span> <span class="fu">list</span>(<span class="at">Name=</span><span class="st">&quot;James&quot;</span>, <span class="at">Course=</span><span class="st">&quot;Math&quot;</span>, <span class="at">Grade=</span><span class="fl">7.5</span>)</span>
-<span id="cb26-9"><a href="pileup.html#cb26-9" tabindex="-1"></a></span>
-<span id="cb26-10"><a href="pileup.html#cb26-10" tabindex="-1"></a><span class="co"># Append data to the data-frame using rbind</span></span>
-<span id="cb26-11"><a href="pileup.html#cb26-11" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df, new_row)</span>
-<span id="cb26-12"><a href="pileup.html#cb26-12" tabindex="-1"></a></span>
-<span id="cb26-13"><a href="pileup.html#cb26-13" tabindex="-1"></a><span class="co"># Or within a single line</span></span>
-<span id="cb26-14"><a href="pileup.html#cb26-14" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">rbind</span>(df, <span class="fu">list</span>(<span class="at">Name=</span><span class="st">&quot;Wendy&quot;</span>, <span class="at">Course=</span><span class="st">&quot;Math&quot;</span>, <span class="at">Grade=</span><span class="dv">8</span>))</span>
-<span id="cb26-15"><a href="pileup.html#cb26-15" tabindex="-1"></a></span>
-<span id="cb26-16"><a href="pileup.html#cb26-16" tabindex="-1"></a><span class="co"># print</span></span>
-<span id="cb26-17"><a href="pileup.html#cb26-17" tabindex="-1"></a>df</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Tell R not to complain...</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span><span class="op">(</span>stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create empty data-frame, but specify columns and data types</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>Name<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>, Course<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="op">)</span>, Grade<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a new row of data, stored as a named list (important)</span></span>
+<span><span class="va">new_row</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Name<span class="op">=</span><span class="st">"James"</span>, Course<span class="op">=</span><span class="st">"Math"</span>, Grade<span class="op">=</span><span class="fl">7.5</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Append data to the data-frame using rbind</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">new_row</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Or within a single line</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/cbind.html">rbind</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>Name<span class="op">=</span><span class="st">"Wendy"</span>, Course<span class="op">=</span><span class="st">"Math"</span>, Grade<span class="op">=</span><span class="fl">8</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># print</span></span>
+<span><span class="va">df</span></span></code></pre></div>
 <pre><code>##    Name Course Grade
 ## 1 James   Math   7.5
 ## 2 Wendy   Math   8.0</code></pre>
-<div id="hints" class="section level4 unnumbered hasAnchor">
-<h4>Hints<a href="pileup.html#hints" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="hints" class="section level4 unnumbered">
+<h4>Hints<a class="anchor" aria-label="anchor" href="#hints"><i class="fas fa-link"></i></a>
+</h4>
 <ul>
 <li>As with the other assignments using iteration, create the data-frame <em>outside</em> of the <code>for</code>-loop and perform the <code>rbind</code> <em>within</em> the <code>for</code>-loop.</li>
 <li>Take a good look (and print while testing) at <em>what</em> you are iterating over; in this case a <code>list</code> containing <code>data-frames</code>.</li>
@@ -634,13 +523,15 @@ number of bases that are missing.</p>
 </ul>
 </div>
 </div>
-<div id="end-result" class="section level3 unnumbered hasAnchor">
-<h3>End Result<a href="pileup.html#end-result" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="end-result" class="section level3 unnumbered">
+<h3>End Result<a class="anchor" aria-label="anchor" href="#end-result"><i class="fas fa-link"></i></a>
+</h3>
 <p>Below is an example of data you might get when you have completed this assignment. Note that all values as well as the column names will be different in your case.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="pileup.html#cb28-1" tabindex="-1"></a><span class="co"># Load example data</span></span>
-<span id="cb28-2"><a href="pileup.html#cb28-2" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;data/statistics.RData&quot;</span>)</span>
-<span id="cb28-3"><a href="pileup.html#cb28-3" tabindex="-1"></a></span>
-<span id="cb28-4"><a href="pileup.html#cb28-4" tabindex="-1"></a>statistics</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load example data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/statistics.RData"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">statistics</span></span></code></pre></div>
 <pre><code>##        length avg_coverage low_coverage low_coverage_perc
 ## ABCC9    6348        249.2            0               0.0
 ## ACTC1    1375        192.4           57               4.1
@@ -702,68 +593,53 @@ number of bases that are missing.</p>
 </div>
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="mapping.html"><span class="header-section-number">2</span> Read Mapping</a></div>
+<div class="next"><a href="variants.html"><span class="header-section-number">4</span> Finding and Annotating Variants</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#pileup"><span class="header-section-number">3</span> Analysis of Variants</a></li>
+<li>
+<a class="nav-link" href="#assignment-week-3"><span class="header-section-number">3.1</span> Assignment week 3</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#programming-assignments-coverage-overview-for-panel-genes">Programming Assignments; Coverage Overview for Panel Genes</a></li>
+<li><a class="nav-link" href="#assignment-instructions">Assignment Instructions</a></li>
+<li><a class="nav-link" href="#assignment-1-loading-the-bed-data"><span class="header-section-number">3.1.1</span> Assignment 1; Loading the BED-data</a></li>
+<li><a class="nav-link" href="#assignment-2-bed-visualization"><span class="header-section-number">3.1.2</span> Assignment 2; BED-visualization</a></li>
+<li><a class="nav-link" href="#assignment-3-bioconductor"><span class="header-section-number">3.1.3</span> Assignment 3; Bioconductor</a></li>
+<li><a class="nav-link" href="#assignment-4-gene-lengths"><span class="header-section-number">3.1.4</span> Assignment 4; Gene Lengths</a></li>
+<li><a class="nav-link" href="#assignment-5-loading-the-mapped-reads"><span class="header-section-number">3.1.5</span> Assignment 5; Loading the Mapped Reads</a></li>
+<li><a class="nav-link" href="#assignment-6-pileup-processing"><span class="header-section-number">3.1.6</span> Assignment 6; Pileup Processing</a></li>
+<li><a class="nav-link" href="#assignment-7-coverage-calculation-and-reporting"><span class="header-section-number">3.1.7</span> Assignment 7; Coverage calculation and reporting</a></li>
+<li><a class="nav-link" href="#end-result">End Result</a></li>
+</ul>
+</li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="mapping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="variants.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rwedema/NGS-Genetics//blob/master/03-week3-pileup.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rwedema/NGS-Genetics//edit/master/03-week3-pileup.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2024-09-06.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["_main.pdf", "_main.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -775,7 +651,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>
