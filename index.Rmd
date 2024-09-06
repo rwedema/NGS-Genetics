@@ -7,9 +7,9 @@ documentclass: book
 bibliography:
 - book.bib
 - packages.bib
-description: "This is the background and assignments needed to complete module 2.1.1"
-link-citations: yes
-github-repo: 'https://github.com/rwedema/NGS-Genetics/'
+description: This is the background and assignments needed to complete module 2.1.1
+link-citations: true
+github-repo: "https://github.com/rwedema/NGS-Genetics/"
 ---
 
 ```{r setup, include=FALSE}
@@ -70,5 +70,6 @@ The subjects discussed during the genetics lessons can be found in the [ ]() boo
 | 3    | Pileup                          | [Chapter 3](#pileup)       | Mutations and effects thereof   |
 | 4    | Variant Calling                 | [Chapter 4](#variants)     | Gene Regulation                 |
 | 5    | Finalize Case                   |                            |                                 |
-| 6    | Presentation case               | [Chapter 5](#presentation) |                                 |
-| 7    | Genetics exam                   |                            |                                 |
+| 6    | Finalize Case                   |                            |                                 |
+| 7    | Presentation case               | [Chapter 5](#presentation) |                                 |
+| 8    | Genetics exam                   |                            |                                 |
