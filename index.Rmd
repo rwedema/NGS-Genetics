@@ -53,16 +53,22 @@ The two items above are weighted and combined to get a single final grade. See a
 | Case          | Questions regarding the presentation and the obtained results of the worked-out case are answered clearly and in a structured manner.                                                                    | 2      |
 | Case          | During the lessons and in response to presentations by others, the student asks meaningful, focused, and clear questions, and also contributes additional information to the answers provided by others. | 1      |
 
-## Schedule and deliverables {.unnumbered}
+## Schedule {.unnumbered}
 
-| Week | Subject                         | Case Chapter               | Background reading (Genetics) | Note                                                        |     |
-|------------|------------|------------|------------|------------|------------|
-| 1    | Central Dogma en NGS techniques | [Chapter 1](#intro)        | see Blackboard                |                                                             |     |
-| 2    | Gene regulation                 | [Chapter 2](#mapping)      | see Blackboard                |                                                             |     |
-| 3    | Mutations and effects thereof   | [Chapter 3](#pileup)       | see Blackboard                |                                                             |     |
-| 4    | Finalize Case                   | [Chapter 4](#variants)     |                               |                                                             |     |
-| 5    | Finalize Case                   | [Chapter 5](#presentation) |                               |                                                             |     |
-| 6    | Presentation case               |                            |                               | The repair of the case is in consultation with the teacher. |     |
-| 7    | Genetics exam                   |                            |                               |                                                             |     |
-| 8    |                                 |                            |                               |                                                             |     |
-| 9    |                                 |                            |                               |                                                             |     |
+The subjects discussed during the genetics lessons can be found in the [ ]() book. The following chapters are discussed during the genetics lessons:
+
+-   Biological macromolecules: [3.4](https://openstax.org/books/biology-2e/pages/3-4-proteins), [3.5](https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids)
+-   DNA structure and function (en mutatie): [14.2](https://openstax.org/books/biology-2e/pages/14-2-dna-structure-and-sequencing), [14.3](https://openstax.org/books/biology-2e/pages/14-3-basics-of-dna-replication), [14.4](https://openstax.org/books/biology-2e/pages/14-4-dna-replication-in-prokaryotes), [14.5](https://openstax.org/books/biology-2e/pages/14-5-dna-replication-in-eukaryotes), [14.6](https://openstax.org/books/biology-2e/pages/14-6-dna-repair)
+-   Genes and Proteins: [15.1](https://openstax.org/books/biology-2e/pages/15-1-the-genetic-code), [15.2](https://openstax.org/books/biology-2e/pages/15-2-prokaryotic-transcription), [15.3](https://openstax.org/books/biology-2e/pages/15-3-eukaryotic-transcription), [15.4](https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes), [15.5](https://openstax.org/books/biology-2e/pages/15-5-ribosomes-and-protein-synthesis)
+-   Gene expression: [16.1](https://openstax.org/books/biology-2e/pages/16-1-regulation-of-gene-expression), [16.2](https://openstax.org/books/biology-2e/pages/16-2-prokaryotic-gene-regulation), [16.3](https://openstax.org/books/biology-2e/pages/16-3-eukaryotic-epigenetic-gene-regulation), [16.4](https://openstax.org/books/biology-2e/pages/16-4-eukaryotic-transcription-gene-regulation), [16.5](https://openstax.org/books/biology-2e/pages/16-5-eukaryotic-post-transcriptional-gene-regulation), [16.6](https://openstax.org/books/biology-2e/pages/16-6-eukaryotic-translational-and-post-translational-gene-regulation), [16.7](https://openstax.org/books/biology-2e/pages/16-7-cancer-and-gene-regulation)
+-   Biotechnology and genomics: [17.1](https://openstax.org/books/biology-2e/pages/17-1-biotechnology), [17.2](https://openstax.org/books/biology-2e/pages/17-2-mapping-genomes), [17.3](https://openstax.org/books/biology-2e/pages/17-3-whole-genome-sequencing), [17.4](https://openstax.org/books/biology-2e/pages/17-4-applying-genomics) (part regarding metagenomics), [17.5](https://openstax.org/books/biology-2e/pages/17-5-genomics-and-proteomics)
+
+| Week | Topic                           | Case Chapter               | Genetics Subject                |
+|-----------------|-----------------|------------------|----------------------|
+| 1    | NGS Techniques, Quality Control | [Chapter 1](#intro)        | Central Dogma en NGS techniques |
+| 2    | Read Mapping                    | [Chapter 2](#mapping)      | Transcription & Translation     |
+| 3    | Pileup                          | [Chapter 3](#pileup)       | Mutations and effects thereof   |
+| 4    | Variant Calling                 | [Chapter 4](#variants)     | Gene Regulation                 |
+| 5    | Finalize Case                   |                            |                                 |
+| 6    | Presentation case               | [Chapter 5](#presentation) |                                 |
+| 7    | Genetics exam                   |                            |                                 |
