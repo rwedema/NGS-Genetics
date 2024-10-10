@@ -221,6 +221,39 @@
 <h2>
 <span class="header-section-number">4.2</span> SnpEff and SnpSift<a class="anchor" aria-label="anchor" href="#snpeff-and-snpsift"><i class="fas fa-link"></i></a>
 </h2>
+<div class="rmdnote">
+<p>Note [10/10/2024]: due to issues in Galaxy, steps <strong>1</strong> and <strong>3</strong> have to be done <em>commandline</em>:</p>
+<ul>
+<li>Step 1: snpEff Annotation:
+<ul>
+<li>Check if chromosome names are in ‘human readable’ format (i.e.: 1, 2, 20, X, Y, ..) instead of NCBI notation (i.e.: NC_000001.11, NC_000003.12, NC_000011.10, etc.)</li>
+<li>To change from ‘NC_000011.10’ to ‘11’, run the following commands:
+<ul>
+<li>Compress the VCF file: <code>bgzip -c variants.vcf &gt; variants.vcf.gz</code>
+</li>
+<li>Index the VCF file: <code>tabix -p vcf variants.vcf.gz</code>
+</li>
+<li>Rename chromosomes using <code>bcftools</code>: <code>bcftools annotate --rename-chr /data/datasets/dbNSFP/chr_conversion_table.txt variants.vcf.gz &gt; variants.vcf</code> Note: overwrites original ‘variants.vcf’ (thanks to Mirte for creating the conversion table)</li>
+</ul>
+</li>
+<li>Run <code>snpEff</code> for <em>human</em> genome: <code>java -jar /data/datasets/dbNSFP/snpEff/snpEff.jar GRCh38.105 variants.vcf &gt; variants_step1.vcf</code>
+</li>
+<li>(For module 2.1.2, the <code>GRCm39.105</code> Mus musculus database is also available.</li>
+</ul>
+</li>
+</ul>
+<p>For step 2, you can upload the file to Galaxy and use SnpSift with dbSNP to get the dbSNP identifiers added. Then, download the VCF file (named <code>variants_step2.vcf</code> in step 3 below) from Galaxy and copy it to your project folder on the network. RStudio can be used to upload/download files to and from our network.</p>
+<ul>
+<li>Step 3: SnpSift dbNSFP annotation:
+<ul>
+<li>Using the output from step 2 (<code>variants_step2.vcf</code>), we will add more annotation from dbNSFP using the following command: <code>java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP4.3c.txt.gz variants_step2.vcf &gt; variants_step3.vcf</code>
+</li>
+</ul>
+</li>
+</ul>
+<p>Note: this uses an older version of dbNSFP (4.3c). Currently, version 4.9a is being downloaded (~30GB) and the manual will be updated once this is ready and tested. Re-running the command on this new database is advised.</p>
+<p>Note: annotating against dbNSFP can take a <em>long</em> time. Make sure to start these command from within a <code>bash</code> chunk in RStudio.</p>
+</div>
 <p>There are multiple methods of annotating found variants. Most of these will require extra data to predict the effect of a variant or to compare it with a known set of variants. Here we use a set of tools that does both types of annotation. See for further details and a manual the <a href="http://pcingola.github.io/SnpEff/">Github documentation</a>.</p>
 <ul>
 <li>
@@ -453,7 +486,7 @@ Step #3 SnpSift - dbNSFP with all options:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2024-09-06.</p>
+    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2024-10-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

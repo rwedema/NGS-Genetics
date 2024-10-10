@@ -108,6 +108,28 @@ knitr::include_graphics("images/upload.png")
 
 ## SnpEff and SnpSift
 
+::: {.rmdnote}
+Note [10/10/2024]: due to issues in Galaxy, steps **1** and **3** have to be done *commandline*:
+
+* Step 1: snpEff Annotation:
+  - Check if chromosome names are in 'human readable' format (i.e.: 1, 2, 20, X, Y, ..) instead of NCBI notation (i.e.: NC_000001.11, NC_000003.12, NC_000011.10, etc.)
+  - To change from 'NC_000011.10' to '11', run the following commands:
+    * Compress the VCF file: `bgzip -c variants.vcf > variants.vcf.gz`
+    * Index the VCF file: `tabix -p vcf variants.vcf.gz`
+    * Rename chromosomes using `bcftools`: `bcftools annotate --rename-chr /data/datasets/dbNSFP/chr_conversion_table.txt variants.vcf.gz > variants.vcf` Note: overwrites original 'variants.vcf' (thanks to Mirte for creating the conversion table)
+  - Run `snpEff` for *human* genome: `java -jar /data/datasets/dbNSFP/snpEff/snpEff.jar GRCh38.105 variants.vcf > variants_step1.vcf`
+  - (For module 2.1.2, the `GRCm39.105` Mus musculus database is also available. 
+  
+For step 2, you can upload the file to Galaxy and use SnpSift with dbSNP to get the dbSNP identifiers added. Then, download the VCF file (named `variants_step2.vcf` in step 3 below) from Galaxy and copy it to your project folder on the network. RStudio can be used to upload/download files to and from our network.
+
+* Step 3: SnpSift dbNSFP annotation:
+  - Using the output from step 2 (`variants_step2.vcf`), we will add more annotation from dbNSFP using the following command: `java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP4.3c.txt.gz variants_step2.vcf > variants_step3.vcf`
+  
+Note: this uses an older version of dbNSFP (4.3c). Currently, version 4.9a is being downloaded (~30GB) and the manual will be updated once this is ready and tested. Re-running the command on this new database is advised.
+
+Note: annotating against dbNSFP can take a *long* time. Make sure to start these command from within a `bash` chunk in RStudio.
+:::
+
 There are multiple methods of annotating found variants. Most of these will require extra data to predict the effect of a variant or to compare it with a known set of variants. Here we use a set of tools that does both types of annotation. See for further details and a manual the [Github documentation](http://pcingola.github.io/SnpEff/).
 
 * **`SnpEff`**: *is a variant annotation and effect prediction tool. It annotates and predicts the effects of genetic variants (such as amino acid changes)*
