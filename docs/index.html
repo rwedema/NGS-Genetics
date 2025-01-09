@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>About | Case background information and exercises</title>
+<title>About | Minor DSLS - Genomics Project</title>
 <meta name="author" content="Marcel Kempenaar and Ronald Wedema">
-<meta name="description" content="This is the background and assignments needed to complete module 2.1.1">
+<meta name="description" content="This is the background and assignments needed to complete the DSLS Genomics project">
 <meta name="generator" content="bookdown 0.36 with bs4_book()">
-<meta property="og:title" content="About | Case background information and exercises">
+<meta property="og:title" content="About | Minor DSLS - Genomics Project">
 <meta property="og:type" content="book">
-<meta property="og:description" content="This is the background and assignments needed to complete module 2.1.1">
+<meta property="og:description" content="This is the background and assignments needed to complete the DSLS Genomics project">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="About | Case background information and exercises">
-<meta name="twitter:description" content="This is the background and assignments needed to complete module 2.1.1">
+<meta name="twitter:title" content="About | Minor DSLS - Genomics Project">
+<meta name="twitter:description" content="This is the background and assignments needed to complete the DSLS Genomics project">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Case background information and exercises</a>
+        <a href="index.html" title="">Minor DSLS - Genomics Project</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -45,10 +45,12 @@
         <ul class="book-toc list-unstyled">
 <li><a class="active" href="index.html">About</a></li>
 <li><a class="" href="intro.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></li>
-<li><a class="" href="mapping.html"><span class="header-section-number">2</span> Read Mapping</a></li>
-<li><a class="" href="pileup.html"><span class="header-section-number">3</span> Analysis of Variants</a></li>
-<li><a class="" href="variants.html"><span class="header-section-number">4</span> Finding and Annotating Variants</a></li>
-<li><a class="" href="presentation.html"><span class="header-section-number">5</span> Presentation</a></li>
+<li><a class="" href="quality-control.html"><span class="header-section-number">2</span> Data and quality control</a></li>
+<li><a class="" href="mapping.html"><span class="header-section-number">3</span> Read Mapping</a></li>
+<li><a class="" href="mapping-qc.html"><span class="header-section-number">4</span> Mapping Quality Control</a></li>
+<li><a class="" href="variant-calling.html"><span class="header-section-number">5</span> Analysis of Variants</a></li>
+<li><a class="" href="variant-annotation.html"><span class="header-section-number">6</span> Variant Annotation</a></li>
+<li><a class="" href="variant-visualization.html"><span class="header-section-number">7</span> Variant Visualization</a></li>
 </ul>
 
         <div class="book-extra">
@@ -59,34 +61,26 @@
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="about" class="section level1 unnumbered">
 <h1>About<a class="anchor" aria-label="anchor" href="#about"><i class="fas fa-link"></i></a>
 </h1>
-<p>This is the syllabus for the module <em>2.1.1 NGS and Genetics</em>. This bookdown document will provide you with enough background material and exercises to complete the Case part of the module. Also links to the genetics presentations given can be found in the schedule here.</p>
+<p>This is the syllabus for the Genomics Project. This document will provide you with enough background material and exercises to complete the project. In this project you will work in groups to determine variants from a DNA sequence data set of a given condition that may contribute to the development of this condition. We do this by processing raw sequencing data to eventually annotate found variants for their relation to a certain condition. Most aspects of this analysis will be performed in the workflow manager Galaxy with several extra steps that require programming in R. Every step taken will be documented in an RMarkdown lab journal, starting with quality control of the raw NGS reads, mapping these to a reference genome, reporting on the achieved coverage, finding and annotating variants and finally researching the found variants on their relation to the condition.</p>
 <div id="usage" class="section level2 unnumbered">
 <h2>Usage<a class="anchor" aria-label="anchor" href="#usage"><i class="fas fa-link"></i></a>
 </h2>
-<p>Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case and preparing for the genetics exam.</p>
+<p>Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case.</p>
 </div>
 <div id="learning-outcomes" class="section level2 unnumbered">
 <h2>Learning outcomes<a class="anchor" aria-label="anchor" href="#learning-outcomes"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
-<li>You have a good understanding of all the concepts of the central dogma, different types of macromolecules, and enzymes, and you can describe their interconnections.</li>
-<li>You can identify various mechanisms of gene regulation and predict the effects of different mutations on gene expression.</li>
-<li>You are familiar with the different genome structures and can detect, filter, and annotate them in an NGS (Next-Generation Sequencing) dataset using appropriate tools and techniques.</li>
-<li>You have a clear understanding of the quality requirements for NGS data, depending on both the NGS technique used and the objective. You can also apply tools to assess and improve the quality of the data.</li>
-<li>You are aware of the available tools and algorithms for mapping NGS reads to a reference genome, and you can justify which one is best suited for a given dataset and question.</li>
-<li>You can provide arguments and present the choices made during the process of achieving a high-quality mapping.</li>
+<li>You know the different types of possible variants occurring in DNA-sequences and can detect, filter and annotate these using the proper tools and techniques.</li>
+<li>You have a good overview of the quality requirements of NGS data, depending on both the NGS technique used as well as the purpose of the analysis. Furthermore, you can apply the tools to gain insight into and improve this quality.</li>
+<li>You keep an RMarkdown lab journal that documents all steps taken and records results so that the analysis is reproducible.</li>
+<li>You develop a simple Galaxy workflow for finding and annotating variants in NGS data</li>
 </ul>
 </div>
 <div id="end-products" class="section level2 unnumbered">
 <h2>End Products<a class="anchor" aria-label="anchor" href="#end-products"><i class="fas fa-link"></i></a>
 </h2>
-<p>The end products of this course are the following two items:</p>
-<ul>
-<li>
-<strong>The genetics exam</strong> (weight 3/5)</li>
-<li>
-<strong>Analysis of the selected case</strong> (weight 2/5)</li>
-</ul>
+<p>The end product of this course is a lab journal document resulting from a knitted RMarkdown file describing the analysis steps taken for completing the project.</p>
 <p>The two items above are weighted and combined to get a single final grade. See also the Rubric for the learning outcomes and how they are graded.</p>
 </div>
 <div id="rubric" class="section level2 unnumbered">
@@ -105,113 +99,89 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>Genetics exam</td>
-<td>The exam has been concluded with a passing grade.</td>
-<td>15</td>
+<td>Lab Journal</td>
+<td>The lab journal is complete and contains motivation for taken steps and describes these steps in a reproducible manner</td>
+<td>2</td>
 </tr>
 <tr class="even">
-<td>Case</td>
-<td>The student writes a plan of approach and utilizes proper reasoning to justify the selection of the chosen tools.</td>
-<td>3</td>
-</tr>
-<tr class="odd">
-<td>Case</td>
-<td>The presentation provides a clear overview of the steps taken, and the final results are expressed in a clear and accurate manner.</td>
-<td>4</td>
-</tr>
-<tr class="even">
-<td>Case</td>
-<td>Questions regarding the presentation and the obtained results of the worked-out case are answered clearly and in a structured manner.</td>
+<td>Lab Journal</td>
+<td>Based on results, correct (partial) conclusions are given. Results are supported by figures and these are correctly interpreted</td>
 <td>2</td>
 </tr>
 <tr class="odd">
-<td>Case</td>
-<td>During the lessons and in response to presentations by others, the student asks meaningful, focused, and clear questions, and also contributes additional information to the answers provided by others.</td>
+<td>Workflow</td>
+<td>The re-usable Galaxy workflow consists of and implements the correct tools to perform NGS quality control, mapping against a reference genome as well as finding and annotating variants</td>
 <td>1</td>
 </tr>
 </tbody>
 </table></div>
 </div>
-<div id="schedule" class="section level2 unnumbered">
-<h2>Schedule<a class="anchor" aria-label="anchor" href="#schedule"><i class="fas fa-link"></i></a>
+<div id="planning" class="section level2 unnumbered">
+<h2>Planning<a class="anchor" aria-label="anchor" href="#planning"><i class="fas fa-link"></i></a>
 </h2>
-<p>The subjects discussed during the genetics lessons can be found in the <a href=""></a> book. The following chapters are discussed during the genetics lessons:</p>
-<ul>
-<li>Biological macromolecules: <a href="https://openstax.org/books/biology-2e/pages/3-4-proteins">3.4</a>, <a href="https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids">3.5</a>
-</li>
-<li>DNA structure and function (en mutatie): <a href="https://openstax.org/books/biology-2e/pages/14-2-dna-structure-and-sequencing">14.2</a>, <a href="https://openstax.org/books/biology-2e/pages/14-3-basics-of-dna-replication">14.3</a>, <a href="https://openstax.org/books/biology-2e/pages/14-4-dna-replication-in-prokaryotes">14.4</a>, <a href="https://openstax.org/books/biology-2e/pages/14-5-dna-replication-in-eukaryotes">14.5</a>, <a href="https://openstax.org/books/biology-2e/pages/14-6-dna-repair">14.6</a>
-</li>
-<li>Genes and Proteins: <a href="https://openstax.org/books/biology-2e/pages/15-1-the-genetic-code">15.1</a>, <a href="https://openstax.org/books/biology-2e/pages/15-2-prokaryotic-transcription">15.2</a>, <a href="https://openstax.org/books/biology-2e/pages/15-3-eukaryotic-transcription">15.3</a>, <a href="https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes">15.4</a>, <a href="https://openstax.org/books/biology-2e/pages/15-5-ribosomes-and-protein-synthesis">15.5</a>
-</li>
-<li>Gene expression: <a href="https://openstax.org/books/biology-2e/pages/16-1-regulation-of-gene-expression">16.1</a>, <a href="https://openstax.org/books/biology-2e/pages/16-2-prokaryotic-gene-regulation">16.2</a>, <a href="https://openstax.org/books/biology-2e/pages/16-3-eukaryotic-epigenetic-gene-regulation">16.3</a>, <a href="https://openstax.org/books/biology-2e/pages/16-4-eukaryotic-transcription-gene-regulation">16.4</a>, <a href="https://openstax.org/books/biology-2e/pages/16-5-eukaryotic-post-transcriptional-gene-regulation">16.5</a>, <a href="https://openstax.org/books/biology-2e/pages/16-6-eukaryotic-translational-and-post-translational-gene-regulation">16.6</a>, <a href="https://openstax.org/books/biology-2e/pages/16-7-cancer-and-gene-regulation">16.7</a>
-</li>
-<li>Biotechnology and genomics: <a href="https://openstax.org/books/biology-2e/pages/17-1-biotechnology">17.1</a>, <a href="https://openstax.org/books/biology-2e/pages/17-2-mapping-genomes">17.2</a>, <a href="https://openstax.org/books/biology-2e/pages/17-3-whole-genome-sequencing">17.3</a>, <a href="https://openstax.org/books/biology-2e/pages/17-4-applying-genomics">17.4</a> (part regarding metagenomics), <a href="https://openstax.org/books/biology-2e/pages/17-5-genomics-and-proteomics">17.5</a>
-</li>
-</ul>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="23%">
-<col width="23%">
-<col width="23%">
-<col width="29%">
+<col width="20%">
+<col width="58%">
+<col width="20%">
 </colgroup>
 <thead><tr class="header">
 <th>Week</th>
 <th>Topic</th>
-<th>Case Chapter</th>
-<th>Genetics Subject</th>
+<th>Chapter(s)</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>NGS Techniques, Quality Control</td>
-<td><a href="intro.html#intro">Chapter 1</a></td>
-<td>Central Dogma en NGS techniques</td>
+<td>Galaxy Introduction, Data Preprocessing (Quality Control)</td>
+<td>
+<a href="intro.html#intro">1</a>, <a href="quality-control.html#quality-control">2</a>
+</td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>Read Mapping</td>
-<td><a href="mapping.html#mapping">Chapter 2</a></td>
-<td>Transcription &amp; Translation</td>
+<td>Read Mapping (BWA)</td>
+<td><a href="mapping.html#mapping">3</a></td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>Pileup</td>
-<td><a href="pileup.html#pileup">Chapter 3</a></td>
-<td>Mutations and effects thereof</td>
+<td>Mapping Quality [R assignment]</td>
+<td><a href="mapping-qc.html#mapping-qc">4</a></td>
 </tr>
 <tr class="even">
 <td>4</td>
-<td>Variant Calling</td>
-<td><a href="variants.html#variants">Chapter 4</a></td>
-<td>Gene Regulation</td>
+<td>Variant Calling (Lofreq)</td>
+<td><a href="variant-calling.html#variant-calling">5</a></td>
 </tr>
 <tr class="odd">
 <td>5</td>
-<td>Finalize Case</td>
-<td></td>
-<td></td>
+<td>Variant Filtering [R assignment]</td>
+<td><a href="variant-calling.html#variant-filtering">5.2</a></td>
 </tr>
 <tr class="even">
 <td>6</td>
-<td>Finalize Case</td>
-<td></td>
-<td></td>
+<td>Variant Annotation</td>
+<td><a href="variant-annotation.html#variant-annotation">6</a></td>
 </tr>
 <tr class="odd">
 <td>7</td>
-<td>Presentation case</td>
-<td><a href="presentation.html#presentation">Chapter 5</a></td>
-<td></td>
+<td>Variant Annotation</td>
+<td><a href="variant-annotation.html#variant-annotation">6</a></td>
 </tr>
 <tr class="even">
 <td>8</td>
-<td>Genetics exam</td>
-<td></td>
-<td></td>
+<td>Finilizing Analysis</td>
+<td><a href="variant-visualization.html#variant-visualization">7</a></td>
 </tr>
 </tbody>
 </table></div>
+</div>
+<div id="manual-todos" class="section level2 unnumbered">
+<h2>Manual TODOs<a class="anchor" aria-label="anchor" href="#manual-todos"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>
+</ul>
 </div>
 </div>
   <div class="chapter-nav">
@@ -225,7 +195,8 @@
 <li><a class="nav-link" href="#learning-outcomes">Learning outcomes</a></li>
 <li><a class="nav-link" href="#end-products">End Products</a></li>
 <li><a class="nav-link" href="#rubric">Rubric</a></li>
-<li><a class="nav-link" href="#schedule">Schedule</a></li>
+<li><a class="nav-link" href="#planning">Planning</a></li>
+<li><a class="nav-link" href="#manual-todos">Manual TODOs</a></li>
 </ul>
 
       <div class="book-extra">
@@ -243,7 +214,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2024-10-10.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-01-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

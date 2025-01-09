@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Variant Visualization | Minor DSLS - Genomics Project</title>
+<meta name="author" content="Marcel Kempenaar and Ronald Wedema">
+<meta name="description" content="As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section,...">
+<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta property="og:title" content="7 Variant Visualization | Minor DSLS - Genomics Project">
+<meta property="og:type" content="book">
+<meta property="og:description" content="As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section,...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Variant Visualization | Minor DSLS - Genomics Project">
+<meta name="twitter:description" content="As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section,...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.1/transition.js"></script><script src="libs/bs3compat-0.5.1/tabs.js"></script><script src="libs/bs3compat-0.5.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Minor DSLS - Genomics Project</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">About</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></li>
+<li><a class="" href="quality-control.html"><span class="header-section-number">2</span> Data and quality control</a></li>
+<li><a class="" href="mapping.html"><span class="header-section-number">3</span> Read Mapping</a></li>
+<li><a class="" href="mapping-qc.html"><span class="header-section-number">4</span> Mapping Quality Control</a></li>
+<li><a class="" href="variant-calling.html"><span class="header-section-number">5</span> Analysis of Variants</a></li>
+<li><a class="" href="variant-annotation.html"><span class="header-section-number">6</span> Variant Annotation</a></li>
+<li><a class="active" href="variant-visualization.html"><span class="header-section-number">7</span> Variant Visualization</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/rwedema/NGS-Genetics/">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="variant-visualization" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Variant Visualization<a class="anchor" aria-label="anchor" href="#variant-visualization"><i class="fas fa-link"></i></a>
+</h1>
+<p>As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section, we will discuss a few options for visualizing the data.</p>
+<p>Besides a graphical representation, the complete table with all variants and - importantly - the reason why there were selected should be included in the presentation.</p>
+<p><strong>LollipopPlot</strong></p>
+<p>This visualization can be helpful in cases where many of the top-variants are located within a single gene. The plot shows the position of the variant on the x-axis and a score on the y-axis. The score can be the <em>AF</em> value from the VCF file or any other score that was added through the annotation steps. Further data (‘dimensions’) can be added through changes to:</p>
+<ul>
+<li>The color of the lollipop (e.g. red for a high score, green for a low score)</li>
+<li>The size of the lollipop (e.g. the size of the lollipop is proportional to the score)</li>
+<li>The symbol of the lollipop (e.g. a star for a variant that is validated)</li>
+<li>A value displayed within each node</li>
+<li>Text labels attached to the nodes</li>
+</ul>
+<p>There are multiple options for drawing these types of graphs but here we demonstrate the use of the <code>lolliplot</code> function from the <code>trackViewer</code> package in R, see the <a href="https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/lollipopPlot.html">online manual</a> for many examples on how to create this plot. This package is not installed by default in, so you have to install it yourself:</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"trackViewer"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">trackViewer</span><span class="op">)</span></span></code></pre></div>
+<p>It requires two data sources for our use case:</p>
+<ul>
+<li>The <em>sample</em> data which should be a <code>GRanges</code> object containing the <strong>variants</strong>
+<ul>
+<li>the example below shows how we use the output of <code>findOverlaps</code> to get the variants for a single gene</li>
+</ul>
+</li>
+<li>The <em>feature</em> data containing the <strong>gene</strong> on which these variants are located, also in <code>GRanges</code> format
+<ul>
+<li>to get all exons for the selected gene we use our BED-data which is already in an <code>GRanges</code> object.</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Preparing the data; first attach the gene names to the findOverlaps output</span></span>
+<span><span class="va">overlap_df</span><span class="op">$</span><span class="va">Gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">bed_data</span><span class="op">)</span><span class="op">[</span><span class="va">overlap_df</span><span class="op">$</span><span class="va">subjectHits</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Then, use this to get all variants from a single gene ('RET' in this example)</span></span>
+<span><span class="co"># Note that the vcf_Granges already containes the Allele frequency values (AF)</span></span>
+<span><span class="va">sample.gr</span> <span class="op">&lt;-</span> <span class="va">vcf_GRanges</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/unlist.html">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/subset.html">subset</a></span><span class="op">(</span><span class="va">overlap_df</span>, <span class="va">Gene</span> <span class="op">==</span> <span class="st">"RET"</span>, select <span class="op">=</span> <span class="va">queryHits</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># The features are taken from the GRangesList object from chapter 3, assignment 3</span></span>
+<span><span class="va">features</span> <span class="op">&lt;-</span> <span class="va">bed_data</span><span class="op">$</span><span class="va">RET</span></span></code></pre></div>
+<p>This basic example shows 9 variants for the RET gene, with the <em>AF</em> value as the score (scaled to a range of 0-100%). The plot shows the position of the variant on the x-axis and the allele-frequency on the y-axis.</p>
+<p><strong>Note</strong>: scores are a bit weird in this plot; for instance you cannot show values ranging from 0 to 1 (such as SIFT scores). Values between 1-10 are shown as stacked nodes (see the <a href="https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/lollipopPlot.html#Change_the_height_of_a_lollipop_plot">Change the height of a lollipop plot</a> section of the manual). A safe solution is to scale values from 0-100 as shown below. Alternatively, we can use the stacks to show the amount of splice variants at a single location (up to a maximum of 10).</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Calculate AF as percentage and set as 'score' field</span></span>
+<span><span class="va">sample.gr</span><span class="op">$</span><span class="va">score</span> <span class="op">&lt;-</span> <span class="va">sample.gr</span><span class="op">$</span><span class="va">AF</span> <span class="op">*</span> <span class="fl">100</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sample.gr</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## GRanges object with 6 ranges and 2 metadata columns:
+##       seqnames    ranges strand |     score        AF
+##          &lt;Rle&gt; &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt; &lt;numeric&gt;
+##   [1]    chr10  43077059      * |   92.8571  0.928571
+##   [2]    chr10  43077063      * |   60.0000  0.600000
+##   [3]    chr10  43100520      * |   99.8780  0.998780
+##   [4]    chr10  43111239      * |  100.0000  1.000000
+##   [5]    chr10  43118395      * |   44.8733  0.448733
+##   [6]    chr10  43119646      * |   45.9846  0.459846
+##   -------
+##   seqinfo: 21 sequences from an unspecified genome; no seqlengths</code></pre>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># RET gene exons</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## GRanges object with 6 ranges and 0 metadata columns:
+##       seqnames            ranges strand
+##          &lt;Rle&gt;         &lt;IRanges&gt;  &lt;Rle&gt;
+##   RET    chr10 43077026-43077331      *
+##   RET    chr10 43100458-43100722      *
+##   RET    chr10 43102341-43102629      *
+##   RET    chr10 43104731-43105193      *
+##   RET    chr10 43106375-43106571      *
+##   RET    chr10 43109030-43109230      *
+##   -------
+##   seqinfo: 22 sequences from an unspecified genome; no seqlengths</code></pre>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="images/lolliplot_1.png" width="672"></div>
+<p>Simple improvements are to increase the height and color of the exons (all exons share the same value):</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">features</span><span class="op">$</span><span class="va">height</span> <span class="op">&lt;-</span> <span class="fl">0.03</span></span>
+<span><span class="va">features</span><span class="op">$</span><span class="va">fill</span> <span class="op">&lt;-</span> <span class="st">"lightblue"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="images/lolliplot_2.png" width="672"></div>
+<p>Adding labels to the variants, in this case some random dbsnp IDs but these could be any other value available:</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Generate random dbsnp IDs</span></span>
+<span><span class="va">dbsnp_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"rs"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">239283</span><span class="op">:</span><span class="fl">532801</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">sample.gr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Add names to the IRanges object within the GRanges</span></span>
+<span><span class="va">sample.gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">dbsnp_ids</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="images/lolliplot_3.png" width="672"></div>
+<p>Changing the color based on the <em>effect impact</em> from the <code>SnpEff</code> Galaxy tool</p>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">effect</span> <span class="op">&lt;-</span>       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MODERATE"</span>, <span class="st">"LOW"</span>, <span class="st">"MODIFIER"</span>, <span class="st">"HIGH"</span><span class="op">)</span></span>
+<span><span class="va">effect.color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>,   <span class="st">"blue"</span>,<span class="st">"green"</span>,    <span class="st">"red"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Randomly select an effect for each variant</span></span>
+<span><span class="va">sample.gr</span><span class="op">$</span><span class="va">effect</span> <span class="op">&lt;-</span> <span class="va">effect</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">sample.gr</span><span class="op">)</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Given the effect, get the matching color</span></span>
+<span><span class="va">sample.gr</span><span class="op">$</span><span class="va">color</span> <span class="op">&lt;-</span> <span class="va">effect.color</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/match.html">match</a></span><span class="op">(</span><span class="va">sample.gr</span><span class="op">$</span><span class="va">effect</span>, <span class="va">effect</span><span class="op">)</span><span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="images/lolliplot_4.png" width="672"></div>
+<p><strong>Dandelion Plot</strong></p>
+<p>If there are a lot of variants close together, an alternative can be the <em>dandelion plot</em> which is a variation of the lollipop plot where the variants are grouped together based on their position. It’s available from the same library, see the <a href="https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/trackViewer.html#Dandelion_Plot">online manual</a> for more information.</p>
+<div id="galaxy-workflow" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> Galaxy Workflow<a class="anchor" aria-label="anchor" href="#galaxy-workflow"><i class="fas fa-link"></i></a>
+</h2>
+<p>Now that we have completed our analysis steps we can create a <strong>Galaxy workflow</strong>. In this workflow we will combine all the tools that we have used in Galaxy (FastQ files –&gt; SnpEff/SnpSift annotated output) so that when we receive new patient data in the future we can analyze that dataset with a single click!</p>
+<p>There are many <a href="https://galaxyproject.org/learn/advanced-workflow/">online resources</a> giving instructions and examples for creating Galaxy workflows, use these resources to create a workflow including all used analysis tools. Note that you can convert Galaxy histories into workflow(s), which saves a lot of time with configuring all the tools from that workfow.</p>
+<p>Once you have a workflow, make sure it is shared with your project partner and create a screenshot of it for your report (try to fit all tools in a single image).</p>
+<p><strong>Note</strong>; this assignment has a very low priority and should be done once you are satisfied with all other parts of your work! At the bare minimum, open your last history (including SnpEff/SnpSift) and explore/ play with the <code>Extract Workflow</code> option.</p>
+</div>
+<div id="comparative-genomics-optional" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> Comparative Genomics [OPTIONAL]<a class="anchor" aria-label="anchor" href="#comparative-genomics-optional"><i class="fas fa-link"></i></a>
+</h2>
+<p>With the complete analysis nicely packaged into a single workflow, one thing that we can use it for is to do <em>comparative genomics</em>. This term contains many different types of comparisons and is described on Wikipedia as</p>
+<blockquote>
+<p><em>Comparative genomics is a field of biological research in which the genomic features of different organisms are compared.</em></p>
+</blockquote>
+<p>These features can be of many types and in our case they are the variants. A simple tool is available in Galaxy called <em>VCF-VCFintersect</em> that performs either <em>intersection</em> or <em>union</em> on two VCF datasets containing variant data. This tool compares two VCF files and retains either the shared variants (intersection) or all variants combined (union) as shown in the diagram below.</p>
+<div class="inline-figure"><img src="images/intersect_union.png" width="310"></div>
+<p><strong>Optional Assignment</strong></p>
+<ul>
+<li>Process another patient sample (use a new history) by running your complete workflow.
+<ul>
+<li>Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the LoFreq tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff</li>
+</ul>
+</li>
+<li>Calculate the following three statistics:
+<ul>
+<li>The number of variants unique to patient 1</li>
+<li>The number of variants unique to patient 2</li>
+<li>The number of variants found in both patients</li>
+</ul>
+</li>
+<li>Create a VENN-diagram (like the image above) displaying these numbers.</li>
+</ul>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="variant-annotation.html"><span class="header-section-number">6</span> Variant Annotation</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#variant-visualization"><span class="header-section-number">7</span> Variant Visualization</a></li>
+<li><a class="nav-link" href="#galaxy-workflow"><span class="header-section-number">7.1</span> Galaxy Workflow</a></li>
+<li><a class="nav-link" href="#comparative-genomics-optional"><span class="header-section-number">7.2</span> Comparative Genomics [OPTIONAL]</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/rwedema/NGS-Genetics//blob/master/07-visualization.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rwedema/NGS-Genetics//edit/master/07-visualization.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-01-09.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

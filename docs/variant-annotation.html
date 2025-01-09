@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Week 5 Variant Annotation | Case background information and exercises</title>
+<title>6 Variant Annotation | Minor DSLS - Genomics Project</title>
 <meta name="author" content="Marcel Kempenaar and Ronald Wedema">
 <meta name="description" content="In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with...">
 <meta name="generator" content="bookdown 0.36 with bs4_book()">
-<meta property="og:title" content="Week 5 Variant Annotation | Case background information and exercises">
+<meta property="og:title" content="6 Variant Annotation | Minor DSLS - Genomics Project">
 <meta property="og:type" content="book">
 <meta property="og:description" content="In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Week 5 Variant Annotation | Case background information and exercises">
+<meta name="twitter:title" content="6 Variant Annotation | Minor DSLS - Genomics Project">
 <meta name="twitter:description" content="In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -31,7 +31,7 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="">Case background information and exercises</a>
+        <a href="index.html" title="">Minor DSLS - Genomics Project</a>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -44,11 +44,13 @@
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">About</a></li>
-<li><a class="" href="intro-ngs-and-genetics-project.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></li>
-<li><a class="" href="read-mapping.html"><span class="header-section-number">2</span> Read Mapping</a></li>
-<li><a class="" href="analysis-of-variants.html"><span class="header-section-number">3</span> Analysis of Variants</a></li>
-<li><a class="" href="finding-variants-using-lofreq.html"><span class="header-section-number">4</span> Finding Variants using LoFreq</a></li>
-<li><a class="active" href="variant-annotation.html"><span class="header-section-number">5</span> Variant Annotation</a></li>
+<li><a class="" href="intro.html"><span class="header-section-number">1</span> Intro NGS and Genetics Project</a></li>
+<li><a class="" href="quality-control.html"><span class="header-section-number">2</span> Data and quality control</a></li>
+<li><a class="" href="mapping.html"><span class="header-section-number">3</span> Read Mapping</a></li>
+<li><a class="" href="mapping-qc.html"><span class="header-section-number">4</span> Mapping Quality Control</a></li>
+<li><a class="" href="variant-calling.html"><span class="header-section-number">5</span> Analysis of Variants</a></li>
+<li><a class="active" href="variant-annotation.html"><span class="header-section-number">6</span> Variant Annotation</a></li>
+<li><a class="" href="variant-visualization.html"><span class="header-section-number">7</span> Variant Visualization</a></li>
 </ul>
 
         <div class="book-extra">
@@ -56,16 +58,49 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="variant-annotation" class="section level1" number="5">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="variant-annotation" class="section level1" number="6">
 <h1>
-<span class="header-section-number">Week 5</span> Variant Annotation<a class="anchor" aria-label="anchor" href="#variant-annotation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6</span> Variant Annotation<a class="anchor" aria-label="anchor" href="#variant-annotation"><i class="fas fa-link"></i></a>
 </h1>
 <p>In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with the <code>LoFreq</code> tool. This involves comparing all our variants against a number of databases containing <em>annotation data</em> for known variants. We will use our filtered <code>VCF</code>-file resulting from LoFreq so we need to upload our newly created VCF file to Galaxy. Make sure that Galaxy recognizes the file type by selecting the correct file type when uploading or change it afterwards using the <em>Edit attributes</em> button.</p>
 <div class="inline-figure"><img src="images/upload.png" width="432"></div>
-<div id="snpeff-and-snpsift" class="section level2" number="5.1">
+<div id="snpeff-and-snpsift" class="section level2" number="6.1">
 <h2>
-<span class="header-section-number">5.1</span> SnpEff and SnpSift<a class="anchor" aria-label="anchor" href="#snpeff-and-snpsift"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.1</span> SnpEff and SnpSift<a class="anchor" aria-label="anchor" href="#snpeff-and-snpsift"><i class="fas fa-link"></i></a>
 </h2>
+<div class="rmdnote">
+<p>Note [10/10/2024]: due to issues in Galaxy, steps <strong>1</strong> and <strong>3</strong> have to be done <em>commandline</em>:</p>
+<ul>
+<li>Step 1: snpEff Annotation:
+<ul>
+<li>Check if chromosome names are in ‘human readable’ format (i.e.: 1, 2, 20, X, Y, ..) instead of NCBI notation (i.e.: NC_000001.11, NC_000003.12, NC_000011.10, etc.)</li>
+<li>To change from ‘NC_000011.10’ to ‘11’, run the following commands:
+<ul>
+<li>Compress the VCF file: <code>bgzip -c variants.vcf &gt; variants.vcf.gz</code>
+</li>
+<li>Index the VCF file: <code>tabix -p vcf variants.vcf.gz</code>
+</li>
+<li>Rename chromosomes using <code>bcftools</code>: <code>bcftools annotate --rename-chr /data/datasets/dbNSFP/chr_conversion_table.txt variants.vcf.gz &gt; variants.vcf</code> Note: overwrites original ‘variants.vcf’ (thanks to Mirte for creating the conversion table)</li>
+</ul>
+</li>
+<li>Run <code>snpEff</code> for <em>human</em> genome: <code>java -jar /data/datasets/dbNSFP/snpEff/snpEff.jar GRCh38.105 variants.vcf &gt; variants_step1.vcf</code>
+</li>
+<li>(For module 2.1.2, the <code>GRCm39.105</code> Mus musculus database is also available.</li>
+</ul>
+</li>
+</ul>
+<p>For step 2, you can upload the file to Galaxy and use SnpSift with dbSNP to get the dbSNP identifiers added. Then, download the VCF file (named <code>variants_step2.vcf</code> in step 3 below) from Galaxy and copy it to your project folder on the network. RStudio can be used to upload/download files to and from our network.</p>
+<ul>
+<li>Step 3: SnpSift dbNSFP annotation:
+<ul>
+<li>Using the output from step 2 (<code>variants_step2.vcf</code>), we will add more annotation from dbNSFP using the following command: <code>java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP4.3c.txt.gz variants_step2.vcf &gt; variants_step3.vcf</code>
+</li>
+</ul>
+</li>
+</ul>
+<p>Note: this uses an older version of dbNSFP (4.3c). Currently, version 4.9a is being downloaded (~30GB) and the manual will be updated once this is ready and tested. Re-running the command on this new database is advised.</p>
+<p>Note: annotating against dbNSFP can take a <em>long</em> time. Make sure to start these command from within a <code>bash</code> chunk in RStudio.</p>
+</div>
 <p>There are multiple methods of annotating found variants. Most of these will require extra data to predict the effect of a variant or to compare it with a known set of variants. Here we use a set of tools that does both types of annotation. See for further details and a manual the <a href="http://pcingola.github.io/SnpEff/">Github documentation</a>.</p>
 <ul>
 <li>
@@ -150,9 +185,8 @@ Step #3 SnpSift - dbNSFP with all options:
 ----------
 
 -->
-<div id="assignment" class="section level3" number="5.1.1">
-<h3>
-<span class="header-section-number">5.1.1</span> Assignment<a class="anchor" aria-label="anchor" href="#assignment"><i class="fas fa-link"></i></a>
+<div id="assignment" class="section level3 unnumbered">
+<h3>Assignment<a class="anchor" aria-label="anchor" href="#assignment"><i class="fas fa-link"></i></a>
 </h3>
 <ul>
 <li>Create a table in your report where you summarize the added annotation data (very!) briefly;
@@ -182,14 +216,14 @@ Step #3 SnpSift - dbNSFP with all options:
 </ul>
 </div>
 </div>
-<div id="programming-assignment-analyzing-variant-annotation" class="section level2" number="5.2">
+<div id="programming-assignment-analyzing-variant-annotation" class="section level2" number="6.2">
 <h2>
-<span class="header-section-number">5.2</span> Programming Assignment; Analyzing Variant Annotation<a class="anchor" aria-label="anchor" href="#programming-assignment-analyzing-variant-annotation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2</span> Programming Assignment; Analyzing Variant Annotation<a class="anchor" aria-label="anchor" href="#programming-assignment-analyzing-variant-annotation"><i class="fas fa-link"></i></a>
 </h2>
 <p>Given the possibly hundreds of annotated variants with data from multiple data sources, it’s time to do one last <em>filtering</em> on the data to come up with a list of variants of which we can say, with some certainty, that they are related to the condition. As with the VCF-filter tool that we’ve written, here too will we check each line and decide if it is a variant worth reporting on. Whether we want to keep a variant or not depends on the annotation added by SnpEff/SnpSift and it is your task to come up with an approach for <strong>combining</strong> data from these data sources to <em>rank</em> the annotated variants.</p>
-<div id="assignment-10-data-preparation" class="section level3" number="5.2.1">
+<div id="assignment-10-data-preparation" class="section level3" number="6.2.1">
 <h3>
-<span class="header-section-number">5.2.1</span> Assignment 10; Data Preparation<a class="anchor" aria-label="anchor" href="#assignment-10-data-preparation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2.1</span> Assignment 10; Data Preparation<a class="anchor" aria-label="anchor" href="#assignment-10-data-preparation"><i class="fas fa-link"></i></a>
 </h3>
 <p>This programming assignment asks to take another good look at the data, but now in R to see if everything is in a suitable format to eventually sort the data and extract a top-set of variants related to the condition. As you have seen, all data is essentially stored in a single column that contains multiple separators (such as <code>|</code> and <code>;</code>). You need to think of and implement a good strategy to convert all this information into a workable data format, such as a data frame.</p>
 <p>There are a few caveats though that can also be seen when looking at the SnpEff report (the ‘stats’ output). For instance, there are two lines in the overview table that describe the amount of variants and the amount of hits in the SnpEff database:</p>
@@ -198,9 +232,8 @@ Step #3 SnpSift - dbNSFP with all options:
 <li><code>Number of effects        1,332</code></li>
 </ul>
 <p>Which means that on average every variant has about 10 (!) hits of which all data is placed in the <code>INFO</code> column (most notably in the <code>ANN</code> part of the <code>INFO</code> column). This is caused most often by multiple transcripts (alternative splicing) being affected by this variant. This makes it very difficult to parse and therefore this section gives tips and example code to assist in that task. With this much data from three different steps it is too complex to assess in a single run so we will assess annotation data step by step.</p>
-<div id="step-1-2-snpeff-ann-data-and-snpsift-clinvar-data" class="section level4" number="5.2.1.1">
-<h4>
-<span class="header-section-number">5.2.1.1</span> Step #1 &amp; #2; SnpEff ANN data and SnpSift ClinVar data<a class="anchor" aria-label="anchor" href="#step-1-2-snpeff-ann-data-and-snpsift-clinvar-data"><i class="fas fa-link"></i></a>
+<div id="step-1-2-snpeff-ann-data-and-snpsift-clinvar-data" class="section level4 unnumbered">
+<h4>Step #1 &amp; #2; SnpEff ANN data and SnpSift ClinVar data<a class="anchor" aria-label="anchor" href="#step-1-2-snpeff-ann-data-and-snpsift-clinvar-data"><i class="fas fa-link"></i></a>
 </h4>
 <p>According to the VCF header, the <code>ANN</code> data contains the values explained in the <a href="https://pcingola.github.io/SnpEff/se_inputoutput/#ann-field-vcf-output-files">SnpEff documentation</a>. Some, or all of them could be of interest. There is a Galaxy tool available to extract interesting fields from the added data.</p>
 <ul>
@@ -227,16 +260,15 @@ Step #3 SnpSift - dbNSFP with all options:
 <p>Note: always include the <code>CHROM POS REF ALT</code> columns which are needed to identify the variant in the original file.</p>
 </div>
 </div>
-<div id="step-3-snpsift-dbnsfp" class="section level4" number="5.2.1.2">
-<h4>
-<span class="header-section-number">5.2.1.2</span> Step #3; SnpSift dbNSFP<a class="anchor" aria-label="anchor" href="#step-3-snpsift-dbnsfp"><i class="fas fa-link"></i></a>
+<div id="step-3-snpsift-dbnsfp" class="section level4 unnumbered">
+<h4>Step #3; SnpSift dbNSFP<a class="anchor" aria-label="anchor" href="#step-3-snpsift-dbnsfp"><i class="fas fa-link"></i></a>
 </h4>
 <p>Similar to the previous step, extract the fields of interest using the <code>SnpSift Extract Fields from a VCF file into a tabular file</code> tool. The <code>dbNSFP</code> entries are all prefixed with <code>dbNSFP_</code>, for instance: <code>dbNSFP_MutationAssessor_score</code> and <code>dbNSFP_SIFT_pred</code>. Once done, download this tabular file too for further analysis.</p>
 </div>
 </div>
-<div id="assignment-11-finding-variants-of-interest" class="section level3" number="5.2.2">
+<div id="assignment-11-finding-variants-of-interest" class="section level3" number="6.2.2">
 <h3>
-<span class="header-section-number">5.2.2</span> Assignment 11; Finding Variants of Interest<a class="anchor" aria-label="anchor" href="#assignment-11-finding-variants-of-interest"><i class="fas fa-link"></i></a>
+<span class="header-section-number">6.2.2</span> Assignment 11; Finding Variants of Interest<a class="anchor" aria-label="anchor" href="#assignment-11-finding-variants-of-interest"><i class="fas fa-link"></i></a>
 </h3>
 <p>Given the knowledge we have on the data stored in the two dataframes, we can now formulate questions for this data to find a set of variants which are most likely linked to the cardiomyopathy condition. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines <em>if</em> someone suffers from cardiomyopathy but also how <em>badly</em> their condition is.</p>
 <p>The physician who diagnoses patients uses the genetic information of the found variants as one of the sources for confirming the condition. However, presenting a list of 100+ variant positions with a list of numbers from some tools is not how that works in practice; we need to present a short, ordered list of variants that can be related to the condition.</p>
@@ -259,75 +291,29 @@ Step #3 SnpSift - dbNSFP with all options:
 </ul>
 </div>
 </div>
-<div id="galaxy-workflow" class="section level2" number="5.3">
-<h2>
-<span class="header-section-number">5.3</span> Galaxy Workflow<a class="anchor" aria-label="anchor" href="#galaxy-workflow"><i class="fas fa-link"></i></a>
-</h2>
-<p>Now that we have completed our analysis steps we can create a <strong>Galaxy workflow</strong>. In this workflow we will combine all the tools that we have used in Galaxy (FastQ files –&gt; SnpEff/SnpSift annotated output) so that when we receive new patient data in the future we can analyze that dataset with a single click!</p>
-<p>There are many <a href="https://galaxyproject.org/learn/advanced-workflow/">online resources</a> giving instructions and examples for creating Galaxy workflows, use these resources to create a workflow including all used analysis tools. Note that you can convert Galaxy histories into workflow(s), which saves a lot of time with configuring all the tools from that workfow.</p>
-<p>Once you have a workflow, make sure it is shared with your project partner and create a screenshot of it for your report (try to fit all tools in a single image).</p>
-<p><strong>Note</strong>; this assignment has a very low priority and should be done once you are satisfied with all other parts of your work! At the bare minimum, open your last history (including SnpEff/SnpSift) and explore/ play with the <code>Extract Workflow</code> option.</p>
-</div>
-<div id="comparative-genomics" class="section level2" number="5.4">
-<h2>
-<span class="header-section-number">5.4</span> Comparative Genomics<a class="anchor" aria-label="anchor" href="#comparative-genomics"><i class="fas fa-link"></i></a>
-</h2>
-<p>With the complete analysis nicely packaged into a single workflow, one thing that we can use it for is to do <em>comparative genomics</em>. This term contains many different types of comparisons and is described on Wikipedia as</p>
-<blockquote>
-<p><em>Comparative genomics is a field of biological research in which the genomic features of different organisms are compared.</em></p>
-</blockquote>
-<p>These features can be of many types and in our case they are the variants. A simple tool is available in Galaxy called <em>VCF-VCFintersect</em> that performs either <em>intersection</em> or <em>union</em> on two VCF datasets containing variant data. This tool compares two VCF files and retains either the shared variants (intersection) or all variants combined (union) as shown in the diagram below.</p>
-<div class="inline-figure"><img src="images/intersect_union.png" width="310"></div>
-<p><strong>Assignment</strong></p>
-<ul>
-<li>Process another patient sample (use a new history) by running your complete workflow.
-<ul>
-<li>Note that you have to filter the resulting SnpEff output (which contains the same data as the VCF file appended with annotation data) with the BED-data. Alternatively, you can stop after the LoFreq tool, download the VCF file, filter this using the BED-data and re-upload the filtered VCF file before continuing with SnpEff</li>
-</ul>
-</li>
-<li>Calculate the following three statistics:
-<ul>
-<li>The number of variants unique to patient 1</li>
-<li>The number of variants unique to patient 2</li>
-<li>The number of variants found in both patients</li>
-</ul>
-</li>
-<li>Create a VENN-diagram (like the image above) displaying these numbers.</li>
-</ul>
-</div>
-<div id="galaxy-data-cleanup" class="section level2" number="5.5">
-<h2>
-<span class="header-section-number">5.5</span> Galaxy Data Cleanup<a class="anchor" aria-label="anchor" href="#galaxy-data-cleanup"><i class="fas fa-link"></i></a>
-</h2>
-<p>As a final closing assignment we ask you to clean up the Galaxy histories to save some space because it is difficult for the admin(s) to perform this cleaning for you. Once all products are finished, please consider removing all large files from your history, such as the outputs of the trimming (Trimmomatic), mapping (BWA), duplicate read marking (MarkDuplicates) and the pileup steps (Mpileup). For the large files, please make sure that you <em>also</em> click the <em>Permanently remove it from disk</em> link.</p>
-
-</div>
 </div>
   <div class="chapter-nav">
-<div class="prev"><a href="finding-variants-using-lofreq.html"><span class="header-section-number">4</span> Finding Variants using LoFreq</a></div>
-<div class="empty"></div>
+<div class="prev"><a href="variant-calling.html"><span class="header-section-number">5</span> Analysis of Variants</a></div>
+<div class="next"><a href="variant-visualization.html"><span class="header-section-number">7</span> Variant Visualization</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#variant-annotation"><span class="header-section-number">5</span> Variant Annotation</a></li>
+<li><a class="nav-link" href="#variant-annotation"><span class="header-section-number">6</span> Variant Annotation</a></li>
 <li>
-<a class="nav-link" href="#snpeff-and-snpsift"><span class="header-section-number">5.1</span> SnpEff and SnpSift</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#assignment"><span class="header-section-number">5.1.1</span> Assignment</a></li></ul>
+<a class="nav-link" href="#snpeff-and-snpsift"><span class="header-section-number">6.1</span> SnpEff and SnpSift</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#assignment">Assignment</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#programming-assignment-analyzing-variant-annotation"><span class="header-section-number">5.2</span> Programming Assignment; Analyzing Variant Annotation</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#assignment-10-data-preparation"><span class="header-section-number">5.2.1</span> Assignment 10; Data Preparation</a></li>
-<li><a class="nav-link" href="#assignment-11-finding-variants-of-interest"><span class="header-section-number">5.2.2</span> Assignment 11; Finding Variants of Interest</a></li>
+<a class="nav-link" href="#programming-assignment-analyzing-variant-annotation"><span class="header-section-number">6.2</span> Programming Assignment; Analyzing Variant Annotation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#assignment-10-data-preparation"><span class="header-section-number">6.2.1</span> Assignment 10; Data Preparation</a></li>
+<li><a class="nav-link" href="#assignment-11-finding-variants-of-interest"><span class="header-section-number">6.2.2</span> Assignment 11; Finding Variants of Interest</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#galaxy-workflow"><span class="header-section-number">5.3</span> Galaxy Workflow</a></li>
-<li><a class="nav-link" href="#comparative-genomics"><span class="header-section-number">5.4</span> Comparative Genomics</a></li>
-<li><a class="nav-link" href="#galaxy-data-cleanup"><span class="header-section-number">5.5</span> Galaxy Data Cleanup</a></li>
 </ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/rwedema/NGS-Genetics//blob/master/04-week4-variants.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/rwedema/NGS-Genetics//edit/master/04-week4-variants.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/rwedema/NGS-Genetics//blob/master/06-variant_annotation.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/rwedema/NGS-Genetics//edit/master/06-variant_annotation.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>
@@ -339,7 +325,7 @@ Step #3 SnpSift - dbNSFP with all options:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Case background information and exercises</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2024-06-24.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-01-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
