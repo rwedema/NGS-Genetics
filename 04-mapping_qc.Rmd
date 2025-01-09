@@ -1,12 +1,8 @@
-# Analysis of Variants {#pileup}
+# Mapping Quality Control {#mapping-qc}
 
-Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called *LoFreq* that will report on found variants and their statistics such as allele frequency, number of supported reads, average base quality at the found position, etc. 
+Here we will perform analysis assessing the achieved mapping coverage. As you might have seen in IGV, coverages range from very high numbers (300+) to places where there are only a few reads present. In this chapter we will use R with a number of libraries often used for genetics research to report on these numbers for all panel genes. 
 
-Before finding the actual variants, we will perform analysis assessing the achieved coverage. As you might have seen in IGV, coverages range from very high numbers (300+) to places where there are only a few reads present. In this chapter we will use R with a number of libraries often used for genetics research to report on these numbers for all panel genes. 
-
-## Assignment week 3
-
-### Programming Assignments; Coverage Overview for Panel Genes {-}
+## Programming Assignments; Coverage Overview for Panel Genes {-}
 
 Within the output of the previous mapping step (the BAM file) we can see how (well) our panel-genes are covered by our reads, a very important statistic on the quality of our data. We could assess this manually using IGV, but that is definitely not the method to use for such a task given that there can be 1-2000+ mapped exons in total. This section contains a number of small assignments that - once completed - will give us a clear indication whether our mapping is of sufficient quality. Depending on this outcome we might need to revisit our previous step(s) such as the trimming process to increase our mapping quality.
 

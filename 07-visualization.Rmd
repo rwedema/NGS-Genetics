@@ -1,4 +1,4 @@
-# Presentation {#presentation}
+# Variant Visualization {#variant-visualization}
 
 As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section, we will discuss a few options for visualizing the data.
 

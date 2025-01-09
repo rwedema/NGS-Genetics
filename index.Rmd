@@ -1,5 +1,5 @@
 ---
-title: "Case background information and exercises"
+title: "Minor DSLS - Genomics Project"
 author: "Marcel Kempenaar and Ronald Wedema"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -7,7 +7,7 @@ documentclass: book
 bibliography:
 - book.bib
 - packages.bib
-description: This is the background and assignments needed to complete module 2.1.1
+description: This is the background and assignments needed to complete the DSLS Genomics project
 link-citations: true
 github-repo: "https://github.com/rwedema/NGS-Genetics/"
 ---
@@ -19,57 +19,46 @@ knitr::opts_chunk$set(cache = TRUE)
 
 # About {.unnumbered}
 
-This is the syllabus for the module *2.1.1 NGS and Genetics*. This bookdown document will provide you with enough background material and exercises to complete the Case part of the module. Also links to the genetics presentations given can be found in the schedule here.
+This is the syllabus for the Genomics Project. This document will provide you with enough background material and exercises to complete the project. In this project you will work in groups to determine variants from a DNA sequence data set of a given condition that may contribute to the development of this condition. We do this by processing raw sequencing data to eventually annotate found variants for their relation to a certain condition. Most aspects of this analysis will be performed in the workflow manager Galaxy with several extra steps that require programming in R. Every step taken will be documented in an RMarkdown lab journal, starting with quality control of the raw NGS reads, mapping these to a reference genome, reporting on the achieved coverage, finding and annotating variants and finally researching the found variants on their relation to the condition.
 
 ## Usage {.unnumbered}
 
-Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case and preparing for the genetics exam.
+Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case.
 
 ## Learning outcomes {.unnumbered}
 
--   You have a good understanding of all the concepts of the central dogma, different types of macromolecules, and enzymes, and you can describe their interconnections.
--   You can identify various mechanisms of gene regulation and predict the effects of different mutations on gene expression.
--   You are familiar with the different genome structures and can detect, filter, and annotate them in an NGS (Next-Generation Sequencing) dataset using appropriate tools and techniques.
--   You have a clear understanding of the quality requirements for NGS data, depending on both the NGS technique used and the objective. You can also apply tools to assess and improve the quality of the data.
--   You are aware of the available tools and algorithms for mapping NGS reads to a reference genome, and you can justify which one is best suited for a given dataset and question.
--   You can provide arguments and present the choices made during the process of achieving a high-quality mapping.
+-   You know the different types of possible variants occurring in DNA-sequences and can detect, filter and annotate these using the proper tools and techniques.
+-   You have a good overview of the quality requirements of NGS data, depending on both the NGS technique used as well as the purpose of the analysis. Furthermore, you can apply the tools to gain insight into and improve this quality.
+-   You keep an RMarkdown lab journal that documents all steps taken and records results so that the analysis is reproducible.
+-   You develop a simple Galaxy workflow for finding and annotating variants in NGS data
 
 ## End Products {.unnumbered}
 
-The end products of this course are the following two items:
-
--   **The genetics exam** (weight 3/5)
--   **Analysis of the selected case** (weight 2/5)
+The end product of this course is a lab journal document resulting from a knitted RMarkdown file describing the analysis steps taken for completing the project.
 
 The two items above are weighted and combined to get a single final grade. See also the Rubric for the learning outcomes and how they are graded.
 
 ## Rubric {.unnumbered}
 
-| Subject       | criteria                                                                                                                                                                                                 | weight |
+| Subject | criteria | weight |
 |------------------------|------------------------|------------------------|
-| Genetics exam | The exam has been concluded with a passing grade.                                                                                                                                                        | 15     |
-| Case          | The student writes a plan of approach and utilizes proper reasoning to justify the selection of the chosen tools.                                                                                        | 3      |
-| Case          | The presentation provides a clear overview of the steps taken, and the final results are expressed in a clear and accurate manner.                                                                       | 4      |
-| Case          | Questions regarding the presentation and the obtained results of the worked-out case are answered clearly and in a structured manner.                                                                    | 2      |
-| Case          | During the lessons and in response to presentations by others, the student asks meaningful, focused, and clear questions, and also contributes additional information to the answers provided by others. | 1      |
+| Lab Journal | The lab journal is complete and contains motivation for taken steps and describes these steps in a reproducible manner | 2 |
+| Lab Journal | Based on results, correct (partial) conclusions are given. Results are supported by figures and these are correctly interpreted | 2 |
+| Workflow | The re-usable Galaxy workflow consists of and implements the correct tools to perform NGS quality control, mapping against a reference genome as well as finding and annotating variants | 1 |
 
-## Schedule {.unnumbered}
+## Planning {.unnumbered}
 
-The subjects discussed during the genetics lessons can be found in the [ ]() book. The following chapters are discussed during the genetics lessons:
+| Week | Topic | Chapter(s) |
+|---------------|------------------------------------------|---------------|
+| 1 | Galaxy Introduction, Data Preprocessing (Quality Control) | [1](#intro), [2](#quality-control) |
+| 2 | Read Mapping (BWA) | [3](#mapping) |
+| 3 | Mapping Quality [R assignment] | [4](#mapping-qc) |
+| 4 | Variant Calling (Lofreq) | [5](#variant-calling) |
+| 5 | Variant Filtering [R assignment] | [5.2](#variant-filtering) |
+| 6 | Variant Annotation | [6](#variant-annotation) |
+| 7 | Variant Annotation | [6](#variant-annotation) |
+| 8 | Finilizing Analysis | [7](#variant-visualization) |
 
--   Biological macromolecules: [3.4](https://openstax.org/books/biology-2e/pages/3-4-proteins), [3.5](https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids)
--   DNA structure and function (en mutatie): [14.2](https://openstax.org/books/biology-2e/pages/14-2-dna-structure-and-sequencing), [14.3](https://openstax.org/books/biology-2e/pages/14-3-basics-of-dna-replication), [14.4](https://openstax.org/books/biology-2e/pages/14-4-dna-replication-in-prokaryotes), [14.5](https://openstax.org/books/biology-2e/pages/14-5-dna-replication-in-eukaryotes), [14.6](https://openstax.org/books/biology-2e/pages/14-6-dna-repair)
--   Genes and Proteins: [15.1](https://openstax.org/books/biology-2e/pages/15-1-the-genetic-code), [15.2](https://openstax.org/books/biology-2e/pages/15-2-prokaryotic-transcription), [15.3](https://openstax.org/books/biology-2e/pages/15-3-eukaryotic-transcription), [15.4](https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes), [15.5](https://openstax.org/books/biology-2e/pages/15-5-ribosomes-and-protein-synthesis)
--   Gene expression: [16.1](https://openstax.org/books/biology-2e/pages/16-1-regulation-of-gene-expression), [16.2](https://openstax.org/books/biology-2e/pages/16-2-prokaryotic-gene-regulation), [16.3](https://openstax.org/books/biology-2e/pages/16-3-eukaryotic-epigenetic-gene-regulation), [16.4](https://openstax.org/books/biology-2e/pages/16-4-eukaryotic-transcription-gene-regulation), [16.5](https://openstax.org/books/biology-2e/pages/16-5-eukaryotic-post-transcriptional-gene-regulation), [16.6](https://openstax.org/books/biology-2e/pages/16-6-eukaryotic-translational-and-post-translational-gene-regulation), [16.7](https://openstax.org/books/biology-2e/pages/16-7-cancer-and-gene-regulation)
--   Biotechnology and genomics: [17.1](https://openstax.org/books/biology-2e/pages/17-1-biotechnology), [17.2](https://openstax.org/books/biology-2e/pages/17-2-mapping-genomes), [17.3](https://openstax.org/books/biology-2e/pages/17-3-whole-genome-sequencing), [17.4](https://openstax.org/books/biology-2e/pages/17-4-applying-genomics) (part regarding metagenomics), [17.5](https://openstax.org/books/biology-2e/pages/17-5-genomics-and-proteomics)
+## Manual TODOs {.unnumbered}
 
-| Week | Topic                           | Case Chapter               | Genetics Subject                |
-|-----------------|-----------------|-----------------|---------------------|
-| 1    | NGS Techniques, Quality Control | [Chapter 1](#intro)        | Central Dogma en NGS techniques |
-| 2    | Read Mapping                    | [Chapter 2](#mapping)      | Transcription & Translation     |
-| 3    | Pileup                          | [Chapter 3](#pileup)       | Mutations and effects thereof   |
-| 4    | Variant Calling                 | [Chapter 4](#variants)     | Gene Regulation                 |
-| 5    | Finalize Case                   |                            |                                 |
-| 6    | Finalize Case                   |                            |                                 |
-| 7    | Presentation case               | [Chapter 5](#presentation) |                                 |
-| 8    | Genetics exam                   |                            |                                 |
+-   
