@@ -88,30 +88,30 @@
 </h2>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="33%">
-<col width="33%">
-<col width="33%">
+<col width="32%">
+<col width="32%">
+<col width="35%">
 </colgroup>
 <thead><tr class="header">
 <th>Subject</th>
 <th>criteria</th>
-<th>weight</th>
+<th align="center">weight</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td>Lab Journal</td>
 <td>The lab journal is complete and contains motivation for taken steps and describes these steps in a reproducible manner</td>
-<td>2</td>
+<td align="center">2</td>
 </tr>
 <tr class="even">
 <td>Lab Journal</td>
 <td>Based on results, correct (partial) conclusions are given. Results are supported by figures and these are correctly interpreted</td>
-<td>2</td>
+<td align="center">2</td>
 </tr>
 <tr class="odd">
 <td>Workflow</td>
 <td>The re-usable Galaxy workflow consists of and implements the correct tools to perform NGS quality control, mapping against a reference genome as well as finding and annotating variants</td>
-<td>1</td>
+<td align="center">1</td>
 </tr>
 </tbody>
 </table></div>
@@ -121,57 +121,67 @@
 </h2>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="20%">
-<col width="58%">
-<col width="20%">
+<col width="23%">
+<col width="34%">
+<col width="21%">
+<col width="21%">
 </colgroup>
 <thead><tr class="header">
-<th>Week</th>
+<th align="center">Week</th>
 <th>Topic</th>
-<th>Chapter(s)</th>
+<th align="center">Chapter(s)</th>
+<th>Lecture Topic</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
+<td align="center">1</td>
 <td>Galaxy Introduction, Data Preprocessing (Quality Control)</td>
-<td>
+<td align="center">
 <a href="intro.html#intro">1</a>, <a href="quality-control.html#quality-control">2</a>
 </td>
+<td>Project Introduction</td>
 </tr>
 <tr class="even">
-<td>2</td>
+<td align="center">2</td>
 <td>Read Mapping (BWA)</td>
-<td><a href="mapping.html#mapping">3</a></td>
+<td align="center"><a href="mapping.html#mapping">3</a></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>3</td>
+<td align="center">3</td>
 <td>Mapping Quality [R assignment]</td>
-<td><a href="mapping-qc.html#mapping-qc">4</a></td>
+<td align="center"><a href="mapping-qc.html#mapping-qc">4</a></td>
+<td>Quality Control review</td>
 </tr>
 <tr class="even">
-<td>4</td>
+<td align="center">4</td>
 <td>Variant Calling (Lofreq)</td>
-<td><a href="variant-calling.html#variant-calling">5</a></td>
+<td align="center"><a href="variant-calling.html#variant-calling">5</a></td>
+<td>Mapping Quality review</td>
 </tr>
 <tr class="odd">
-<td>5</td>
+<td align="center">5</td>
 <td>Variant Filtering [R assignment]</td>
-<td><a href="variant-calling.html#variant-filtering">5.2</a></td>
+<td align="center"><a href="variant-calling.html#variant-filtering">5.2</a></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>6</td>
+<td align="center">6</td>
 <td>Variant Annotation</td>
-<td><a href="variant-annotation.html#variant-annotation">6</a></td>
+<td align="center"><a href="variant-annotation.html#variant-annotation">6</a></td>
+<td></td>
 </tr>
 <tr class="odd">
-<td>7</td>
+<td align="center">7</td>
 <td>Variant Annotation</td>
-<td><a href="variant-annotation.html#variant-annotation">6</a></td>
+<td align="center"><a href="variant-annotation.html#variant-annotation">6</a></td>
+<td></td>
 </tr>
 <tr class="even">
-<td>8</td>
-<td>Finilizing Analysis</td>
-<td><a href="variant-visualization.html#variant-visualization">7</a></td>
+<td align="center">8</td>
+<td>Finalizing Analysis</td>
+<td align="center"><a href="variant-visualization.html#variant-visualization">7</a></td>
+<td></td>
 </tr>
 </tbody>
 </table></div>
@@ -180,7 +190,20 @@
 <h2>Manual TODOs<a class="anchor" aria-label="anchor" href="#manual-todos"><i class="fas fa-link"></i></a>
 </h2>
 <ul>
-<li>
+<li>Chapter 1: Update Galaxy instructions</li>
+<li>Chapter 3: Needs an assignment revision and/ or a more gentle introduction into R (without the used libraries)</li>
+<li>Chapter 6: More theory regarding annotation (SnpSIFT/SnpEff are complex) (see evaluation BIN)</li>
+<li>Chapter 7: Visualization chapter is now aimed at making a presentation, which is not a deliverable for this project</li>
+<li>General: reduce amount of text</li>
+</ul>
+</div>
+<div id="project-todos" class="section level2 unnumbered">
+<h2>Project TODOs<a class="anchor" aria-label="anchor" href="#project-todos"><i class="fas fa-link"></i></a>
+</h2>
+<ul>
+<li>Fix Galaxy (make sure CVMFS works! see <a href="https://training.galaxyproject.org/training-material/topics/admin/tutorials/cvmfs/tutorial.html">this tutorial</a>)</li>
+<li>Finish Docker container for backup</li>
+<li>Finish Blackboard</li>
 </ul>
 </div>
 </div>
@@ -197,6 +220,7 @@
 <li><a class="nav-link" href="#rubric">Rubric</a></li>
 <li><a class="nav-link" href="#planning">Planning</a></li>
 <li><a class="nav-link" href="#manual-todos">Manual TODOs</a></li>
+<li><a class="nav-link" href="#project-todos">Project TODOs</a></li>
 </ul>
 
       <div class="book-extra">
