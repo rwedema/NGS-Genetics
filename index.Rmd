@@ -40,6 +40,8 @@ The two items above are weighted and combined to get a single final grade. See a
 
 ## Rubric {.unnumbered}
 
+Note: the rubric will be updated at a later moment.
+
 | Subject | criteria | weight |
 |------------------------|------------------------|:------------------------:|
 | Lab Journal | The lab journal is complete and contains motivation for taken steps and describes these steps in a reproducible manner | 2 |
@@ -59,6 +61,7 @@ The two items above are weighted and combined to get a single final grade. See a
 | 7 | Variant Annotation | [6](#variant-annotation) |  |
 | 8 | Finalizing Analysis | [7](#variant-visualization) |  |
 
+<!--
 ## Manual TODOs {.unnumbered}
 
 -   Chapter 1: Update Galaxy instructions
@@ -72,3 +75,5 @@ The two items above are weighted and combined to get a single final grade. See a
 -   Fix Galaxy (make sure CVMFS works! see [this tutorial](https://training.galaxyproject.org/training-material/topics/admin/tutorials/cvmfs/tutorial.html))
 -   Finish Docker container for backup
 -   Finish Blackboard
+-   Transition to ggplot for all plotting
+-->

@@ -1,4 +1,4 @@
-# Intro *NGS and Genetics* Project {#intro}
+# Intro Genomics Project {#intro}
 
 In this project you will learn the bioinformatic basics of how to analyse *Next-Generation Sequence* (NGS) data of patients diagnosed with either [cardiomyopathy](https://en.wikipedia.org/wiki/Cardiomyopathy) or [Medulloblastoma](https://en.wikipedia.org/wiki/Medulloblastoma). Using this case we will discover genetic variations present in the genomic data of a patient having a suspected condition. The end-goal is to identify and report on those genomic variations that are possibly disease causing. All course material can be found in this document, some theory, a *lot* of links to resources, questions and assignments.
 
@@ -110,7 +110,7 @@ To help you work trough these document and prepare you as best as possible for t
 
 As you will already have learned during the "Wetenschappelijke Cyclus" module, a type of document called [R Markdown](https://rmarkdown.rstudio.com) is very suitable for this purpose. In this document you can write a combination of text and code where the results (be it tables or figures) are included as well. Therefore, it is very suitable as a lab-journal for this course.
 
-There are no imposed rules on how to report your progress since it is not comparable with a normal written report (no chapters called 'introduction', 'results', etc.), just try to keep it organized, clearly state what you are doing and why this is important and where your results belong to. Do note however that when you use figures and tables (please do!), provide them with a clear caption to explain what you are showing. The logfile is not part of the grading (in the next module it will be!), here it is just a convenient way to keep track of all steps and results.
+There are no imposed rules on how to report your progress since it is not comparable with a normal written report (no chapters called 'introduction', 'results', etc.), just try to keep it organized, clearly state what you are doing and why this is important and where your results belong to. Do note however that when you use figures and tables (please do!), provide them with a clear caption to explain what you are showing.
 
 ### Galaxy Server
 
