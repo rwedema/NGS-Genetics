@@ -207,10 +207,6 @@ which would require a rather large for-loop in most other languages. When we do 
 
 
 ```{r, echo=TRUE}
-# Load the stored data; do not repeat. Object name in this
-# example is 'bed_data' 
-load('data/bed_data_GRangesList.RData')
-
 # Split the data by gene, resulting in a list with named elements
 bed_splitted <- split(bed_file, bed_file$gene)
 # Print the names of the first 10 genes
@@ -233,6 +229,13 @@ Revisit everything you've written to complete this task and make sure you unders
 ### Assignment 4; Gene Lengths
 
 We'll create one last visualization based on the BED-data - but now using the `GRanges` object - namely an overview of the gene lengths; another barplot. The following example code shows how to calculate the length of a single gene (using `ranges`, `width` and `sum`). The same code also works on the complete `GRangesList` object, use this to create a barplot showing the length of each gene.
+
+```{r echo=FALSE}
+# Load the stored data; do not repeat. Object name in this
+# example is 'bed_data' 
+load('data/bed_data_GRangesList.RData')
+```
+
 
 ```{r calc_gene_length, eval=F}
 # Check the length (in basepairs) of a single gene (exons only)

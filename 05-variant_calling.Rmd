@@ -10,13 +10,13 @@ The tool that we will use is the [LoFreq](https://csb5.github.io/lofreq/) tool t
 
 **Instructions**:
 
-Run the `Call variants with LoFreq` tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available `GRCh38` reference genome. Feel free to explore the other options but leave the `Call variants across` settings on `Whole reference` (this setting allows using a BED file for only selecting variants of interest which is basically the following assignment).
+Run the `Call variants with LoFreq` tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available `hg38` reference genome. Feel free to explore the other options but leave the `Call variants across` settings on `Whole reference`.
 
 ## VCF File Filtering {#variant-filtering}
 
-The result of the LoFreq tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the 17 comment-lines at the top of the file.
+The result of the LoFreq tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the comment-lines at the top of the file.
 
-When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you've seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. LoFreq also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the [allele frequency](https://en.wikipedia.org/wiki/Allele_frequency) value included in the VCF file. In our case, this value describes the percentage of reads having the **variant** base.
+When looking at this file in more detail it is fairly easy to see variants in places we are not interested in (you can also add the VCF file as a track in IGV to spot detected variants). As you've seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. LoFreq also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the [allele frequency](https://en.wikipedia.org/wiki/Allele_frequency) value included in the VCF file. In our case, this value describes the percentage of reads having the **variant** base.
 
 ### Assignment 8; VCF File Processing
 
@@ -42,7 +42,7 @@ What it does is `rbind`s all vectors into a matrix. Again, inspect this object t
 
 3. Perform the following steps on the column containing the frequency value:
     * remove the `AF=` part using the `gsub` function
-    * converts the data type of this column to `numeric`
+    * converts the data type of this column to `numeric` (note that you cannot convert a column in a matrix to a different data type, first convert to a data frame instead)
     * saves only this column into a new variable
 
 We now have the frequency value available for filtering and we'll do that by adding it to the `GRanges` object we create next:
@@ -92,7 +92,7 @@ We will create two simple visualizations:
 
 * Visualize the **allele frequency** for all remaining variants using the `hist` function. Remember that you can use the `mcols` function to get a metadata column or use the `$`-sign and the name of the column. Pass the argument `breaks=20` to `hist` and answer the following question in your lab-journal:
     - Can you explain the two peaks that you see in your histogram (around 50% and 100%)? 
-* Visualize the amount of variants per gene. A simple solution for getting the numbers is to use the `table` function on the `subjectHits` column (output of `findOverlaps` where `subject` are the *genes*). Convert it to a data frame and then use the gene indices to get the actual gene names. Now you should have a combination of gene and number of variants. Create a barplot with this data as in the previous chapter and use `cex.names=0.7` to scale the gene names to make them all visible.
+* Visualize the amount of variants per gene. A simple solution for getting the numbers is to use the `table` function on the `subjectHits` column (output of `findOverlaps` where `subject` are the *genes*). Convert it to a data frame and then use the gene indices to get the actual gene names. Now you should have a combination of gene and number of variants. Create a barplot with this data as in the previous chapter.
 
 It is also possible to add the VCF file to IGV (together with the mapping- and BED-files) and visualize the variants in the context of the genes. This is however not a requirement for this assignment.
 
