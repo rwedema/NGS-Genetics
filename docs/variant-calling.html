@@ -51,6 +51,7 @@
 <li><a class="active" href="variant-calling.html"><span class="header-section-number">5</span> Analysis of Variants</a></li>
 <li><a class="" href="variant-annotation.html"><span class="header-section-number">6</span> Variant Annotation</a></li>
 <li><a class="" href="variant-visualization.html"><span class="header-section-number">7</span> Variant Visualization</a></li>
+<li><a class="" href="appendix-a1---using-git-in-rstudio.html"><span class="header-section-number">8</span> Appendix A1 - Using Git in RStudio</a></li>
 </ul>
 
         <div class="book-extra">
@@ -70,14 +71,14 @@
 <p>Most likely you’ve already seen how a true variant (not a single or few mismatches) looks when we looked at the data in the IGV-browser. For such a variant you see a number of reads having a different base at that positions compared to the reference genome. As we’ve mentioned before, we are interested in all these variants in our patient data for the all the genes in our gene panel. The previous <em>visualize-your-data</em> assignment did not ask to find all these variants using the IGV-browser because in this section we are going to use a program to do this for us.</p>
 <p>The tool that we will use is the <a href="https://csb5.github.io/lofreq/">LoFreq</a> tool that scans the BAM file for variants. This tool has a few settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that’s why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.</p>
 <p><strong>Instructions</strong>:</p>
-<p>Run the <code>Call variants with LoFreq</code> tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available <code>GRCh38</code> reference genome. Feel free to explore the other options but leave the <code>Call variants across</code> settings on <code>Whole reference</code> (this setting allows using a BED file for only selecting variants of interest which is basically the following assignment).</p>
+<p>Run the <code>Call variants with LoFreq</code> tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available <code>hg38</code> reference genome. Feel free to explore the other options but leave the <code>Call variants across</code> settings on <code>Whole reference</code>.</p>
 </div>
 <div id="variant-filtering" class="section level2" number="5.2">
 <h2>
 <span class="header-section-number">5.2</span> VCF File Filtering<a class="anchor" aria-label="anchor" href="#variant-filtering"><i class="fas fa-link"></i></a>
 </h2>
-<p>The result of the LoFreq tool is a single new file in your history in the <a href="http://www.internationalgenome.org/wiki/Analysis/vcf4.0/"><strong>vcf</strong></a> file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the 17 comment-lines at the top of the file.</p>
-<p>When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you’ve seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. LoFreq also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the <a href="https://en.wikipedia.org/wiki/Allele_frequency">allele frequency</a> value included in the VCF file. In our case, this value describes the percentage of reads having the <strong>variant</strong> base.</p>
+<p>The result of the LoFreq tool is a single new file in your history in the <a href="http://www.internationalgenome.org/wiki/Analysis/vcf4.0/"><strong>vcf</strong></a> file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the comment-lines at the top of the file.</p>
+<p>When looking at this file in more detail it is fairly easy to see variants in places we are not interested in (you can also add the VCF file as a track in IGV to spot detected variants). As you’ve seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. LoFreq also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the <a href="https://en.wikipedia.org/wiki/Allele_frequency">allele frequency</a> value included in the VCF file. In our case, this value describes the percentage of reads having the <strong>variant</strong> base.</p>
 <div id="assignment-8-vcf-file-processing" class="section level3" number="5.2.1">
 <h3>
 <span class="header-section-number">5.2.1</span> Assignment 8; VCF File Processing<a class="anchor" aria-label="anchor" href="#assignment-8-vcf-file-processing"><i class="fas fa-link"></i></a>
@@ -125,8 +126,7 @@
 <li>Perform the following steps on the column containing the frequency value:
 <ul>
 <li>remove the <code>AF=</code> part using the <code>gsub</code> function</li>
-<li>converts the data type of this column to <code>numeric</code>
-</li>
+<li>converts the data type of this column to <code>numeric</code> (note that you cannot convert a column in a matrix to a different data type, first convert to a data frame instead)</li>
 <li>saves only this column into a new variable</li>
 </ul>
 </li>
@@ -161,11 +161,11 @@
 <pre><code>## GRanges object with 5 ranges and 1 metadata column:
 ##        seqnames              ranges strand |        AF
 ##           &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-##   SOD2        6 160103505-160103690      * |       0.6
-##   SOD2        6 160105866-160106085      * |       0.5
-##   SOD2        6 160109138-160109294      * |       1.2
-##   SOD2        6 160113673-160113915      * |       0.2
-##   SOD2        6 160114157-160114219      * |       0.6
+##   SOD2        6 160103505-160103690      * |       1.1
+##   SOD2        6 160105866-160106085      * |       0.4
+##   SOD2        6 160109138-160109294      * |      -0.3
+##   SOD2        6 160113673-160113915      * |       0.7
+##   SOD2        6 160114157-160114219      * |       0.1
 ##   -------
 ##   seqinfo: 18 sequences from an unspecified genome; no seqlengths</code></pre>
 <p>Use the example above to associate the frequency value with the created <code>GRanges</code> object. Now that we have both the BED-data (in a <code>GRangesList</code> object) and the VCF data in a <code>GRanges</code> object, we can</p>
@@ -209,7 +209,7 @@
 <li>Can you explain the two peaks that you see in your histogram (around 50% and 100%)?</li>
 </ul>
 </li>
-<li>Visualize the amount of variants per gene. A simple solution for getting the numbers is to use the <code>table</code> function on the <code>subjectHits</code> column (output of <code>findOverlaps</code> where <code>subject</code> are the <em>genes</em>). Convert it to a data frame and then use the gene indices to get the actual gene names. Now you should have a combination of gene and number of variants. Create a barplot with this data as in the previous chapter and use <code>cex.names=0.7</code> to scale the gene names to make them all visible.</li>
+<li>Visualize the amount of variants per gene. A simple solution for getting the numbers is to use the <code>table</code> function on the <code>subjectHits</code> column (output of <code>findOverlaps</code> where <code>subject</code> are the <em>genes</em>). Convert it to a data frame and then use the gene indices to get the actual gene names. Now you should have a combination of gene and number of variants. Create a barplot with this data as in the previous chapter.</li>
 </ul>
 <p>It is also possible to add the VCF file to IGV (together with the mapping- and BED-files) and visualize the variants in the context of the genes. This is however not a requirement for this assignment.</p>
 <div class="inline-figure"><img src="images/igvVariant.png" width="311"></div>
@@ -248,7 +248,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-02-12.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-03-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

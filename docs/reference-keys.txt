@@ -35,3 +35,4 @@ assignment-11-finding-variants-of-interest
 variant-visualization
 galaxy-workflow
 comparative-genomics-optional
+appendix-a1---using-git-in-rstudio

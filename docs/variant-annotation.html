@@ -51,6 +51,7 @@
 <li><a class="" href="variant-calling.html"><span class="header-section-number">5</span> Analysis of Variants</a></li>
 <li><a class="active" href="variant-annotation.html"><span class="header-section-number">6</span> Variant Annotation</a></li>
 <li><a class="" href="variant-visualization.html"><span class="header-section-number">7</span> Variant Visualization</a></li>
+<li><a class="" href="appendix-a1---using-git-in-rstudio.html"><span class="header-section-number">8</span> Appendix A1 - Using Git in RStudio</a></li>
 </ul>
 
         <div class="book-extra">
@@ -68,39 +69,6 @@
 <h2>
 <span class="header-section-number">6.1</span> SnpEff and SnpSift<a class="anchor" aria-label="anchor" href="#snpeff-and-snpsift"><i class="fas fa-link"></i></a>
 </h2>
-<div class="rmdnote">
-<p>Note [10/10/2024]: due to issues in Galaxy, steps <strong>1</strong> and <strong>3</strong> have to be done <em>commandline</em>:</p>
-<ul>
-<li>Step 1: snpEff Annotation:
-<ul>
-<li>Check if chromosome names are in ‘human readable’ format (i.e.: 1, 2, 20, X, Y, ..) instead of NCBI notation (i.e.: NC_000001.11, NC_000003.12, NC_000011.10, etc.)</li>
-<li>To change from ‘NC_000011.10’ to ‘11’, run the following commands:
-<ul>
-<li>Compress the VCF file: <code>bgzip -c variants.vcf &gt; variants.vcf.gz</code>
-</li>
-<li>Index the VCF file: <code>tabix -p vcf variants.vcf.gz</code>
-</li>
-<li>Rename chromosomes using <code>bcftools</code>: <code>bcftools annotate --rename-chr /data/datasets/dbNSFP/chr_conversion_table.txt variants.vcf.gz &gt; variants.vcf</code> Note: overwrites original ‘variants.vcf’ (thanks to Mirte for creating the conversion table)</li>
-</ul>
-</li>
-<li>Run <code>snpEff</code> for <em>human</em> genome: <code>java -jar /data/datasets/dbNSFP/snpEff/snpEff.jar GRCh38.105 variants.vcf &gt; variants_step1.vcf</code>
-</li>
-<li>(For module 2.1.2, the <code>GRCm39.105</code> Mus musculus database is also available.</li>
-</ul>
-</li>
-</ul>
-<p>For step 2, you can upload the file to Galaxy and use SnpSift with dbSNP to get the dbSNP identifiers added. Then, download the VCF file (named <code>variants_step2.vcf</code> in step 3 below) from Galaxy and copy it to your project folder on the network. RStudio can be used to upload/download files to and from our network.</p>
-<ul>
-<li>Step 3: SnpSift dbNSFP annotation:
-<ul>
-<li>Using the output from step 2 (<code>variants_step2.vcf</code>), we will add more annotation from dbNSFP using the following command: <code>java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP4.3c.txt.gz variants_step2.vcf &gt; variants_step3.vcf</code>
-</li>
-</ul>
-</li>
-</ul>
-<p>Note: this uses an older version of dbNSFP (4.3c). Currently, version 4.9a is being downloaded (~30GB) and the manual will be updated once this is ready and tested. Re-running the command on this new database is advised.</p>
-<p>Note: annotating against dbNSFP can take a <em>long</em> time. Make sure to start these command from within a <code>bash</code> chunk in RStudio.</p>
-</div>
 <p>There are multiple methods of annotating found variants. Most of these will require extra data to predict the effect of a variant or to compare it with a known set of variants. Here we use a set of tools that does both types of annotation. See for further details and a manual the <a href="http://pcingola.github.io/SnpEff/">Github documentation</a>.</p>
 <ul>
 <li>
@@ -114,7 +82,7 @@
 </li>
 </ul>
 <p>Both tools are available in Galaxy with numerous sub-tools depending on the task that you want to do. To get the most information for each variant, we will perform three annotation <em>runs</em>:</p>
-<p><strong>Step 1</strong>: Using SnpEff to annotate variants using the <code>GRCh38.86</code> database adding information related to the gene, transcript and protein that are affected by this variant. This results in a lot of extra data that is all documented in the changed VCF header.</p>
+<p><strong>Step 1</strong>: In the tool <em>SnpEff eff: annotate variants</em>, select the filtered VCF file as input and for <em>Genome Source</em> select <em>Download on demand</em>. Enter <code>GRCh38.p14</code> in the <em>Snpff Genome Version Name</em> field. This results in a lot of extra data that is all documented in the changed VCF header.</p>
 <p>For example, given the following variant as input:</p>
 <blockquote>
 <p><code>chr1 237550644   .   C   A   91.0    PASS    DP=578;AF=0.017301;SB=1;DP4=252,316,5,5</code></p>
@@ -128,17 +96,17 @@
 <ul>
 <li>Select the <code>SnpEff Variant effect and annotation</code> tool from the <code>Variant Calling</code> tool menu in Galaxy.</li>
 <li>Select the uploaded VCF file containing the variants filtered for the cardiopanel genes.</li>
-<li>Check if the by default selected <code>GRCh38.86</code> <em>Genome Source</em> is selected.</li>
+<li>Check if the by default selected <code>GRCh38.p14</code> <em>Genome Source</em> is selected.</li>
 <li>All other settings can be left default, execute the tool.</li>
 </ul>
 <p>The result consists of two files: an annotated VCF file and a web-report on all the variants and their predicted effects.</p>
-<p><strong>Step 2</strong>: Adding <code>dbSnp</code> entries using <code>SnpSift</code>. The <a href="https://www.ncbi.nlm.nih.gov/snp/">dbSnp</a> database contains information on known variants. The version that also includes clinical significance (combining the ClinVar database) is available for the SnpSift tool in Galaxy.</p>
-<p><strong>Running SnpSift for dbsnp</strong>:</p>
+<p><strong>Step 2</strong>: Adding <code>dbSnp</code> entries using <code>SnpSift</code>. The <a href="https://www.ncbi.nlm.nih.gov/snp/">dbSnp</a> database contains information on known variants. The version that also includes clinical significance (combining the ClinVar database) is available for the SnpSift tool in Galaxy.
+<strong>Running SnpSift for dbsnp</strong>:</p>
 <ul>
 <li>SnpSift requires the <code>dbSnp</code> database to be available in your history:
 <ul>
-<li>In Galaxy, go to <code>Shared Data</code> (top menu) –&gt; <code>Data Libraries</code> –&gt; <code>dbSnp</code> library</li>
-<li>Select both files shown there and use the <code>Add to history</code> –&gt; <code>as datasets</code> option to get them in your own history</li>
+<li>In Galaxy, go to <code>Histories</code> (vertical menu on the left) –&gt; <code>Public Histories</code> where you will find the shared <code>SnpSift dbSnp</code> history</li>
+<li>Select both files shown there and copy them to your own history.</li>
 </ul>
 </li>
 <li>Select the <code>SnpSift Annotate SNPs from dbSnp</code> tool from the <code>Variant Calling</code> tool menu in Galaxy.
@@ -155,15 +123,21 @@
 <blockquote>
 <p><code>CLNDN=Cardiovascular_phenotype|Charcot-Marie-Tooth_disease|Lipoatrophy_with_Diabetes,_Hepatic_Steatosis,_Hypertrophic_Cardiomyopathy,_and_Leukomelanodermic_Papules</code></p>
 </blockquote>
-<p><strong>Step 3</strong>: Annotating using the <code>dbNSFP</code> database and SnpSift. The dbNSFP database is a huge collection (over 300GB of text files) of annotation sources combined into a single database. The SnpSift tool can compare our variants with known variants from all of these annotation sources and - like the first few steps - adds them to our VCF file. As you can expect, our VCF file will become very large and most likely unreadable. Therefore, we re-use the VCF file gained from step #1 instead of the VCF file from SnpSift in step #2. We can later combine the data after parsing both files separately.</p>
-<p><strong>Running SnpSift for dbNSFP</strong>:</p>
+<p><strong>Step 3</strong>: Annotating using the <code>dbNSFP</code> database and SnpSift. The dbNSFP database is a huge collection (over 300GB of text files) of annotation sources combined into a single database. The SnpSift tool can compare our variants with known variants from all of these annotation sources and - like the first few steps - adds them to our VCF file. As you can expect, our VCF file will become very large and most likely unreadable. In the next assignment we will be using Galaxy filter tools to get the interesting data for each variant.</p>
+<div class="rmdnote">
+<p>Note [10/03/2025]: due to issues in Galaxy, step <strong>3</strong> has to be done <em>commandline</em>.</p>
+<p>First follow steps 1 and 2 using the instructions below, then, download the resulting VCF file and use that to complete step 3 using the following instructions:</p>
 <ul>
-<li>Select the <code>SnpSift dbNSFP</code> tool from the <code>Variant Calling</code> tool menu in Galaxy.</li>
-<li>Use the VCF file from step #1 as input</li>
-<li>Select the locally available <code>GRCh38 dbNSFP4.3c</code> Genome database</li>
-<li>Select all options for the <code>Annotate with</code> option</li>
+<li>Step 3: SnpSift dbNSFP annotation:
+<ul>
+<li>Using the output from step 2 (called <code>variants_step2.vcf</code> below), we will add more annotation from dbNSFP using the following command: <code>java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP4.3c.txt.gz variants_step2.vcf &gt; variants_step3.vcf</code>
+</li>
 </ul>
-<p>Note that the tool description lists output not available for selection, we will look into the specifics of all selected databases later on.</p>
+</li>
+</ul>
+<p>Note: annotating against dbNSFP can take a <em>long</em> time. Make sure to start these command from within a <code>bash</code> chunk in RStudio.</p>
+<p>Re-upload your <code>variants_step3.vcf</code> into Galaxy as we will be using some Galaxy tools to filter out interesting data next.</p>
+</div>
 <!--
 
 Commandline SnpEff and SnpSift for 2.1.2
@@ -325,7 +299,7 @@ Step #3 SnpSift - dbNSFP with all options:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-02-12.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-03-10.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
