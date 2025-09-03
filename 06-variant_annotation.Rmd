@@ -16,13 +16,13 @@ There are multiple methods of annotating found variants. Most of these will requ
 
 Both tools are available in Galaxy with numerous sub-tools depending on the task that you want to do. To get the most information for each variant, we will perform three annotation *runs*:
 
-**Step 1**: In the tool *SnpEff eff: annotate variants*, select the filtered VCF file as input and for *Genome Source* select *Download on demand*. Enter `GRCh38.p14` in the *Snpff Genome Version Name* field. This results in a lot of extra data that is all documented in the changed VCF header. 
+**Step 1**: In the tool *SnpEff eff: annotate variants*, select the filtered VCF file as input and for *Genome Source* select *Download on demand*. Enter `GRCh38.p14` in the *Snpff Genome Version Name* field. Running the tool (takes between 2-5 minutes) results in two files; one HTML file with 'summary statistics' and one VCF file with updated information for the variants.
 
 For example, given the following variant as input:
 
 > `chr1	237550644	.	C	A	91.0	PASS	DP=578;AF=0.017301;SB=1;DP4=252,316,5,5`
 
-This is the result after SnpEff:
+This is the result after SnpEff annotation:
 
 > `chr1	237550644	.	C	A	91.0	PASS	DP=578;AF=0.017301;SB=1;DP4=252,316,5,5;ANN=A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000366574.6|protein_coding|27/105|c.3167C>A|p.Thr1056Lys|3484/16562|3167/14904|1056/4967||,A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000360064.7|protein_coding|25/103|c.3119C>A|p.Thr1040Lys|3119/14850|3119/14850|1040/4949||WARNING_TRANSCRIPT_NO_START_CODON,A|downstream_gene_variant|MODIFIER|SNORA25|ENSG00000252290|transcript|ENST00000516481.1|snoRNA||n.*4396G>T|||||4396|`
 
@@ -37,7 +37,8 @@ All details are added in the `ANN` field. See the description in the VCF header 
 
 The result consists of two files: an annotated VCF file and a web-report on all the variants and their predicted effects.
 
-**Step 2**: Adding `dbSnp` entries using `SnpSift`. The [dbSnp](https://www.ncbi.nlm.nih.gov/snp/) database contains information on known variants. The version that also includes clinical significance (combining the ClinVar database) is available for the SnpSift tool in Galaxy. 
+**Step 2**: Adding `dbSnp` entries using `SnpSift`. The [dbSnp](https://www.ncbi.nlm.nih.gov/snp/) database contains information on known variants. The version that also includes clinical significance (combining the ClinVar database) is available for the SnpSift tool in Galaxy.
+
 **Running SnpSift for dbsnp**: 
 
 * SnpSift requires the `dbSnp` database to be available in your history:
@@ -49,7 +50,7 @@ The result consists of two files: an annotated VCF file and a web-report on all 
 * Select the `dbSnp_clinvar.vcf.gz` file as the `VCF File with ID field annotated`.
 * For `Fields to annotate` select the `Add also INFO fields` option and execute the tool.
 
-This tool adds annotations in two columns. First, the `ID` column will describe the `dbSnp` ID (rs number) that can be used to look up the variant. Second, the `INFO` column is expanded with (a lot of) extra information if the variant is known. For instance, the ClinVar data might report on diseases the variant is related to, such as:
+This tool adds annotations in two columns. First, the `ID` column will describe the `ClinVar` ID that can be used to look up the variant (search for the given ID in [NCBI ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) web tool, giving results such as [this](https://www.ncbi.nlm.nih.gov/clinvar/variation/48048/?oq=48048&m=NM_170707.4(LMNA):c.1698C%3ET%20(p.His566=)) for ClinVar ID `48048`). Second, the `INFO` column is expanded with (a lot of) extra information if the variant is known. For instance, the ClinVar data might report on diseases the variant is related to, such as:
 
 > `CLNDN=Cardiovascular_phenotype|Charcot-Marie-Tooth_disease|Lipoatrophy_with_Diabetes,_Hepatic_Steatosis,_Hypertrophic_Cardiomyopathy,_and_Leukomelanodermic_Papules`
 
@@ -128,8 +129,8 @@ According to the VCF header, the `ANN` data contains the values explained in the
 * Select the `SnpSift Extract Fields from a VCF file into a tabular file` tool from the tool menu
   - the tool help or [this manual](https://pcingola.github.io/SnpEff/snpsift/extractfields/) can provide more details
 * Select the annotated VCF file as input
-* Provide the names of the columns of interest. For instance, the following could be used as a query for the 'Fields to extract':
-  - ```CHROM POS REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG```
+* Provide the names of all columns of interest. For instance, the following could be used as a query for the 'Fields to extract':
+  - ```CHROM POS ID REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG```
   - Add or remove any other column you find interesting to the above query.
 * Enable the 'One effect per line' option
 * Run the tool and download the resulting tabular file for analysis in R

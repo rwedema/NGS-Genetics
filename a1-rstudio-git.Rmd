@@ -1,0 +1,13 @@
+# Appendix A1 - Using Git in RStudio
+
+Working together on a single project can be difficult without a proper method of sharing data between team members. This document describes setting up a Git *repository* for storing and sharing - in this case - a RMarkdown lab journal.
+
+RStudio has an interface supporting common tasks for managing a repository and the following steps will guide you through this process. Note that for people to work together; only **one** repository has to be created 
+
+**Steps**:
+
+* **Create a Git repository**:
+  - There are multiple online Git hosting platforms. Globally GitHub is the most used one, but this requires the creation of an account. Repositories on GitHub can and are also used as a 'portfolio' to demonstrate your skills, so we advice to approach the use of it professionally. We also host our own local Git hosting platform in the form of GitLab, for which you can use your bioinf-network account.
+    * [GitHub](https://github.com)
+    * [GitLab](https://git.bioinf.nl)
+  - Once logged in, both platforms allow you to create a new repository.

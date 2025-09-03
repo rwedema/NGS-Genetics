@@ -1,10 +1,8 @@
 # Variant Visualization {#variant-visualization}
 
-As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section, we will discuss a few options for visualizing the data.
+This chapter describes some methods of visualizing the variants found. They can support the findings or simply make them more interesting to see. For this project, select a visualization type and use your found/filtered variants to create at least one visualization.
 
-Besides a graphical representation, the complete table with all variants and - importantly - the reason why there were selected should be included in the presentation.
-
-**LollipopPlot**
+## LollipopPlot
 
 This visualization can be helpful in cases where many of the top-variants are located within a single gene. The plot shows the position of the variant on the x-axis and a score on the y-axis. The score can be the *AF* value from the VCF file or any other score that was added through the annotation steps. Further data ('dimensions') can be added through changes to:
 
@@ -40,6 +38,7 @@ load("data/lolli-features.RData")
 features$fill <- NULL
 features$height <- NULL
 ```
+
 
 ```{r, eval=FALSE}
 # Preparing the data; first attach the gene names to the findOverlaps output
@@ -122,9 +121,86 @@ lolliplot(sample.gr, features, ylab = "Allele Frequency (%)")
 knitr::include_graphics("images/lolliplot_4.png")
 ```
 
-**Dandelion Plot**
+## Dandelion Plot
 
 If there are a lot of variants close together, an alternative can be the *dandelion plot* which is a variation of the lollipop plot where the variants are grouped together based on their position. It's available from the same library, see the [online manual](https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/trackViewer.html#Dandelion_Plot) for more information.
+
+## Chromo Plot
+
+The `vcfR` package contains functions to create a 'chromo plot' that shows an overview of both the variants and statistics regarding mapping quality. Creating this plot requires extra data besides the variant file, namely:
+* the reference sequence (genome or gene) in FASTA format and
+* a file describing *features* (genes, transcripts, CDSs, introns, exons, etc.) on this reference genome (in GFF format).
+
+For this project we can use a subset of these files that only span our region of interest (a single gene for instance). 
+
+**Note:** this is experimental and not recommended right now; subsetting all required data for a single gene works, but currently is not displayed properly.
+
+```{r, include=FALSE}
+vcf_data <- read.delim("solution/variants_cardio.vcf", header = FALSE, comment.char = "#")
+freq <- strsplit(vcf_data$V8, split = ";")
+freq <- as.numeric(gsub(x = do.call(rbind, freq)[,2], pattern = "AF=", replacement = ""))
+vcf_GRanges <- GRanges(seqnames = vcf_data$V1, 
+                       ranges = IRanges(start = vcf_data$V2, 
+                                        end = vcf_data$V2))
+mcols(vcf_GRanges) <- DataFrame(AF = freq)
+
+# Determine overlap with BED data
+overlaps <- findOverlaps(vcf_GRanges, bed_data)
+
+queryHits(overlaps)[vcf_GRanges[queryHits(overlaps)]$AF < 0.8]
+
+overlap_df <- DataFrame(overlaps)
+overlap_df$Gene <- names(bed_data)[overlap_df$subjectHits]
+# plot variants per gene
+queryHits_tab_df <- as.data.frame(table(overlap_df$subjectHits))
+queryHits_tab_df$Var1 <- names(bed_data)[queryHits_tab_df$Var1]
+#barplot(queryHits_tab_df$Freq, names.arg = queryHits_tab_df$Var1, cex.names = 0.7, las = 2)
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+# Get the ranges (including introns) for all genes:
+panel_ranges <- unlist(range(bed_data))
+
+# Get sequences for all genes
+library(GenomicFeatures)
+library(TxDb.Hsapiens.UCSC.hg38.knownGene)
+# Only run to install once
+#BiocManager::install("BSgenome.Hsapiens.UCSC.hg38")
+library(BSgenome.Hsapiens.UCSC.hg38)
+
+Hsapiens <- BSgenome.Hsapiens.UCSC.hg38
+
+## random tx subset
+tx <- transcripts(TxDb.Hsapiens.UCSC.hg38.knownGene)
+
+## extract sequence
+seq <- getSeq(Hsapiens, "chr6")#panel_ranges)
+
+## add names
+names(seq) <- names(panel_ranges)
+```
+
+```{r, include=FALSE, echo=FALSE}
+library(vcfR)
+library(ape)
+library(rtracklayer)
+
+vcf_file <- "solution/variants.vcf"
+dna <- as.DNAbin(seq$DSP)
+names(dna) <- "chr6"
+vcf <- read.vcfR(vcf_file)
+vcf_chr6 <- vcf[getCHROM(vcf) == "chr6"]
+
+export.gff(bed_data$DSP, con = "solution/bed_data.gff")
+gff <- read.table("solution/bed_data.gff", sep="\t", quote="")
+
+chrom <- create.chromR(name='DSP', vcf=vcf_chr6, seq=dna, ann=gff)
+plot(chrom)
+chromoqc(chrom, xlim=c(min(gff$V4), max(gff$V5)))
+```
+
 
 ## Galaxy Workflow
 
