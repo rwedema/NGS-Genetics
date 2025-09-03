@@ -215,7 +215,7 @@ Complete the table below.
 
 ### Quality Control
 
-We need to load the patient data you are going to work on during this project. All patient data is stored on the network and you first need to load it into your Galaxy <strong>History</strong> to work with. To do this click on the 'Upload Data' button and next on the 'Choose local files' button at the bottom of the popup. Here, you can browse to the folder on the network that contain all samples which is: `/commons/Themas/Thema05/2024/` Note that for Cardiomyopathy, use the `CM-DNASeq` folder and for Medulloblastoma, use the `MB-DNASeq` folder.
+We need to load the patient data you are going to work on during this project. All patient data is stored on the network and you first need to load it into your Galaxy <strong>History</strong> to work with. To do this click on the 'Upload Data' button and next on the 'Choose local files' button at the bottom of the popup. Here, you can browse to the folder on the network that contain all samples which is: `/commons/Themas/Thema05/2025/genomics-data/` Note that for Cardiomyopathy, use the `CM-DNASeq` folder and for Medulloblastoma, use the `MB-DNASeq` folder.
 
 As you can see each case consists of two files. This is because the forward and reverse reads are split up into two files (*paired-end sequencing*). The files with **R1** or **\_1** in the name are the forward reads and the reverse reads have **R2** or **\_2** in their name, remember this as some tools require to select the proper file.
 
