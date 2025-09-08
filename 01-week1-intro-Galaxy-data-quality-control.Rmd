@@ -136,6 +136,18 @@ Start by following a beginner *tutorial* available at the [Galaxy Training](http
 
 You only need to report *which* tutorial you followed/ video tutorial you watched.
 
+::: {.rmdnote}
+
+**Note: 2025 - Galaxy Server Update**
+
+For the past years we've been using our own managed and hosted Galaxy server as shown in the manual below. We have had numerous issues with it during this time and discovered last week that there were new issues yet again.
+
+Therefore, we suggest that everyone uses the available Galaxy server at [https://usegalaxy.eu](https://usegalaxy.eu). This is a very complete Galaxy instance hosted in Germany and offers a lot of resources (>8500 CPU cores, 50TB memory, see the [statistics](https://stats.galaxyproject.eu/) page) and all the tools we normally use.
+
+All screenshots from this manual are outdated however, and since we do not control installed application versions some parts of the manual might be incorrect as well. *Please be critical on your own work and mention any deviations in your notebook*. 
+
+:::
+
 #### Bioinformatics Galaxy Server {.unnumbered}
 
 After completing this tutorial, we switch to the Galaxy server that we will use throughout this course which is available at: <https://galaxy.bioinf.nl> and contains a collection of course specific tools.
