@@ -24,6 +24,8 @@ assignment-5-loading-the-mapped-reads
 assignment-6-pileup-processing
 assignment-7-coverage-calculation-and-reporting
 variants
+finding-variants
+vcf-file-filtering
 assignment-8-vcf-file-processing
 assignment-9-variant-visualization
 variant-annotation

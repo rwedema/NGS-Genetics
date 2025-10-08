@@ -61,21 +61,23 @@
 <span class="header-section-number">Week 4</span> Finding and Annotating Variants<a class="anchor" aria-label="anchor" href="#variants"><i class="fas fa-link"></i></a>
 </h1>
 <p>Most likely you’ve already seen how a true variant (not a single or few mismatches) looks when we looked at the data in the IGV-browser. For such a variant you see a number of reads having a different base at that positions compared to the reference genome. As we’ve mentioned before, we are interested in all these variants in our patient data for the all the genes in our gene panel. The previous <em>visualize-your-data</em> assignment did not ask to find all these variants using the IGV-browser because in this section we are going to use a program to do this for us.</p>
-<div id="finding-variants" class="section level2 unnumbered">
-<h2>Finding Variants<a class="anchor" aria-label="anchor" href="#finding-variants"><i class="fas fa-link"></i></a>
+<div id="finding-variants" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> Finding Variants<a class="anchor" aria-label="anchor" href="#finding-variants"><i class="fas fa-link"></i></a>
 </h2>
 <p>The tool that we will use is the <a href="https://csb5.github.io/lofreq/">LoFreq</a> tool that scans the BAM file for variants. This tool has a few settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that’s why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.</p>
 <p><strong>Instructions</strong>:</p>
 <p>Run the <code>Call variants with LoFreq</code> tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available <code>GRCh38</code> reference genome. Feel free to explore the other options but leave the <code>Call variants across</code> settings on <code>Whole reference</code> (this setting allows using a BED file for only selecting variants of interest which is basically the following assignment).</p>
-<div id="vcf-file-filtering" class="section level3 unnumbered">
-<h3>VCF File Filtering<a class="anchor" aria-label="anchor" href="#vcf-file-filtering"><i class="fas fa-link"></i></a>
+<div id="vcf-file-filtering" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> VCF File Filtering<a class="anchor" aria-label="anchor" href="#vcf-file-filtering"><i class="fas fa-link"></i></a>
 </h3>
 <p>The result of the LoFreq tool is a single new file in your history in the <a href="http://www.internationalgenome.org/wiki/Analysis/vcf4.0/"><strong>vcf</strong></a> file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the 17 comment-lines at the top of the file.</p>
 <p>When looking at this file in more detail it is fairly easy to see variants in places we are not interested in. As you’ve seen in IGV, many regions have been sequenced outside of our genes of interest, or even very far from a gene at all. LoFreq also checked those regions for variants and this assignment asks to filter the list of variants only keeping those within exon boundaries of our genes of interest. Then, another filtering step is filtering on actual variants. We do this by looking at the <a href="https://en.wikipedia.org/wiki/Allele_frequency">allele frequency</a> value included in the VCF file. In our case, this value describes the percentage of reads having the <strong>variant</strong> base.</p>
 </div>
-<div id="assignment-8-vcf-file-processing" class="section level3" number="4.0.1">
+<div id="assignment-8-vcf-file-processing" class="section level3" number="4.1.2">
 <h3>
-<span class="header-section-number">4.0.1</span> Assignment 8; VCF File Processing<a class="anchor" aria-label="anchor" href="#assignment-8-vcf-file-processing"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2</span> Assignment 8; VCF File Processing<a class="anchor" aria-label="anchor" href="#assignment-8-vcf-file-processing"><i class="fas fa-link"></i></a>
 </h3>
 <p>Please briefly read the linked Wikipedia page to understand why this value is of importance. As we are working with patient data, we use the protocol as described by the UMCG that states that variants with a minimum frequency of <strong>30%</strong> are retained. This means we will filter out any variants with a <em>lower</em> value. Note that LoFreq stores this value as a fraction so we filter for values <span class="math inline">\(&gt;= 0.3\)</span>.</p>
 <p>There are once again step-by-step instructions for completing this assignment. It is however possible to do it without these instructions as we partly repeat steps we’ve taken in the previous assignments.</p>
@@ -193,9 +195,9 @@
 <li>Upload the new VCF file into Galaxy as we’ll use it in the next chapter.</li>
 </ol>
 </div>
-<div id="assignment-9-variant-visualization" class="section level3" number="4.0.2">
+<div id="assignment-9-variant-visualization" class="section level3" number="4.1.3">
 <h3>
-<span class="header-section-number">4.0.2</span> Assignment 9; Variant Visualization<a class="anchor" aria-label="anchor" href="#assignment-9-variant-visualization"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.3</span> Assignment 9; Variant Visualization<a class="anchor" aria-label="anchor" href="#assignment-9-variant-visualization"><i class="fas fa-link"></i></a>
 </h3>
 <p>We will create two simple visualizations:</p>
 <ul>
@@ -210,17 +212,16 @@
 <div class="inline-figure"><img src="images/igvVariant.png" width="311"></div>
 </div>
 </div>
-<div id="variant-annotation" class="section level2" number="4.1">
+<div id="variant-annotation" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">4.1</span> Variant Annotation<a class="anchor" aria-label="anchor" href="#variant-annotation"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Variant Annotation<a class="anchor" aria-label="anchor" href="#variant-annotation"><i class="fas fa-link"></i></a>
 </h2>
 <p>In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with the <code>LoFreq</code> tool. This involves comparing all our variants against a number of databases containing <em>annotation data</em> for known variants. We will use our filtered <code>VCF</code>-file resulting from LoFreq so we need to upload our newly created VCF file to Galaxy. Make sure that Galaxy recognizes the file type by selecting the correct file type when uploading or change it afterwards using the <em>Edit attributes</em> button.</p>
 <div class="inline-figure"><img src="images/upload.png" width="432"></div>
-</div>
-<div id="snpeff-and-snpsift" class="section level2" number="4.2">
-<h2>
-<span class="header-section-number">4.2</span> SnpEff and SnpSift<a class="anchor" aria-label="anchor" href="#snpeff-and-snpsift"><i class="fas fa-link"></i></a>
-</h2>
+<div id="snpeff-and-snpsift" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> SnpEff and SnpSift<a class="anchor" aria-label="anchor" href="#snpeff-and-snpsift"><i class="fas fa-link"></i></a>
+</h3>
 <div class="rmdnote">
 <p>Note [06/10/2025]: due to issues in Galaxy, step <strong>3</strong> has to be done <em>commandline</em>:</p>
 <p>After completing step 2 (see below), download the VCF file (named <code>variants_step2.vcf</code> in step 3 below) from Galaxy and copy it to your project folder on the network. RStudio can be used to upload/download files to and from our network.</p>
@@ -329,6 +330,7 @@ Step #3 SnpSift - dbNSFP with all options:
 ----------
 
 -->
+</div>
 <div id="assignment" class="section level3 unnumbered">
 <h3>Assignment<a class="anchor" aria-label="anchor" href="#assignment"><i class="fas fa-link"></i></a>
 </h3>
@@ -444,15 +446,17 @@ Step #3 SnpSift - dbNSFP with all options:
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#variants"><span class="header-section-number">4</span> Finding and Annotating Variants</a></li>
 <li>
-<a class="nav-link" href="#finding-variants">Finding Variants</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#vcf-file-filtering">VCF File Filtering</a></li>
-<li><a class="nav-link" href="#assignment-8-vcf-file-processing"><span class="header-section-number">4.0.1</span> Assignment 8; VCF File Processing</a></li>
-<li><a class="nav-link" href="#assignment-9-variant-visualization"><span class="header-section-number">4.0.2</span> Assignment 9; Variant Visualization</a></li>
+<a class="nav-link" href="#finding-variants"><span class="header-section-number">4.1</span> Finding Variants</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#vcf-file-filtering"><span class="header-section-number">4.1.1</span> VCF File Filtering</a></li>
+<li><a class="nav-link" href="#assignment-8-vcf-file-processing"><span class="header-section-number">4.1.2</span> Assignment 8; VCF File Processing</a></li>
+<li><a class="nav-link" href="#assignment-9-variant-visualization"><span class="header-section-number">4.1.3</span> Assignment 9; Variant Visualization</a></li>
 </ul>
 </li>
-<li><a class="nav-link" href="#variant-annotation"><span class="header-section-number">4.1</span> Variant Annotation</a></li>
 <li>
-<a class="nav-link" href="#snpeff-and-snpsift"><span class="header-section-number">4.2</span> SnpEff and SnpSift</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#assignment">Assignment</a></li></ul>
+<a class="nav-link" href="#variant-annotation"><span class="header-section-number">4.2</span> Variant Annotation</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#snpeff-and-snpsift"><span class="header-section-number">4.2.1</span> SnpEff and SnpSift</a></li>
+<li><a class="nav-link" href="#assignment">Assignment</a></li>
+</ul>
 </li>
 <li>
 <a class="nav-link" href="#programming-assignment-analyzing-variant-annotation"><span class="header-section-number">4.3</span> Programming Assignment; Analyzing Variant Annotation</a><ul class="nav navbar-nav">
