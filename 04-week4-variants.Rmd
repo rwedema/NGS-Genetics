@@ -2,7 +2,7 @@
 
 Most likely you've already seen how a true variant (not a single or few mismatches) looks when we looked at the data in the IGV-browser. For such a variant you see a number of reads having a different base at that positions compared to the reference genome. As we've mentioned before, we are interested in all these variants in our patient data for the all the genes in our gene panel. The previous *visualize-your-data* assignment did not ask to find all these variants using the IGV-browser because in this section we are going to use a program to do this for us.
 
-## Finding Variants {-}
+## Finding Variants
 
 The tool that we will use is the [LoFreq](https://csb5.github.io/lofreq/) tool that scans the BAM file for variants. This tool has a few settings that, combined, defines when a position is called a variant. You could do this in a naive way and just report for each position if there is a change. But this will result in many false positive variants (can you explain this?). We need a more statistical approach to filter out low quality variants and that's why the tool has settings to for instance set the minimum amount of reads (coverage) at a position to consider looking for variations. Also the variants itself should be supported by a minimum number of reads and the base quality of that position should not be too low.
 
@@ -10,7 +10,7 @@ The tool that we will use is the [LoFreq](https://csb5.github.io/lofreq/) tool t
 
 Run the `Call variants with LoFreq` tool using its default settings. Select the output BAM file from the Mark Duplicate tool and use the available `GRCh38` reference genome. Feel free to explore the other options but leave the `Call variants across` settings on `Whole reference` (this setting allows using a BED file for only selecting variants of interest which is basically the following assignment).
 
-### VCF File Filtering {-}
+### VCF File Filtering
 
 The result of the LoFreq tool is a single new file in your history in the [**vcf**](http://www.internationalgenome.org/wiki/Analysis/vcf4.0/) file format where each line describes a single variant. In Galaxy you can then directly see how many variants you have; often well over 1000 in total. Note the 17 comment-lines at the top of the file.
 
@@ -106,7 +106,7 @@ In the - for now - final Galaxy workflow step for analyzing our patient, we are 
 knitr::include_graphics("images/upload.png")
 ```
 
-## SnpEff and SnpSift
+### SnpEff and SnpSift
 
 ::: {.rmdnote}
 Note [06/10/2025]: due to issues in Galaxy, step **3** has to be done *commandline*:
