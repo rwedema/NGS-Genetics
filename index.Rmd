@@ -1,6 +1,6 @@
 ---
 title: "Minor DSLS - Genomics Project"
-author: "Marcel Kempenaar and Ronald Wedema"
+author: "Marcel Kempenaar"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 documentclass: book
@@ -19,11 +19,11 @@ knitr::opts_chunk$set(cache = TRUE)
 
 # About {.unnumbered}
 
-This is the syllabus for the Genomics Project. This document will provide you with enough background material and exercises to complete the project. In this project you will work in groups to determine variants from a DNA sequence data set of a given condition that may contribute to the development of this condition. We do this by processing raw sequencing data to eventually annotate found variants for their relation to a certain condition. Most aspects of this analysis will be performed in the workflow manager Galaxy with several extra steps that require programming in R. Every step taken will be documented in an RMarkdown lab journal, starting with quality control of the raw NGS reads, mapping these to a reference genome, reporting on the achieved coverage, finding and annotating variants and finally researching the found variants on their relation to the condition.
+This is the syllabus for the Genomics Project. This document will provide you with enough background material and exercises to complete the project. In this project you will work in groups to determine variants from a DNA sequence data set of a given condition that may contribute to the development of this condition. We do this by processing raw sequencing data and eventually annotate found variants for their relation to a certain condition. Most aspects of this analysis will be performed in the workflow manager Galaxy with several extra steps that require programming in R. Every step taken will be documented in an RMarkdown lab journal, starting with quality control of the raw NGS reads, mapping these to a reference genome, reporting on the achieved coverage, finding and annotating variants and finally researching the found variants on their relation to the condition.
 
 ## Usage {.unnumbered}
 
-Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case.
+Chapters are divided into subjects. Each subject (chapter) should last you about a week to complete, but this can depend on the chosen data set and other factors. The planning below is therefore a general guideline.
 
 ## Learning outcomes {.unnumbered}
 
@@ -34,19 +34,18 @@ Chapters are divided into subjects. Each subject (chapter) should last you a wee
 
 ## End Products {.unnumbered}
 
-The end product of this course is a lab journal document resulting from a knitted RMarkdown file describing the analysis steps taken for completing the project.
-
-The two items above are weighted and combined to get a single final grade. See also the Rubric for the learning outcomes and how they are graded.
+The end product of this course is a *lab journal* document resulting from a knitted RMarkdown file describing the analysis steps taken for completing the project.
 
 ## Rubric {.unnumbered}
 
-Note: the rubric will be updated at a later moment.
+The following criteria are used for grading the lab journal. Feedback will be provided on each criteria through the BrighSpace course
 
-| Subject | criteria | weight |
+| Subject | Criteria | Points (out of 100) |
 |------------------------|------------------------|:------------------------:|
-| Lab Journal | The lab journal is complete and contains motivation for taken steps and describes these steps in a reproducible manner | 2 |
-| Lab Journal | Based on results, correct (partial) conclusions are given. Results are supported by figures and these are correctly interpreted | 2 |
-| Workflow | The re-usable Galaxy workflow consists of and implements the correct tools to perform NGS quality control, mapping against a reference genome as well as finding and annotating variants | 1 |
+| Lab Journal | The lab journal is complete and contains motivation for taken steps and describes these steps in a reproducible manner | 30 |
+| Lab Journal | Based on results, correct (partial) conclusions are given. Results are supported by figures and these are correctly interpreted  | 30 |
+| Workflow | The re-usable Galaxy workflow consists of and implements the correct tools to perform an NGS variation analysis including quality control, read mapping and annotation | 10 |
+| Workflow | Analysis steps performed in R gives good insight into read mapping quality and lists the annotated variants in a well described and logical order | 30 | 
 
 ## Planning {.unnumbered}
 
@@ -60,6 +59,17 @@ Note: the rubric will be updated at a later moment.
 | 6 | Variant Annotation | [6](#variant-annotation) |  |
 | 7 | Variant Annotation | [6](#variant-annotation) |  |
 | 8 | Finalizing Analysis | [7](#variant-visualization) |  |
+
+## Theory Background Refresher
+
+The following topics have a relevance for courses in this program. These links are provided as reference and are not part of the course material.
+
+-   Biological macromolecules: [3.4](https://openstax.org/books/biology-2e/pages/3-4-proteins), [3.5](https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids)
+-   DNA structure and function (and mutation): [14.2](https://openstax.org/books/biology-2e/pages/14-2-dna-structure-and-sequencing), [14.3](https://openstax.org/books/biology-2e/pages/14-3-basics-of-dna-replication), [14.4](https://openstax.org/books/biology-2e/pages/14-4-dna-replication-in-prokaryotes), [14.5](https://openstax.org/books/biology-2e/pages/14-5-dna-replication-in-eukaryotes), [14.6](https://openstax.org/books/biology-2e/pages/14-6-dna-repair)
+-   Genes and Proteins: [15.1](https://openstax.org/books/biology-2e/pages/15-1-the-genetic-code), [15.2](https://openstax.org/books/biology-2e/pages/15-2-prokaryotic-transcription), [15.3](https://openstax.org/books/biology-2e/pages/15-3-eukaryotic-transcription), [15.4](https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes), [15.5](https://openstax.org/books/biology-2e/pages/15-5-ribosomes-and-protein-synthesis)
+-   Gene expression: [16.1](https://openstax.org/books/biology-2e/pages/16-1-regulation-of-gene-expression), [16.2](https://openstax.org/books/biology-2e/pages/16-2-prokaryotic-gene-regulation), [16.3](https://openstax.org/books/biology-2e/pages/16-3-eukaryotic-epigenetic-gene-regulation), [16.4](https://openstax.org/books/biology-2e/pages/16-4-eukaryotic-transcription-gene-regulation), [16.5](https://openstax.org/books/biology-2e/pages/16-5-eukaryotic-post-transcriptional-gene-regulation), [16.6](https://openstax.org/books/biology-2e/pages/16-6-eukaryotic-translational-and-post-translational-gene-regulation), [16.7](https://openstax.org/books/biology-2e/pages/16-7-cancer-and-gene-regulation)
+-   Biotechnology and genomics: [17.1](https://openstax.org/books/biology-2e/pages/17-1-biotechnology), [17.2](https://openstax.org/books/biology-2e/pages/17-2-mapping-genomes), [17.3](https://openstax.org/books/biology-2e/pages/17-3-whole-genome-sequencing), [17.4](https://openstax.org/books/biology-2e/pages/17-4-applying-genomics) (part regarding metagenomics), [17.5](https://openstax.org/books/biology-2e/pages/17-5-genomics-and-proteomics)
+
 
 <!--
 ## Manual TODOs {.unnumbered}
