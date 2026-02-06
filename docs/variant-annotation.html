@@ -5,9 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>6 Variant Annotation | Minor DSLS - Genomics Project</title>
-<meta name="author" content="Marcel Kempenaar and Ronald Wedema">
+<meta name="author" content="Marcel Kempenaar">
 <meta name="description" content="In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with...">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta name="generator" content="bookdown 0.45 with bs4_book()">
 <meta property="og:title" content="6 Variant Annotation | Minor DSLS - Genomics Project">
 <meta property="og:type" content="book">
 <meta property="og:description" content="In the - for now - final Galaxy workflow step for analyzing our patient, we are going to annotate all our filtered variants to determine the severity of the variations we determined last time with...">
@@ -82,12 +82,12 @@
 </li>
 </ul>
 <p>Both tools are available in Galaxy with numerous sub-tools depending on the task that you want to do. To get the most information for each variant, we will perform three annotation <em>runs</em>:</p>
-<p><strong>Step 1</strong>: In the tool <em>SnpEff eff: annotate variants</em>, select the filtered VCF file as input and for <em>Genome Source</em> select <em>Download on demand</em>. Enter <code>GRCh38.p14</code> in the <em>Snpff Genome Version Name</em> field. This results in a lot of extra data that is all documented in the changed VCF header.</p>
+<p><strong>Step 1</strong>: In the tool <em>SnpEff eff: annotate variants</em>, select the filtered VCF file as input and for <em>Genome Source</em> select <em>Download on demand</em>. Enter <code>GRCh38.p14</code> in the <em>Snpff Genome Version Name</em> field. Running the tool (takes between 2-5 minutes) results in two files; one HTML file with ‘summary statistics’ and one VCF file with updated information for the variants.</p>
 <p>For example, given the following variant as input:</p>
 <blockquote>
 <p><code>chr1 237550644   .   C   A   91.0    PASS    DP=578;AF=0.017301;SB=1;DP4=252,316,5,5</code></p>
 </blockquote>
-<p>This is the result after SnpEff:</p>
+<p>This is the result after SnpEff annotation:</p>
 <blockquote>
 <p><code>chr1 237550644   .   C   A   91.0    PASS    DP=578;AF=0.017301;SB=1;DP4=252,316,5,5;ANN=A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000366574.6|protein_coding|27/105|c.3167C&gt;A|p.Thr1056Lys|3484/16562|3167/14904|1056/4967||,A|missense_variant|MODERATE|RYR2|ENSG00000198626|transcript|ENST00000360064.7|protein_coding|25/103|c.3119C&gt;A|p.Thr1040Lys|3119/14850|3119/14850|1040/4949||WARNING_TRANSCRIPT_NO_START_CODON,A|downstream_gene_variant|MODIFIER|SNORA25|ENSG00000252290|transcript|ENST00000516481.1|snoRNA||n.*4396G&gt;T|||||4396|</code></p>
 </blockquote>
@@ -100,8 +100,8 @@
 <li>All other settings can be left default, execute the tool.</li>
 </ul>
 <p>The result consists of two files: an annotated VCF file and a web-report on all the variants and their predicted effects.</p>
-<p><strong>Step 2</strong>: Adding <code>dbSnp</code> entries using <code>SnpSift</code>. The <a href="https://www.ncbi.nlm.nih.gov/snp/">dbSnp</a> database contains information on known variants. The version that also includes clinical significance (combining the ClinVar database) is available for the SnpSift tool in Galaxy.
-<strong>Running SnpSift for dbsnp</strong>:</p>
+<p><strong>Step 2</strong>: Adding <code>dbSnp</code> entries using <code>SnpSift</code>. The <a href="https://www.ncbi.nlm.nih.gov/snp/">dbSnp</a> database contains information on known variants. The version that also includes clinical significance (combining the ClinVar database) is available for the SnpSift tool in Galaxy.</p>
+<p><strong>Running SnpSift for dbsnp</strong>:</p>
 <ul>
 <li>SnpSift requires the <code>dbSnp</code> database to be available in your history:
 <ul>
@@ -119,13 +119,13 @@
 <li>Select the <code>dbSnp_clinvar.vcf.gz</code> file as the <code>VCF File with ID field annotated</code>.</li>
 <li>For <code>Fields to annotate</code> select the <code>Add also INFO fields</code> option and execute the tool.</li>
 </ul>
-<p>This tool adds annotations in two columns. First, the <code>ID</code> column will describe the <code>dbSnp</code> ID (rs number) that can be used to look up the variant. Second, the <code>INFO</code> column is expanded with (a lot of) extra information if the variant is known. For instance, the ClinVar data might report on diseases the variant is related to, such as:</p>
+<p>This tool adds annotations in two columns. First, the <code>ID</code> column will describe the <code>ClinVar</code> ID that can be used to look up the variant (search for the given ID in <a href="https://www.ncbi.nlm.nih.gov/clinvar/">NCBI ClinVar</a> web tool, giving results such as <a href="https://www.ncbi.nlm.nih.gov/clinvar/variation/48048/?oq=48048&amp;m=NM_170707.4(LMNA):c.1698C%3ET%20(p.His566=)">this</a> for ClinVar ID <code>48048</code>). Second, the <code>INFO</code> column is expanded with (a lot of) extra information if the variant is known. For instance, the ClinVar data might report on diseases the variant is related to, such as:</p>
 <blockquote>
 <p><code>CLNDN=Cardiovascular_phenotype|Charcot-Marie-Tooth_disease|Lipoatrophy_with_Diabetes,_Hepatic_Steatosis,_Hypertrophic_Cardiomyopathy,_and_Leukomelanodermic_Papules</code></p>
 </blockquote>
 <p><strong>Step 3</strong>: Annotating using the <code>dbNSFP</code> database and SnpSift. The dbNSFP database is a huge collection (over 300GB of text files) of annotation sources combined into a single database. The SnpSift tool can compare our variants with known variants from all of these annotation sources and - like the first few steps - adds them to our VCF file. As you can expect, our VCF file will become very large and most likely unreadable. In the next assignment we will be using Galaxy filter tools to get the interesting data for each variant.</p>
 <div class="rmdnote">
-<p>Note [10/03/2025]: due to issues in Galaxy, step <strong>3</strong> has to be done <em>commandline</em>.</p>
+<p><strong>Note [10/03/2025]</strong>: due to issues in Galaxy, step <strong>3</strong> has to be done <em>commandline</em>.</p>
 <p>First follow steps 1 and 2 using the instructions below, then, download the resulting VCF file and use that to complete step 3 using the following instructions:</p>
 <ul>
 <li>Step 3: SnpSift dbNSFP annotation:
@@ -217,9 +217,9 @@ Step #3 SnpSift - dbNSFP with all options:
 </ul>
 </li>
 <li>Select the annotated VCF file as input</li>
-<li>Provide the names of the columns of interest. For instance, the following could be used as a query for the ‘Fields to extract’:
+<li>Provide the names of all columns of interest. For instance, the following could be used as a query for the ‘Fields to extract’:
 <ul>
-<li><code>CHROM POS REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG</code></li>
+<li><code>CHROM POS ID REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG</code></li>
 <li>Add or remove any other column you find interesting to the above query.</li>
 </ul>
 </li>
@@ -299,7 +299,7 @@ Step #3 SnpSift - dbNSFP with all options:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-03-10.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

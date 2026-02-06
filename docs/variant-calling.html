@@ -5,9 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>5 Analysis of Variants | Minor DSLS - Genomics Project</title>
-<meta name="author" content="Marcel Kempenaar and Ronald Wedema">
+<meta name="author" content="Marcel Kempenaar">
 <meta name="description" content="Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called LoFreq that will report...">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta name="generator" content="bookdown 0.45 with bs4_book()">
 <meta property="og:title" content="5 Analysis of Variants | Minor DSLS - Genomics Project">
 <meta property="og:type" content="book">
 <meta property="og:description" content="Once we are done with mapping all reads to the reference genome, we can determine the variant positions within the genes of interest. For this we use a Galaxy tool called LoFreq that will report...">
@@ -161,11 +161,11 @@
 <pre><code>## GRanges object with 5 ranges and 1 metadata column:
 ##        seqnames              ranges strand |        AF
 ##           &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-##   SOD2        6 160103505-160103690      * |       1.1
-##   SOD2        6 160105866-160106085      * |       0.4
-##   SOD2        6 160109138-160109294      * |      -0.3
-##   SOD2        6 160113673-160113915      * |       0.7
-##   SOD2        6 160114157-160114219      * |       0.1
+##   SOD2        6 160103505-160103690      * |       0.9
+##   SOD2        6 160105866-160106085      * |       0.9
+##   SOD2        6 160109138-160109294      * |       0.2
+##   SOD2        6 160113673-160113915      * |       0.4
+##   SOD2        6 160114157-160114219      * |       0.7
 ##   -------
 ##   seqinfo: 18 sequences from an unspecified genome; no seqlengths</code></pre>
 <p>Use the example above to associate the frequency value with the created <code>GRanges</code> object. Now that we have both the BED-data (in a <code>GRangesList</code> object) and the VCF data in a <code>GRanges</code> object, we can</p>
@@ -248,7 +248,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-03-10.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

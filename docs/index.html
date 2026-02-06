@@ -5,9 +5,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>About | Minor DSLS - Genomics Project</title>
-<meta name="author" content="Marcel Kempenaar and Ronald Wedema">
+<meta name="author" content="Marcel Kempenaar">
 <meta name="description" content="This is the background and assignments needed to complete the DSLS Genomics project">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta name="generator" content="bookdown 0.45 with bs4_book()">
 <meta property="og:title" content="About | Minor DSLS - Genomics Project">
 <meta property="og:type" content="book">
 <meta property="og:description" content="This is the background and assignments needed to complete the DSLS Genomics project">
@@ -62,11 +62,11 @@
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="about" class="section level1 unnumbered">
 <h1>About<a class="anchor" aria-label="anchor" href="#about"><i class="fas fa-link"></i></a>
 </h1>
-<p>This is the syllabus for the Genomics Project. This document will provide you with enough background material and exercises to complete the project. In this project you will work in groups to determine variants from a DNA sequence data set of a given condition that may contribute to the development of this condition. We do this by processing raw sequencing data to eventually annotate found variants for their relation to a certain condition. Most aspects of this analysis will be performed in the workflow manager Galaxy with several extra steps that require programming in R. Every step taken will be documented in an RMarkdown lab journal, starting with quality control of the raw NGS reads, mapping these to a reference genome, reporting on the achieved coverage, finding and annotating variants and finally researching the found variants on their relation to the condition.</p>
+<p>This is the syllabus for the Genomics Project. This document will provide you with enough background material and exercises to complete the project. In this project you will work in groups to determine variants from a DNA sequence data set of a given condition that may contribute to the development of this condition. We do this by processing raw sequencing data and eventually annotate found variants for their relation to a certain condition. Most aspects of this analysis will be performed in the workflow manager Galaxy with several extra steps that require programming in R. Every step taken will be documented in an RMarkdown lab journal, starting with quality control of the raw NGS reads, mapping these to a reference genome, reporting on the achieved coverage, finding and annotating variants and finally researching the found variants on their relation to the condition.</p>
 <div id="usage" class="section level2 unnumbered">
 <h2>Usage<a class="anchor" aria-label="anchor" href="#usage"><i class="fas fa-link"></i></a>
 </h2>
-<p>Chapters are divided into subjects. Each subject (chapter) should last you a week to complete. There is no new information after week 4 and the rest of the weeks should be spend on finishing the analysis of your selected case.</p>
+<p>Chapters are divided into subjects. Each subject (chapter) should last you about a week to complete, but this can depend on the chosen data set and other factors. The planning below is therefore a general guideline.</p>
 </div>
 <div id="learning-outcomes" class="section level2 unnumbered">
 <h2>Learning outcomes<a class="anchor" aria-label="anchor" href="#learning-outcomes"><i class="fas fa-link"></i></a>
@@ -81,13 +81,12 @@
 <div id="end-products" class="section level2 unnumbered">
 <h2>End Products<a class="anchor" aria-label="anchor" href="#end-products"><i class="fas fa-link"></i></a>
 </h2>
-<p>The end product of this course is a lab journal document resulting from a knitted RMarkdown file describing the analysis steps taken for completing the project.</p>
-<p>The two items above are weighted and combined to get a single final grade. See also the Rubric for the learning outcomes and how they are graded.</p>
+<p>The end product of this course is a <em>lab journal</em> document resulting from a knitted RMarkdown file describing the analysis steps taken for completing the project.</p>
 </div>
 <div id="rubric" class="section level2 unnumbered">
 <h2>Rubric<a class="anchor" aria-label="anchor" href="#rubric"><i class="fas fa-link"></i></a>
 </h2>
-<p>Note: the rubric will be updated at a later moment.</p>
+<p>The following criteria are used for grading the lab journal. Feedback will be provided on each criteria through the BrighSpace course</p>
 <div class="inline-table"><table class="table table-sm">
 <colgroup>
 <col width="32%">
@@ -96,24 +95,29 @@
 </colgroup>
 <thead><tr class="header">
 <th>Subject</th>
-<th>criteria</th>
-<th align="center">weight</th>
+<th>Criteria</th>
+<th align="center">Points (out of 100)</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td>Lab Journal</td>
 <td>The lab journal is complete and contains motivation for taken steps and describes these steps in a reproducible manner</td>
-<td align="center">2</td>
+<td align="center">30</td>
 </tr>
 <tr class="even">
 <td>Lab Journal</td>
 <td>Based on results, correct (partial) conclusions are given. Results are supported by figures and these are correctly interpreted</td>
-<td align="center">2</td>
+<td align="center">30</td>
 </tr>
 <tr class="odd">
 <td>Workflow</td>
-<td>The re-usable Galaxy workflow consists of and implements the correct tools to perform NGS quality control, mapping against a reference genome as well as finding and annotating variants</td>
-<td align="center">1</td>
+<td>The re-usable Galaxy workflow consists of and implements the correct tools to perform an NGS variation analysis including quality control, read mapping and annotation</td>
+<td align="center">10</td>
+</tr>
+<tr class="even">
+<td>Workflow</td>
+<td>Analysis steps performed in R gives good insight into read mapping quality and lists the annotated variants in a well described and logical order</td>
+<td align="center">30</td>
 </tr>
 </tbody>
 </table></div>
@@ -187,6 +191,24 @@
 </tr>
 </tbody>
 </table></div>
+</div>
+<div id="theory-background-refresher" class="section level2" number="0.1">
+<h2>
+<span class="header-section-number">0.1</span> Theory Background Refresher<a class="anchor" aria-label="anchor" href="#theory-background-refresher"><i class="fas fa-link"></i></a>
+</h2>
+<p>The following topics have a relevance for courses in this program. These links are provided as reference and are not part of the course material.</p>
+<ul>
+<li>Biological macromolecules: <a href="https://openstax.org/books/biology-2e/pages/3-4-proteins">3.4</a>, <a href="https://openstax.org/books/biology-2e/pages/3-5-nucleic-acids">3.5</a>
+</li>
+<li>DNA structure and function (and mutation): <a href="https://openstax.org/books/biology-2e/pages/14-2-dna-structure-and-sequencing">14.2</a>, <a href="https://openstax.org/books/biology-2e/pages/14-3-basics-of-dna-replication">14.3</a>, <a href="https://openstax.org/books/biology-2e/pages/14-4-dna-replication-in-prokaryotes">14.4</a>, <a href="https://openstax.org/books/biology-2e/pages/14-5-dna-replication-in-eukaryotes">14.5</a>, <a href="https://openstax.org/books/biology-2e/pages/14-6-dna-repair">14.6</a>
+</li>
+<li>Genes and Proteins: <a href="https://openstax.org/books/biology-2e/pages/15-1-the-genetic-code">15.1</a>, <a href="https://openstax.org/books/biology-2e/pages/15-2-prokaryotic-transcription">15.2</a>, <a href="https://openstax.org/books/biology-2e/pages/15-3-eukaryotic-transcription">15.3</a>, <a href="https://openstax.org/books/biology-2e/pages/15-4-rna-processing-in-eukaryotes">15.4</a>, <a href="https://openstax.org/books/biology-2e/pages/15-5-ribosomes-and-protein-synthesis">15.5</a>
+</li>
+<li>Gene expression: <a href="https://openstax.org/books/biology-2e/pages/16-1-regulation-of-gene-expression">16.1</a>, <a href="https://openstax.org/books/biology-2e/pages/16-2-prokaryotic-gene-regulation">16.2</a>, <a href="https://openstax.org/books/biology-2e/pages/16-3-eukaryotic-epigenetic-gene-regulation">16.3</a>, <a href="https://openstax.org/books/biology-2e/pages/16-4-eukaryotic-transcription-gene-regulation">16.4</a>, <a href="https://openstax.org/books/biology-2e/pages/16-5-eukaryotic-post-transcriptional-gene-regulation">16.5</a>, <a href="https://openstax.org/books/biology-2e/pages/16-6-eukaryotic-translational-and-post-translational-gene-regulation">16.6</a>, <a href="https://openstax.org/books/biology-2e/pages/16-7-cancer-and-gene-regulation">16.7</a>
+</li>
+<li>Biotechnology and genomics: <a href="https://openstax.org/books/biology-2e/pages/17-1-biotechnology">17.1</a>, <a href="https://openstax.org/books/biology-2e/pages/17-2-mapping-genomes">17.2</a>, <a href="https://openstax.org/books/biology-2e/pages/17-3-whole-genome-sequencing">17.3</a>, <a href="https://openstax.org/books/biology-2e/pages/17-4-applying-genomics">17.4</a> (part regarding metagenomics), <a href="https://openstax.org/books/biology-2e/pages/17-5-genomics-and-proteomics">17.5</a>
+</li>
+</ul>
 <!--
 ## Manual TODOs {.unnumbered}
 
@@ -217,6 +239,7 @@
 <li><a class="nav-link" href="#end-products">End Products</a></li>
 <li><a class="nav-link" href="#rubric">Rubric</a></li>
 <li><a class="nav-link" href="#planning">Planning</a></li>
+<li><a class="nav-link" href="#theory-background-refresher"><span class="header-section-number">0.1</span> Theory Background Refresher</a></li>
 </ul>
 
       <div class="book-extra">
@@ -234,7 +257,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-03-10.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

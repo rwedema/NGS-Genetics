@@ -5,15 +5,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>7 Variant Visualization | Minor DSLS - Genomics Project</title>
-<meta name="author" content="Marcel Kempenaar and Ronald Wedema">
-<meta name="description" content="As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section,...">
-<meta name="generator" content="bookdown 0.36 with bs4_book()">
+<meta name="author" content="Marcel Kempenaar">
+<meta name="description" content="This chapter describes some methods of visualizing the variants found. They can support the findings or simply make them more interesting to see. For this project, select a visualization type and...">
+<meta name="generator" content="bookdown 0.45 with bs4_book()">
 <meta property="og:title" content="7 Variant Visualization | Minor DSLS - Genomics Project">
 <meta property="og:type" content="book">
-<meta property="og:description" content="As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section,...">
+<meta property="og:description" content="This chapter describes some methods of visualizing the variants found. They can support the findings or simply make them more interesting to see. For this project, select a visualization type and...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7 Variant Visualization | Minor DSLS - Genomics Project">
-<meta name="twitter:description" content="As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section,...">
+<meta name="twitter:description" content="This chapter describes some methods of visualizing the variants found. They can support the findings or simply make them more interesting to see. For this project, select a visualization type and...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -63,9 +63,11 @@
 <h1>
 <span class="header-section-number">7</span> Variant Visualization<a class="anchor" aria-label="anchor" href="#variant-visualization"><i class="fas fa-link"></i></a>
 </h1>
-<p>As described in chapter 1, the analysis and the resulting variants needs to be presented. To make this presentation more appealing, we can add some visual elements to the report. In this section, we will discuss a few options for visualizing the data.</p>
-<p>Besides a graphical representation, the complete table with all variants and - importantly - the reason why there were selected should be included in the presentation.</p>
-<p><strong>LollipopPlot</strong></p>
+<p>This chapter describes some methods of visualizing the variants found. They can support the findings or simply make them more interesting to see. For this project, select a visualization type and use your found/filtered variants to create at least one visualization.</p>
+<div id="lollipopplot" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> LollipopPlot<a class="anchor" aria-label="anchor" href="#lollipopplot"><i class="fas fa-link"></i></a>
+</h2>
 <p>This visualization can be helpful in cases where many of the top-variants are located within a single gene. The plot shows the position of the variant on the x-axis and a score on the y-axis. The score can be the <em>AF</em> value from the VCF file or any other score that was added through the annotation steps. Further data (‘dimensions’) can be added through changes to:</p>
 <ul>
 <li>The color of the lollipop (e.g. red for a high score, green for a low score)</li>
@@ -165,20 +167,25 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="images/lolliplot_4.png" width="672"></div>
-<p><strong>Dandelion Plot</strong></p>
-<p>If there are a lot of variants close together, an alternative can be the <em>dandelion plot</em> which is a variation of the lollipop plot where the variants are grouped together based on their position. It’s available from the same library, see the <a href="https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/trackViewer.html#Dandelion_Plot">online manual</a> for more information.</p>
-<div id="galaxy-workflow" class="section level2" number="7.1">
+</div>
+<div id="dandelion-plot" class="section level2" number="7.2">
 <h2>
-<span class="header-section-number">7.1</span> Galaxy Workflow<a class="anchor" aria-label="anchor" href="#galaxy-workflow"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.2</span> Dandelion Plot<a class="anchor" aria-label="anchor" href="#dandelion-plot"><i class="fas fa-link"></i></a>
+</h2>
+<p>If there are a lot of variants close together, an alternative can be the <em>dandelion plot</em> which is a variation of the lollipop plot where the variants are grouped together based on their position. It’s available from the same library, see the <a href="https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/trackViewer.html#Dandelion_Plot">online manual</a> for more information.</p>
+</div>
+<div id="galaxy-workflow" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> Galaxy Workflow<a class="anchor" aria-label="anchor" href="#galaxy-workflow"><i class="fas fa-link"></i></a>
 </h2>
 <p>Now that we have completed our analysis steps we can create a <strong>Galaxy workflow</strong>. In this workflow we will combine all the tools that we have used in Galaxy (FastQ files –&gt; SnpEff/SnpSift annotated output) so that when we receive new patient data in the future we can analyze that dataset with a single click!</p>
 <p>There are many <a href="https://galaxyproject.org/learn/advanced-workflow/">online resources</a> giving instructions and examples for creating Galaxy workflows, use these resources to create a workflow including all used analysis tools. Note that you can convert Galaxy histories into workflow(s), which saves a lot of time with configuring all the tools from that workfow.</p>
 <p>Once you have a workflow, make sure it is shared with your project partner and create a screenshot of it for your report (try to fit all tools in a single image).</p>
 <p><strong>Note</strong>; this assignment has a very low priority and should be done once you are satisfied with all other parts of your work! At the bare minimum, open your last history (including SnpEff/SnpSift) and explore/ play with the <code>Extract Workflow</code> option.</p>
 </div>
-<div id="comparative-genomics-optional" class="section level2" number="7.2">
+<div id="comparative-genomics-optional" class="section level2" number="7.4">
 <h2>
-<span class="header-section-number">7.2</span> Comparative Genomics [OPTIONAL]<a class="anchor" aria-label="anchor" href="#comparative-genomics-optional"><i class="fas fa-link"></i></a>
+<span class="header-section-number">7.4</span> Comparative Genomics [OPTIONAL]<a class="anchor" aria-label="anchor" href="#comparative-genomics-optional"><i class="fas fa-link"></i></a>
 </h2>
 <p>With the complete analysis nicely packaged into a single workflow, one thing that we can use it for is to do <em>comparative genomics</em>. This term contains many different types of comparisons and is described on Wikipedia as</p>
 <blockquote>
@@ -211,8 +218,10 @@
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#variant-visualization"><span class="header-section-number">7</span> Variant Visualization</a></li>
-<li><a class="nav-link" href="#galaxy-workflow"><span class="header-section-number">7.1</span> Galaxy Workflow</a></li>
-<li><a class="nav-link" href="#comparative-genomics-optional"><span class="header-section-number">7.2</span> Comparative Genomics [OPTIONAL]</a></li>
+<li><a class="nav-link" href="#lollipopplot"><span class="header-section-number">7.1</span> LollipopPlot</a></li>
+<li><a class="nav-link" href="#dandelion-plot"><span class="header-section-number">7.2</span> Dandelion Plot</a></li>
+<li><a class="nav-link" href="#galaxy-workflow"><span class="header-section-number">7.3</span> Galaxy Workflow</a></li>
+<li><a class="nav-link" href="#comparative-genomics-optional"><span class="header-section-number">7.4</span> Comparative Genomics [OPTIONAL]</a></li>
 </ul>
 
       <div class="book-extra">
@@ -230,7 +239,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar and Ronald Wedema. It was last built on 2025-03-10.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-06.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
