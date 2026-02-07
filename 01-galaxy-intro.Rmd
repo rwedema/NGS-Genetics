@@ -1,6 +1,6 @@
 # Intro Genomics Project {#intro}
 
-In this project you will learn the bioinformatic basics of how to analyse *Next-Generation Sequence* (NGS) data of patients diagnosed with either [cardiomyopathy](https://en.wikipedia.org/wiki/Cardiomyopathy) or [Medulloblastoma](https://en.wikipedia.org/wiki/Medulloblastoma). Using this case we will discover genetic variations present in the genomic data of a patient having a suspected condition. The end-goal is to identify and report on those genomic variations that are possibly disease causing. All course material can be found in this document, some theory, a *lot* of links to resources, questions and assignments.
+In this project you will learn the bioinformatic basics of how to analyse *Next-Generation Sequencing* (NGS) data of patients diagnosed with either [cardiomyopathy](https://en.wikipedia.org/wiki/Cardiomyopathy) or [Medulloblastoma](https://en.wikipedia.org/wiki/Medulloblastoma). Using this case we will discover genetic variations present in the genomic data of a patient having a suspected condition. The end-goal is to identify and report on those genomic variations that are possibly disease causing. All course material can be found in this document, some theory, a *lot* of links to resources, questions and assignments.
 
 ## Cardiomyopathy
 
@@ -37,6 +37,19 @@ The article accompanying the available data set specifies that there are multipl
 
 Note that the article specifies 130 cancer-associated genes but does *not* refer to this list. The links above add up to 122 genes in total for genes related to (multiple types of) cancer. Subsequent data analysis will have to be performed to identify the genes that are actually captured for the exome sequencing.
 
+## Finding your own data set
+
+The Medulloblastoma data set has been found through the NCBI GEO database and that is a perfect place to find other interesting experiments to use. We will also be using this for the next Transcriptomics project.
+
+Suitable data can be found when browsing the *Genome variation profiling by high throughput sequencing*' experiments, preferably containing Human data. Use the following link to list the current available datasets: [GEO Genome variation](https://www.ncbi.nlm.nih.gov/geo/browse/?view=series&type=10&tax=9606&zsort=date&display=20).
+
+There, we look preferably for experiments that uses a gene panel, as considering the whole genome is too much work. This is not always easy to find, so, when the research of interest is a known condition, we might find a usable gene panel to isolate the genes of interest. The following examples can be potential candidate experiments even though there is no mention of a gene panel (they used whole-genome sequencing):
+
+* [GSE307529](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE307529): *Whole-exome sequencing of normal lung tissues, precursor lesions and invasive lung adenocarcinomas*
+* [GSE280982](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE280982): *Single-cell sequencing across radiation treatment timepoints in head and neck cancer*
+
+If you want to find your own dataset, please discuss this with the teacher first.
+
 ## Tools
 
 In this project we will work with many different software tools to replicate the genetic diagnoses process, both available either for download or on the computer you are now using. Other tools we are going to create ourselves! All of these tools however perform important steps in the analysis process and involve:
@@ -46,19 +59,19 @@ In this project we will work with many different software tools to replicate the
 -   finding variations in respect to the reference and
 -   scoring the found variations on the probability that they are disease causing.
 
-Normally these steps involve many separate tools which need to be run as a terminal application, however for this course we will be using a [*worflow manager*](https://en.wikipedia.org/wiki/Scientific_workflow_system) in which most of the tools are available and can be joined together to form logical steps in the analysis process. The workflow manager used in this course is **Galaxy** ([wikipedia](https://en.wikipedia.org/wiki/Galaxy_(computational_biology)), [website](http://galaxyproject.org/)), but other worflow managers exist such as: [CLC Bio](https://www.qiagenbioinformatics.com/products/clc-main-workbench/), [Taverna](http://www.taverna.org.uk), [Nextgene](http://www.softgenetics.com/NextGENe.php) or [SnakeMake](https://snakemake.readthedocs.io/en/stable/). It is very likely that you will encounter one of these workflow managers in your future professional career, as many scientific laboratories do their biomedical research with the help of tools organised in such workflow managers.
+Normally these steps involve many separate tools which need to be run as a terminal application, however for this course we will be using a [*worflow manager*](https://en.wikipedia.org/wiki/Scientific_workflow_system) in which most of the tools are available and can be joined together to form logical steps in the analysis process. The workflow manager used in this course is **Galaxy** ([wikipedia](https://en.wikipedia.org/wiki/Galaxy_(computational_biology)), [website](http://galaxyproject.org/)), but other workflow managers exist such as: [CLC Bio](https://www.qiagenbioinformatics.com/products/clc-main-workbench/), [Taverna](http://www.taverna.org.uk), [Nextgene](http://www.softgenetics.com/NextGENe.php) or [SnakeMake](https://snakemake.readthedocs.io/en/stable/). It is very likely that you will encounter one of these workflow managers in your future professional career, as many scientific laboratories do their biomedical research with the help of tools organised in such workflow managers.
 
-Next to the advantage of coupling multiple tools together into a *workflow*, Galaxy is the ideal translation from often hard-to-use *commandline tools* to easy-to-use by a large audience by offering simple *graphical interfaces*.
+Next to the advantage of coupling multiple tools together into a *workflow*, Galaxy is the ideal translation from often hard-to-use *commandline tools* to easy-to-use by a large audience by offering a simple *graphical interfaces*.
 
 Actually one of the reasons that you are following this course is to become proficient in also using these commandline tools and combining them into a workflow (also called a pipeline) so that non-technical researchers can use them!
 
-**Week 1** of this course starts by explaining what Galaxy is and how you can use it to analyze your data, but first we will introduce and discuss the data we will be working with.
+**Week 1** of this course starts by explaining what Galaxy is and how you can use it to analyse your data, but first we will introduce and discuss the data we will be working with.
 
 ## Data
 
-As a bioinformatician we often do not *create* the data we analyze ourselves but these come from a lab which - for this project - has a **sequencer**. This sequencer (an Illumina Miseq or NextSeq [youtube](https://youtu.be/womKfikWlxM), many other sequencing technologies exist and you will learn about these in a seperate lecture) generates sequencing data from a biological sample. Sequencing data for the cases introduced in this module will come from genome data. In a different module (2.1.2), you will also learn to work with transcriptomics data (RNA).
+As a bioinformatician we often do not *create* the data we analyse ourselves but these come from a lab which - for this project - has a **sequencer**. This sequencer (an Illumina Miseq or NextSeq [youtube](https://youtu.be/womKfikWlxM), many other sequencing technologies exist and you will learn about these in a separate lecture) generates sequencing data from a biological sample. Sequencing data for the cases introduced in this module will come from genome data. In a different module (2.1.2), you will also learn to work with transcriptomics data (RNA).
 
-The first step in performing a so called *sequencing run* is the sample-preparation. For this project this fase is used to *filter* the isolated DNA so that only the exons of the genes of interest (consisting of one or more **exons** or EXpressed regiONs) are kept, this method is called [*exome sequencing*](https://en.wikipedia.org/wiki/Exome_sequencing).
+The first step in performing a so called *sequencing run* is the sample-preparation. For this project this phase is used to *filter* the isolated DNA so that only the exons of the genes of interest (consisting of one or more **exons** or EXpressed regiONs) are kept, this method is called [*exome sequencing*](https://en.wikipedia.org/wiki/Exome_sequencing).
 
 ```{r, echo=FALSE, out.width="100%"}
 knitr::include_graphics("images/exons.png")
@@ -112,11 +125,13 @@ As you will already have learned during the "Wetenschappelijke Cyclus" module, a
 
 There are no imposed rules on how to report your progress since it is not comparable with a normal written report (no chapters called 'introduction', 'results', etc.), just try to keep it organized, clearly state what you are doing and why this is important and where your results belong to. Do note however that when you use figures and tables (please do!), provide them with a clear caption to explain what you are showing.
 
-### Galaxy Server
+## Galaxy Server
 
-This is the main 'tool' (or (web)platform) containing the *actual* tools for performing our analysis we will use during this course. Since we are spending a lot of time in Galaxy we start by learning how to use it. Note that there are a lot of Galaxy servers available to use worldwide and each server probably contains a different set of implemented tools. Typically, different labs have their own Galaxy server and host just the tool that are important for that particular lab to run their analyses. The main galaxy server is available at <https://usegalaxy.org> which is fine for learning about galaxy (section below) but **won't** be used later on (see the section below that) and you do **not** have to register on that server.
+This is the main 'tool' (or (web)platform) containing the *actual* tools for performing our analysis we will use during this course. Since we are spending a lot of time in Galaxy we start by learning how to use it. Note that there are a lot of Galaxy servers available to use worldwide and each server probably contains a different set of implemented tools. Typically, different labs have their own Galaxy server and host just the tool that are important for that particular lab to run their analyses. The main galaxy server (in Europe) is available at <https://usegalaxy.eu> and is a very complete Galaxy instance hosted in Germany offering a lot of resources (>8500 CPU cores, 50TB memory, see the [statistics](https://stats.galaxyproject.eu/) page) and all the tools required for this project. It does require some patience however as jobs are normally queued and it is hard to predict how long it will take before jobs actually start. Luckily, you can start (submit) multiple jobs simultaneously and come back later to check if they finished.
 
-#### Learning Galaxy {.unnumbered}
+All screenshots from this manual are most likely outdated as we've used different Galaxy instances in the past. Since we do not control installed application versions, some parts of the manual might be incorrect as well. *Please be critical on your own work and mention any deviations in your notebook*.
+
+### Learning Galaxy {.unnumbered}
 
 Start by following a beginner *tutorial* available at the [Galaxy Training](https://galaxyproject.github.io/training-material/) collection or from the - old - [Galaxy Learn](https://wiki.galaxyproject.org/Learn) wiki page. First, browse the page to see what is available (some can be used later on too) and choose an interesting (beginners!) tutorial to try. While not all tutorials are either relevant or very up-to-date, you need to learn at least the following concepts:
 
@@ -135,15 +150,3 @@ Start by following a beginner *tutorial* available at the [Galaxy Training](http
     -   This item will be explained later on too
 
 You only need to report *which* tutorial you followed/ video tutorial you watched.
-
-#### Bioinformatics Galaxy Server {.unnumbered}
-
-After completing this tutorial, we switch to the Galaxy server that we will use throughout this course which is available at: <https://galaxy.bioinf.nl> and contains a collection of course specific tools.
-
-```{r, echo=FALSE, out.width="100%"}
-knitr::include_graphics("images/galaxyServer.png")
-```
-
-The Galaxy server that we host ourselves is different from the one that you've used for the tutorial. Different in this sense means containing a different collection of available software tools. Most of the tools that we will be using in this course can be found using the `search tools` input field, which can be found at the top left corner of Galaxy.
-
-Some tools however were installed in bundles and have their own category and therefore the easiest method of finding the tool you need is to simply enter the name in the *search tools* field in the top-left corner.

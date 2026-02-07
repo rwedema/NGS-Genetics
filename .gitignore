@@ -2,9 +2,11 @@
 .Rhistory
 .Rapp.history
 
-# Bookdown tmp files
+# Bookdown tmp files and folders
 _main.*
 _book/
+_bookdown_files/
+_main_files/
 
 # Session Data files
 .RData

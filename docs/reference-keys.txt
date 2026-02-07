@@ -2,6 +2,7 @@ theory-background-refresher
 intro
 cardiomyopathy
 medulloblastoma
+finding-your-own-data-set
 tools
 data
 analysis

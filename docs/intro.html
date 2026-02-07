@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>1 Intro Genomics Project | Minor DSLS - Genomics Project</title>
 <meta name="author" content="Marcel Kempenaar">
-<meta name="description" content="In this project you will learn the bioinformatic basics of how to analyse Next-Generation Sequence (NGS) data of patients diagnosed with either cardiomyopathy or Medulloblastoma. Using this case...">
+<meta name="description" content="In this project you will learn the bioinformatic basics of how to analyse Next-Generation Sequencing (NGS) data of patients diagnosed with either cardiomyopathy or Medulloblastoma. Using this case...">
 <meta name="generator" content="bookdown 0.45 with bs4_book()">
 <meta property="og:title" content="1 Intro Genomics Project | Minor DSLS - Genomics Project">
 <meta property="og:type" content="book">
-<meta property="og:description" content="In this project you will learn the bioinformatic basics of how to analyse Next-Generation Sequence (NGS) data of patients diagnosed with either cardiomyopathy or Medulloblastoma. Using this case...">
+<meta property="og:description" content="In this project you will learn the bioinformatic basics of how to analyse Next-Generation Sequencing (NGS) data of patients diagnosed with either cardiomyopathy or Medulloblastoma. Using this case...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="1 Intro Genomics Project | Minor DSLS - Genomics Project">
-<meta name="twitter:description" content="In this project you will learn the bioinformatic basics of how to analyse Next-Generation Sequence (NGS) data of patients diagnosed with either cardiomyopathy or Medulloblastoma. Using this case...">
+<meta name="twitter:description" content="In this project you will learn the bioinformatic basics of how to analyse Next-Generation Sequencing (NGS) data of patients diagnosed with either cardiomyopathy or Medulloblastoma. Using this case...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
@@ -63,7 +63,7 @@
 <h1>
 <span class="header-section-number">1</span> Intro Genomics Project<a class="anchor" aria-label="anchor" href="#intro"><i class="fas fa-link"></i></a>
 </h1>
-<p>In this project you will learn the bioinformatic basics of how to analyse <em>Next-Generation Sequence</em> (NGS) data of patients diagnosed with either <a href="https://en.wikipedia.org/wiki/Cardiomyopathy">cardiomyopathy</a> or <a href="https://en.wikipedia.org/wiki/Medulloblastoma">Medulloblastoma</a>. Using this case we will discover genetic variations present in the genomic data of a patient having a suspected condition. The end-goal is to identify and report on those genomic variations that are possibly disease causing. All course material can be found in this document, some theory, a <em>lot</em> of links to resources, questions and assignments.</p>
+<p>In this project you will learn the bioinformatic basics of how to analyse <em>Next-Generation Sequencing</em> (NGS) data of patients diagnosed with either <a href="https://en.wikipedia.org/wiki/Cardiomyopathy">cardiomyopathy</a> or <a href="https://en.wikipedia.org/wiki/Medulloblastoma">Medulloblastoma</a>. Using this case we will discover genetic variations present in the genomic data of a patient having a suspected condition. The end-goal is to identify and report on those genomic variations that are possibly disease causing. All course material can be found in this document, some theory, a <em>lot</em> of links to resources, questions and assignments.</p>
 <div id="cardiomyopathy" class="section level2" number="1.1">
 <h2>
 <span class="header-section-number">1.1</span> Cardiomyopathy<a class="anchor" aria-label="anchor" href="#cardiomyopathy"><i class="fas fa-link"></i></a>
@@ -108,9 +108,26 @@
 </ul>
 <p>Note that the article specifies 130 cancer-associated genes but does <em>not</em> refer to this list. The links above add up to 122 genes in total for genes related to (multiple types of) cancer. Subsequent data analysis will have to be performed to identify the genes that are actually captured for the exome sequencing.</p>
 </div>
-<div id="tools" class="section level2" number="1.3">
+<div id="finding-your-own-data-set" class="section level2" number="1.3">
 <h2>
-<span class="header-section-number">1.3</span> Tools<a class="anchor" aria-label="anchor" href="#tools"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.3</span> Finding your own data set<a class="anchor" aria-label="anchor" href="#finding-your-own-data-set"><i class="fas fa-link"></i></a>
+</h2>
+<p>The Medulloblastoma data set has been found through the NCBI GEO database and that is a perfect place to find other interesting experiments to use. We will also be using this for the next Transcriptomics project.</p>
+<p>Suitable data can be found when browsing the <em>Genome variation profiling by high throughput sequencing</em>’ experiments, preferably containing Human data. Use the following link to list the current available datasets: <a href="https://www.ncbi.nlm.nih.gov/geo/browse/?view=series&amp;type=10&amp;tax=9606&amp;zsort=date&amp;display=20">GEO Genome variation</a>.</p>
+<p>There, we look preferably for experiments that uses a gene panel, as considering the whole genome is too much work. This is not always easy to find, so, when the research of interest is a known condition, we might find a usable gene panel to isolate the genes of interest. The following examples can be potential candidate experiments even though there is no mention of a gene panel (they used whole-genome sequencing):</p>
+<ul>
+<li>
+<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE307529">GSE307529</a>: <em>Whole-exome sequencing of normal lung tissues, precursor lesions and invasive lung adenocarcinomas</em>
+</li>
+<li>
+<a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE280982">GSE280982</a>: <em>Single-cell sequencing across radiation treatment timepoints in head and neck cancer</em>
+</li>
+</ul>
+<p>If you want to find your own dataset, please discuss this with the teacher first.</p>
+</div>
+<div id="tools" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Tools<a class="anchor" aria-label="anchor" href="#tools"><i class="fas fa-link"></i></a>
 </h2>
 <p>In this project we will work with many different software tools to replicate the genetic diagnoses process, both available either for download or on the computer you are now using. Other tools we are going to create ourselves! All of these tools however perform important steps in the analysis process and involve:</p>
 <ul>
@@ -119,26 +136,26 @@
 <li>finding variations in respect to the reference and</li>
 <li>scoring the found variations on the probability that they are disease causing.</li>
 </ul>
-<p>Normally these steps involve many separate tools which need to be run as a terminal application, however for this course we will be using a <a href="https://en.wikipedia.org/wiki/Scientific_workflow_system"><em>worflow manager</em></a> in which most of the tools are available and can be joined together to form logical steps in the analysis process. The workflow manager used in this course is <strong>Galaxy</strong> (<a href="https://en.wikipedia.org/wiki/Galaxy_(computational_biology)">wikipedia</a>, <a href="http://galaxyproject.org/">website</a>), but other worflow managers exist such as: <a href="https://www.qiagenbioinformatics.com/products/clc-main-workbench/">CLC Bio</a>, <a href="http://www.taverna.org.uk">Taverna</a>, <a href="http://www.softgenetics.com/NextGENe.php">Nextgene</a> or <a href="https://snakemake.readthedocs.io/en/stable/">SnakeMake</a>. It is very likely that you will encounter one of these workflow managers in your future professional career, as many scientific laboratories do their biomedical research with the help of tools organised in such workflow managers.</p>
-<p>Next to the advantage of coupling multiple tools together into a <em>workflow</em>, Galaxy is the ideal translation from often hard-to-use <em>commandline tools</em> to easy-to-use by a large audience by offering simple <em>graphical interfaces</em>.</p>
+<p>Normally these steps involve many separate tools which need to be run as a terminal application, however for this course we will be using a <a href="https://en.wikipedia.org/wiki/Scientific_workflow_system"><em>worflow manager</em></a> in which most of the tools are available and can be joined together to form logical steps in the analysis process. The workflow manager used in this course is <strong>Galaxy</strong> (<a href="https://en.wikipedia.org/wiki/Galaxy_(computational_biology)">wikipedia</a>, <a href="http://galaxyproject.org/">website</a>), but other workflow managers exist such as: <a href="https://www.qiagenbioinformatics.com/products/clc-main-workbench/">CLC Bio</a>, <a href="http://www.taverna.org.uk">Taverna</a>, <a href="http://www.softgenetics.com/NextGENe.php">Nextgene</a> or <a href="https://snakemake.readthedocs.io/en/stable/">SnakeMake</a>. It is very likely that you will encounter one of these workflow managers in your future professional career, as many scientific laboratories do their biomedical research with the help of tools organised in such workflow managers.</p>
+<p>Next to the advantage of coupling multiple tools together into a <em>workflow</em>, Galaxy is the ideal translation from often hard-to-use <em>commandline tools</em> to easy-to-use by a large audience by offering a simple <em>graphical interfaces</em>.</p>
 <p>Actually one of the reasons that you are following this course is to become proficient in also using these commandline tools and combining them into a workflow (also called a pipeline) so that non-technical researchers can use them!</p>
-<p><strong>Week 1</strong> of this course starts by explaining what Galaxy is and how you can use it to analyze your data, but first we will introduce and discuss the data we will be working with.</p>
+<p><strong>Week 1</strong> of this course starts by explaining what Galaxy is and how you can use it to analyse your data, but first we will introduce and discuss the data we will be working with.</p>
 </div>
-<div id="data" class="section level2" number="1.4">
+<div id="data" class="section level2" number="1.5">
 <h2>
-<span class="header-section-number">1.4</span> Data<a class="anchor" aria-label="anchor" href="#data"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.5</span> Data<a class="anchor" aria-label="anchor" href="#data"><i class="fas fa-link"></i></a>
 </h2>
-<p>As a bioinformatician we often do not <em>create</em> the data we analyze ourselves but these come from a lab which - for this project - has a <strong>sequencer</strong>. This sequencer (an Illumina Miseq or NextSeq <a href="https://youtu.be/womKfikWlxM">youtube</a>, many other sequencing technologies exist and you will learn about these in a seperate lecture) generates sequencing data from a biological sample. Sequencing data for the cases introduced in this module will come from genome data. In a different module (2.1.2), you will also learn to work with transcriptomics data (RNA).</p>
-<p>The first step in performing a so called <em>sequencing run</em> is the sample-preparation. For this project this fase is used to <em>filter</em> the isolated DNA so that only the exons of the genes of interest (consisting of one or more <strong>exons</strong> or EXpressed regiONs) are kept, this method is called <a href="https://en.wikipedia.org/wiki/Exome_sequencing"><em>exome sequencing</em></a>.</p>
+<p>As a bioinformatician we often do not <em>create</em> the data we analyse ourselves but these come from a lab which - for this project - has a <strong>sequencer</strong>. This sequencer (an Illumina Miseq or NextSeq <a href="https://youtu.be/womKfikWlxM">youtube</a>, many other sequencing technologies exist and you will learn about these in a separate lecture) generates sequencing data from a biological sample. Sequencing data for the cases introduced in this module will come from genome data. In a different module (2.1.2), you will also learn to work with transcriptomics data (RNA).</p>
+<p>The first step in performing a so called <em>sequencing run</em> is the sample-preparation. For this project this phase is used to <em>filter</em> the isolated DNA so that only the exons of the genes of interest (consisting of one or more <strong>exons</strong> or EXpressed regiONs) are kept, this method is called <a href="https://en.wikipedia.org/wiki/Exome_sequencing"><em>exome sequencing</em></a>.</p>
 <div class="inline-figure"><img src="images/exons.png" width="100%"></div>
 <p>By targeting specific genes (called a gene panel) we omit the bulk of the genome, and this has an important consequence. The human genome contains 26.564 genes that have 233.785 exons combined (when looking at the human genome build 2003). We can get more data on selectively targeting genes of interest, instead of trying to read the whole exome. Can you think of a reason that this is true?</p>
 <p>All DNA not included in the genes of interest and thus also the introns (somewhere around <strong>98%</strong> of all DNA) is not sequenced, therefore from the total of ~3.2 billion basepairs only a small fraction is actually sequenced. This greatly depends on the case you selected and the number of genes present in the gene panel, but will typically be a very small percentage usually less than 1% of the genome.</p>
 <p>The actual data that we will be using is stored in relatively simple text-files containing the sequenced letters (A, C, G and T) along with some data primarily used to describe the quality of each sequenced base. Given the sequencing technology used to generate the sequencing data, we are limited to the machine’s technical capabilities to generate such data. In case of the MiSeq or NextSeq, this means that - unfortunately - not very long continuous sequences can be produced. The files generated by such sequencers contain <em>millions</em> of short sequences (~150 basepairs each, called a sequence <strong>read</strong>) with no particular order.</p>
 <p>The challenge with using this data to answer our initial question (which specific variations (mutations) are responsible for acquiring this disease) is to find out <em>where</em> each of these sequences originate from so that we can compare the patients’ sequence to the sequence of a healthy individual. With this comparison we can find if and where any variation is and thus begin with answering our question.</p>
 </div>
-<div id="analysis" class="section level2" number="1.5">
+<div id="analysis" class="section level2" number="1.6">
 <h2>
-<span class="header-section-number">1.5</span> Analysis<a class="anchor" aria-label="anchor" href="#analysis"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.6</span> Analysis<a class="anchor" aria-label="anchor" href="#analysis"><i class="fas fa-link"></i></a>
 </h2>
 <p>This course consists of a number of chapters like this that can be worked through in-order. The first section of each of these documents shows where in the analysis you are and which steps are next. It also shows what tools you are going to use and if there are any assignments included.</p>
 <p>You will note that this document for the first week is not very long nor does it contain too many assignments. This is on purpose since the goal of this week is primarily for you to understand:</p>
@@ -170,28 +187,30 @@
 </div>
 <p>We begin the practical of each new week by first having a group discussing on what we did in the previous week.</p>
 </div>
-<div id="literature" class="section level2" number="1.6">
+<div id="literature" class="section level2" number="1.7">
 <h2>
-<span class="header-section-number">1.6</span> Literature<a class="anchor" aria-label="anchor" href="#literature"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.7</span> Literature<a class="anchor" aria-label="anchor" href="#literature"><i class="fas fa-link"></i></a>
 </h2>
 <p>There is no explicit book for the case or other text that you will need to read, but there is a lot of online material available to use when you encounter unknown terms or concepts. The article titled ‘<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4179624/">Review of Current Methods, Applications, and Data Management for the Bioinformatics Analysis of Whole Exome Sequencing</a>’ discusses the complete process of analyzing raw sequencing data for variant analysis and while it goes beyond the scope of this project it is a good read.</p>
 <p>Besides this practical, the lectures from the Theory of Bioinformatics module also greatly add to your understanding of both the techniques, data and challenges we need to solve.</p>
 </div>
-<div id="reporting" class="section level2" number="1.7">
+<div id="reporting" class="section level2" number="1.8">
 <h2>
-<span class="header-section-number">1.7</span> Reporting<a class="anchor" aria-label="anchor" href="#reporting"><i class="fas fa-link"></i></a>
+<span class="header-section-number">1.8</span> Reporting<a class="anchor" aria-label="anchor" href="#reporting"><i class="fas fa-link"></i></a>
 </h2>
 <p>To help you work trough these document and prepare you as best as possible for the final presentation it is best to keep track of all your analysis steps and findings.</p>
 <p>As you will already have learned during the “Wetenschappelijke Cyclus” module, a type of document called <a href="https://rmarkdown.rstudio.com">R Markdown</a> is very suitable for this purpose. In this document you can write a combination of text and code where the results (be it tables or figures) are included as well. Therefore, it is very suitable as a lab-journal for this course.</p>
 <p>There are no imposed rules on how to report your progress since it is not comparable with a normal written report (no chapters called ‘introduction’, ‘results’, etc.), just try to keep it organized, clearly state what you are doing and why this is important and where your results belong to. Do note however that when you use figures and tables (please do!), provide them with a clear caption to explain what you are showing.</p>
-<div id="galaxy-server" class="section level3" number="1.7.1">
-<h3>
-<span class="header-section-number">1.7.1</span> Galaxy Server<a class="anchor" aria-label="anchor" href="#galaxy-server"><i class="fas fa-link"></i></a>
+</div>
+<div id="galaxy-server" class="section level2" number="1.9">
+<h2>
+<span class="header-section-number">1.9</span> Galaxy Server<a class="anchor" aria-label="anchor" href="#galaxy-server"><i class="fas fa-link"></i></a>
+</h2>
+<p>This is the main ‘tool’ (or (web)platform) containing the <em>actual</em> tools for performing our analysis we will use during this course. Since we are spending a lot of time in Galaxy we start by learning how to use it. Note that there are a lot of Galaxy servers available to use worldwide and each server probably contains a different set of implemented tools. Typically, different labs have their own Galaxy server and host just the tool that are important for that particular lab to run their analyses. The main galaxy server (in Europe) is available at <a href="https://usegalaxy.eu" class="uri">https://usegalaxy.eu</a> and is a very complete Galaxy instance hosted in Germany offering a lot of resources (&gt;8500 CPU cores, 50TB memory, see the <a href="https://stats.galaxyproject.eu/">statistics</a> page) and all the tools required for this project. It does require some patience however as jobs are normally queued and it is hard to predict how long it will take before jobs actually start. Luckily, you can start (submit) multiple jobs simultaneously and come back later to check if they finished.</p>
+<p>All screenshots from this manual are most likely outdated as we’ve used different Galaxy instances in the past. Since we do not control installed application versions, some parts of the manual might be incorrect as well. <em>Please be critical on your own work and mention any deviations in your notebook</em>.</p>
+<div id="learning-galaxy" class="section level3 unnumbered">
+<h3>Learning Galaxy<a class="anchor" aria-label="anchor" href="#learning-galaxy"><i class="fas fa-link"></i></a>
 </h3>
-<p>This is the main ‘tool’ (or (web)platform) containing the <em>actual</em> tools for performing our analysis we will use during this course. Since we are spending a lot of time in Galaxy we start by learning how to use it. Note that there are a lot of Galaxy servers available to use worldwide and each server probably contains a different set of implemented tools. Typically, different labs have their own Galaxy server and host just the tool that are important for that particular lab to run their analyses. The main galaxy server is available at <a href="https://usegalaxy.org" class="uri">https://usegalaxy.org</a> which is fine for learning about galaxy (section below) but <strong>won’t</strong> be used later on (see the section below that) and you do <strong>not</strong> have to register on that server.</p>
-<div id="learning-galaxy" class="section level4 unnumbered">
-<h4>Learning Galaxy<a class="anchor" aria-label="anchor" href="#learning-galaxy"><i class="fas fa-link"></i></a>
-</h4>
 <p>Start by following a beginner <em>tutorial</em> available at the <a href="https://galaxyproject.github.io/training-material/">Galaxy Training</a> collection or from the - old - <a href="https://wiki.galaxyproject.org/Learn">Galaxy Learn</a> wiki page. First, browse the page to see what is available (some can be used later on too) and choose an interesting (beginners!) tutorial to try. While not all tutorials are either relevant or very up-to-date, you need to learn at least the following concepts:</p>
 <ul>
 <li>Creating a new history or rename your current - empty - history</li>
@@ -218,16 +237,7 @@
 </li>
 </ul>
 <p>You only need to report <em>which</em> tutorial you followed/ video tutorial you watched.</p>
-</div>
-<div id="bioinformatics-galaxy-server" class="section level4 unnumbered">
-<h4>Bioinformatics Galaxy Server<a class="anchor" aria-label="anchor" href="#bioinformatics-galaxy-server"><i class="fas fa-link"></i></a>
-</h4>
-<p>After completing this tutorial, we switch to the Galaxy server that we will use throughout this course which is available at: <a href="https://galaxy.bioinf.nl" class="uri">https://galaxy.bioinf.nl</a> and contains a collection of course specific tools.</p>
-<div class="inline-figure"><img src="images/galaxyServer.png" width="100%"></div>
-<p>The Galaxy server that we host ourselves is different from the one that you’ve used for the tutorial. Different in this sense means containing a different collection of available software tools. Most of the tools that we will be using in this course can be found using the <code>search tools</code> input field, which can be found at the top left corner of Galaxy.</p>
-<p>Some tools however were installed in bundles and have their own category and therefore the easiest method of finding the tool you need is to simply enter the name in the <em>search tools</em> field in the top-left corner.</p>
 
-</div>
 </div>
 </div>
 </div>
@@ -240,12 +250,14 @@
 <li><a class="nav-link" href="#intro"><span class="header-section-number">1</span> Intro Genomics Project</a></li>
 <li><a class="nav-link" href="#cardiomyopathy"><span class="header-section-number">1.1</span> Cardiomyopathy</a></li>
 <li><a class="nav-link" href="#medulloblastoma"><span class="header-section-number">1.2</span> Medulloblastoma</a></li>
-<li><a class="nav-link" href="#tools"><span class="header-section-number">1.3</span> Tools</a></li>
-<li><a class="nav-link" href="#data"><span class="header-section-number">1.4</span> Data</a></li>
-<li><a class="nav-link" href="#analysis"><span class="header-section-number">1.5</span> Analysis</a></li>
-<li><a class="nav-link" href="#literature"><span class="header-section-number">1.6</span> Literature</a></li>
+<li><a class="nav-link" href="#finding-your-own-data-set"><span class="header-section-number">1.3</span> Finding your own data set</a></li>
+<li><a class="nav-link" href="#tools"><span class="header-section-number">1.4</span> Tools</a></li>
+<li><a class="nav-link" href="#data"><span class="header-section-number">1.5</span> Data</a></li>
+<li><a class="nav-link" href="#analysis"><span class="header-section-number">1.6</span> Analysis</a></li>
+<li><a class="nav-link" href="#literature"><span class="header-section-number">1.7</span> Literature</a></li>
+<li><a class="nav-link" href="#reporting"><span class="header-section-number">1.8</span> Reporting</a></li>
 <li>
-<a class="nav-link" href="#reporting"><span class="header-section-number">1.7</span> Reporting</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#galaxy-server"><span class="header-section-number">1.7.1</span> Galaxy Server</a></li></ul>
+<a class="nav-link" href="#galaxy-server"><span class="header-section-number">1.9</span> Galaxy Server</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#learning-galaxy">Learning Galaxy</a></li></ul>
 </li>
 </ul>
 
@@ -264,7 +276,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-06.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-07.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
