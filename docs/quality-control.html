@@ -179,7 +179,7 @@ The plus sign
 <h2>
 <span class="header-section-number">2.2</span> Quality Control<a class="anchor" aria-label="anchor" href="#quality-control-1"><i class="fas fa-link"></i></a>
 </h2>
-<p>We need to load the patient data you are going to work on during this project. All patient data is stored on the network and you first need to load it into your Galaxy <strong>History</strong> to work with. To do this click on the ‘Upload Data’ button and next on the ‘Choose local files’ button at the bottom of the popup. Here, you can browse to the folder on the network that contain all samples which is: <code>/students/2024-2025/minor/genomics-data</code>. Note that for Cardiomyopathy, use the <code>CM-DNASeq</code> folder and for Medulloblastoma, use the <code>MB-DNASeq</code> folder.</p>
+<p>We need to load the patient data you are going to work on during this project. All patient data is stored on the network and you first need to load it into your Galaxy <strong>History</strong> to work with. To do this click on the ‘Upload Data’ button and next on the ‘Choose local files’ button at the bottom of the popup. Here, you can browse to the folder on the network that contain all samples which is: <code>/commons/Themas/Minor01/Genomics/samples</code>. Note that for Cardiomyopathy, use the <code>CM-DNASeq</code> folder and for Medulloblastoma, use the <code>MB-DNASeq</code> folder.</p>
 <p>As you can see each case consists of two files. This is because the forward and reverse reads are split up into two files (<em>paired-end sequencing</em>). The files with <strong>R1</strong> or <strong>_1</strong> in the name are the forward reads and the reverse reads have <strong>R2</strong> or <strong>_2</strong> in their name, remember this as some tools require to select the proper file.</p>
 <p>If for example <code>Medulloblastoma</code> is your disease case, you can select both read files from a <code>Medulloblastoma</code> sample, such as <code>SRR29613194</code>. Galaxy automatically tries to detect the file format that you will add to a history, most often using it’s file extension. In this case, we need to make sure that Galaxy has the proper format selected which is <code>fastqsanger</code>. The Sanger part of this format refers to the <em>phred quality scoring</em> method used in this file as there exist multiple scoring methods. Without the correct data type a tool such as <code>FastQC</code> (see below) doesn’t know when a read is of sufficient quality or worse, qualifies reads incorrectly. Select the proper type from the drop-down menu and upload the files.</p>
 <p>After you have uploaded the sequence data in your history, it is available to work on. If all went correct, you should now see the two sequence files in your History of Galaxy.</p>
@@ -321,7 +321,7 @@ The plus sign
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-07.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
