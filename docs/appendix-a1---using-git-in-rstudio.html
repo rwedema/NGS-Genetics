@@ -64,11 +64,11 @@
 <span class="header-section-number">8</span> Appendix A1 - Using Git in RStudio<a class="anchor" aria-label="anchor" href="#appendix-a1---using-git-in-rstudio"><i class="fas fa-link"></i></a>
 </h1>
 <p>Working together on a single project can be difficult without a proper method of sharing data between team members. This document describes setting up a Git <em>repository</em> for storing and sharing - in this case - a RMarkdown lab journal.</p>
-<p>RStudio has an interface supporting common tasks for managing a repository and the following steps will guide you through this process. Note that for people to work together; only <strong>one</strong> repository has to be created</p>
+<p>RStudio has an interface supporting common tasks for managing a repository and the following steps will guide you through this process. Note that for people to work together; only <strong>one</strong> repository has to be created!</p>
 <p><strong>Steps</strong>:</p>
 <ul>
 <li>
-<strong>Create a Git repository</strong>:
+<strong>Creating a Git repository</strong>:
 <ul>
 <li>There are multiple online Git hosting platforms. Globally GitHub is the most used one, but this requires the creation of an account. Repositories on GitHub can and are also used as a ‘portfolio’ to demonstrate your skills, so we advice to approach the use of it professionally. We also host our own local Git hosting platform in the form of GitLab, for which you can use your bioinf-network account.
 <ul>
@@ -77,16 +77,85 @@
 </ul>
 </li>
 <li>Once logged in, both platforms allow you to create a new repository.</li>
+<li>Make sure the repository is made <strong>private</strong>.</li>
 </ul>
 </li>
 </ul>
+<div class="inline-figure"><img src="images/git/github_create_repository.png" style="width:70.0%"></div>
+<ul>
+<li>
+<strong>Authentication</strong>:
+<ul>
+<li>Before we can access the contents of the repository or add anything, we need to setup authentication:
+<ul>
+<li>Add an authentication key to GitHub or GitLab, which is your SSH <strong>public</strong> key.</li>
+<li>Go to your Git profile and find a setting such as ‘SSH and GPG keys’ (GitHub).</li>
+<li>Copy the contents of your public key; often found in your <code>.ssh/</code> folder and named <code>id_ed25519.pub</code> (notice the <code>.pub</code> extension, do not touch/open the file <em>without</em> extension).</li>
+<li>Paste the public key in the field when adding a new SSH-key</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<strong>Cloning the repository</strong>:
+<ul>
+<li>To get a local copy of the repository so that you can add your (existing) RMarkdown document requires a <strong>cloning</strong> step. Luckily, we can do that from within RStudio by following these steps:
+<ul>
+<li><p>In RStudio, click on <code>File</code> -&gt; <code>New Project</code></p></li>
+<li><p>Then, select <code>Version Control</code> -&gt; <code>Git</code> and enter the repository URL. You can get the URL from the repository website. It should look like <code>git@github.com:&lt;username&gt;/repository</code>, for instance <code>git@github.com:mkempenaar/DSLS-genomics.git</code> with the example created.</p></li>
+<li><p>Select a location where to store the repository, for instance in your <code>Documents</code> folder<br></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div class="inline-figure"><img src="images/git/git_rstudio_clone_project.png" style="width:70.0%"></div>
+<ul>
+<li>After cloning, RStudio will open the new project with the contents of the repository that contains at least two files:</li>
+<li>
+<code>.gitignore</code> can be used to ignore files that you don’t want in your repository.</li>
+<li>an <code>.Rproj</code> file that can include settings for RStudio relevant to this project.</li>
+<li>Also new is the <code>Git</code> tab in the top-right panel in RStudio (by default) that you can use to interact (synchronize) with your repository.</li>
+</ul>
+<div class="inline-figure"><img src="images/git/git_rstudio_file_browser.png" style="width:60.0%"></div>
+<ul>
+<li>
+<strong>Adding your RMarkdown lab journal</strong>:
+<ul>
+<li>To add your lab journal to the repository, create a new RMarkdown document or copy over your existing <code>.Rmd</code> file into the repository folder.</li>
+<li>Next, go to the <code>Git</code> tab and you will see the same files listed there with yellow question mark icons. This means that Git does not know these files yet (they’re new).</li>
+<li>By clicking the ‘Staged’ check mark for the files you want to add (I suggest the <code>.gitignore</code>, the <code>.Rproj</code> file and your <code>.Rmd</code> lab journal) you ‘prepare’ those files for synchronizing.</li>
+</ul>
+</li>
+</ul>
+<div class="inline-figure"><img src="images/git/git_rstudio_stage.png" style="width:60.0%"></div>
+<ul>
+<li>Next, click the <code>Commit</code> button that will open an interface showing all staged files with their changes (in green (additions) and or red (deletions)).
+- Type a <em>Commit message</em> (required) that explains the changes that you’re adding. In this case ‘Initial commit’ is fine. For the future, try to be descriptive such as “Performed the mapping step and added a section including results to the lab journal”.
+- Click on the <code>Commit</code> button (will open a new popup that can be closed) followed by the <code>Push</code> button at the top; this will synchronize your changes with the remote repository.
+- Go to the web interface for your repository, refresh if needed, and it should list the files that have been added or changed.</li>
+</ul>
+<div class="inline-figure"><img src="images/git/github_after_push.png" style="width:70.0%"></div>
+<div id="git-usage" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> Git Usage<a class="anchor" aria-label="anchor" href="#git-usage"><i class="fas fa-link"></i></a>
+</h2>
+<p>This concludes the initial setup of the repository and adding your lab journal. Next is a git-workflow that you could use during this and future projects.</p>
+<p>Git can be easily be used to cooperate within the same ‘code base’, allowing editing the same files at the same time. However, this poses some risks as you need to make sure your work can be automatically <em>merged</em>. If multiple people edited the same lines (code or text), Git will force you to fix this <em>conflict</em> manually. What is and isn’t a conflict is sometimes hard to predict, generally it’s a good idea to discuss who makes what changes to prevent this type of issue.</p>
+<p>When you want to work on your project, always make sure that you are <em>in-sync</em> with the remote repository. Do this by clicking on the <code>pull</code> button in the <code>Git</code> menu. This retrieves any changes you don’t have already and tries to merge it locally with your own work. Git will warn you if you have open changes that conflict with this.</p>
+<p>Try to - after a session/ lecture/ finishing a task - commit so that your latest changes are always on the repo. It’s preferable to have multiple smaller commits compared to single very large commits. You can stack commits before running the <code>push</code> command (using the <code>push</code> button) or just push after each commit.</p>
+
+</div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="variant-visualization.html"><span class="header-section-number">7</span> Variant Visualization</a></div>
 <div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#appendix-a1---using-git-in-rstudio"><span class="header-section-number">8</span> Appendix A1 - Using Git in RStudio</a></li></ul>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#appendix-a1---using-git-in-rstudio"><span class="header-section-number">8</span> Appendix A1 - Using Git in RStudio</a></li>
+<li><a class="nav-link" href="#git-usage"><span class="header-section-number">8.1</span> Git Usage</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
@@ -103,7 +172,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-09.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-02-13.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

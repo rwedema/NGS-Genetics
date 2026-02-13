@@ -60,7 +60,7 @@ The following criteria are used for grading the lab journal. Feedback will be pr
 | 7 | Variant Annotation | [6](#variant-annotation) |  |
 | 8 | Finalizing Analysis | [7](#variant-visualization) |  |
 
-## Theory Background Refresher
+## Theory Background Refresher {.unnumbered}
 
 The following topics have a relevance for courses in this program. These links are provided as reference and are not part of the course material.
 
