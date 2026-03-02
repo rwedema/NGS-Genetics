@@ -20,6 +20,7 @@ RStudio has an interface supporting common tasks for managing a repository and t
         -   Add an authentication key to GitHub or GitLab, which is your SSH **public** key.
         -   Go to your Git profile and find a setting such as 'SSH and GPG keys' (GitHub).
         -   Copy the contents of your public key; often found in your `.ssh/` folder and named `id_ed25519.pub` (notice the `.pub` extension, do not touch/open the file *without* extension).
+        - Note that if you do not yet have an SSH key, generate one by executing the `ssh-keygen` command in a terminal/console/PowerShell. Search for 'create SSH key' + the name of your operating system to get more details.
         -   Paste the public key in the field when adding a new SSH-key
 -   **Cloning the repository**:
     -   To get a local copy of the repository so that you can add your (existing) RMarkdown document requires a **cloning** step. Luckily, we can do that from within RStudio by following these steps:
