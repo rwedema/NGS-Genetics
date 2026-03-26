@@ -77,7 +77,7 @@
 <li>Text labels attached to the nodes</li>
 </ul>
 <p>There are multiple options for drawing these types of graphs but here we demonstrate the use of the <code>lolliplot</code> function from the <code>trackViewer</code> package in R, see the <a href="https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/lollipopPlot.html">online manual</a> for many examples on how to create this plot. This package is not installed by default in, so you have to install it yourself:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html">install</a></span><span class="op">(</span><span class="st">"trackViewer"</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">trackViewer</span><span class="op">)</span></span></code></pre></div>
 <p>It requires two data sources for our use case:</p>
@@ -93,7 +93,7 @@
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Preparing the data; first attach the gene names to the findOverlaps output</span></span>
 <span><span class="va">overlap_df</span><span class="op">$</span><span class="va">Gene</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">bed_data</span><span class="op">)</span><span class="op">[</span><span class="va">overlap_df</span><span class="op">$</span><span class="va">subjectHits</span><span class="op">]</span></span>
 <span></span>
@@ -105,7 +105,7 @@
 <span><span class="va">features</span> <span class="op">&lt;-</span> <span class="va">bed_data</span><span class="op">$</span><span class="va">RET</span></span></code></pre></div>
 <p>This basic example shows 9 variants for the RET gene, with the <em>AF</em> value as the score (scaled to a range of 0-100%). The plot shows the position of the variant on the x-axis and the allele-frequency on the y-axis.</p>
 <p><strong>Note</strong>: scores are a bit weird in this plot; for instance you cannot show values ranging from 0 to 1 (such as SIFT scores). Values between 1-10 are shown as stacked nodes (see the <a href="https://bioconductor.org/packages/release/bioc/vignettes/trackViewer/inst/doc/lollipopPlot.html#Change_the_height_of_a_lollipop_plot">Change the height of a lollipop plot</a> section of the manual). A safe solution is to scale values from 0-100 as shown below. Alternatively, we can use the stacks to show the amount of splice variants at a single location (up to a maximum of 10).</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Calculate AF as percentage and set as 'score' field</span></span>
 <span><span class="va">sample.gr</span><span class="op">$</span><span class="va">score</span> <span class="op">&lt;-</span> <span class="va">sample.gr</span><span class="op">$</span><span class="va">AF</span> <span class="op">*</span> <span class="fl">100</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sample.gr</span><span class="op">)</span></span></code></pre></div>
@@ -120,7 +120,7 @@
 ##   [6]    chr10  43119646      * |   45.9846  0.459846
 ##   -------
 ##   seqinfo: 21 sequences from an unspecified genome; no seqlengths</code></pre>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># RET gene exons</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## GRanges object with 6 ranges and 0 metadata columns:
@@ -134,18 +134,18 @@
 ##   RET    chr10 43109030-43109230      *
 ##   -------
 ##   seqinfo: 22 sequences from an unspecified genome; no seqlengths</code></pre>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="images/lolliplot_1.png" width="672"></div>
 <p>Simple improvements are to increase the height and color of the exons (all exons share the same value):</p>
-<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">features</span><span class="op">$</span><span class="va">height</span> <span class="op">&lt;-</span> <span class="fl">0.03</span></span>
 <span><span class="va">features</span><span class="op">$</span><span class="va">fill</span> <span class="op">&lt;-</span> <span class="st">"lightblue"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">features</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="images/lolliplot_2.png" width="672"></div>
 <p>Adding labels to the variants, in this case some random dbsnp IDs but these could be any other value available:</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Generate random dbsnp IDs</span></span>
 <span><span class="va">dbsnp_ids</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"rs"</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">239283</span><span class="op">:</span><span class="fl">532801</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">sample.gr</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -155,7 +155,7 @@
 <span><span class="fu"><a href="https://rdrr.io/pkg/trackViewer/man/lolliplot.html">lolliplot</a></span><span class="op">(</span><span class="va">sample.gr</span>, <span class="va">features</span>, ylab <span class="op">=</span> <span class="st">"Allele Frequency (%)"</span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="images/lolliplot_3.png" width="672"></div>
 <p>Changing the color based on the <em>effect impact</em> from the <code>SnpEff</code> Galaxy tool</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">effect</span> <span class="op">&lt;-</span>       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MODERATE"</span>, <span class="st">"LOW"</span>, <span class="st">"MODIFIER"</span>, <span class="st">"HIGH"</span><span class="op">)</span></span>
 <span><span class="va">effect.color</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"orange"</span>,   <span class="st">"blue"</span>,<span class="st">"green"</span>,    <span class="st">"red"</span><span class="op">)</span></span>
 <span></span>
@@ -193,7 +193,7 @@
 </blockquote>
 <p>These features can be of many types and in our case they are the variants. A simple tool is available in Galaxy called <em>VCF-VCFintersect</em> that performs either <em>intersection</em> or <em>union</em> on two VCF datasets containing variant data. This tool compares two VCF files and retains either the shared variants (intersection) or all variants combined (union) as shown in the diagram below.</p>
 <div class="inline-figure"><img src="images/intersect_union.png" width="310"></div>
-<p><strong>Optional Assignment</strong></p>
+<p><strong>Optional Assignments</strong></p>
 <ul>
 <li>Process another patient sample (use a new history) by running your complete workflow.
 <ul>
@@ -209,6 +209,8 @@
 </li>
 <li>Create a VENN-diagram (like the image above) displaying these numbers.</li>
 </ul>
+<p>There is another optional assignment that can benefit future students.</p>
+
 </div>
 </div>
   <div class="chapter-nav">
@@ -239,7 +241,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-03-25.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-03-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

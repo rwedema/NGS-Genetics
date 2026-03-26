@@ -88,7 +88,7 @@
 <ol style="list-style-type: decimal">
 <li>Read in the data into a data-frame using the <code>read.delim</code> function
 <ul>
-<li>Make sure the data has a proper header (line 18 in the data)</li>
+<li>Make sure the data has a proper header (skip all header lines starting with a <code>#</code>)</li>
 <li>Provide the <code>stringsAsFactors = FALSE</code> argument, otherwise the next part won’t work (we cannot split an R <code>factor</code>)</li>
 </ul>
 </li>
@@ -97,9 +97,9 @@
 <ol start="2" style="list-style-type: decimal">
 <li>Split the column containing the frequency value using the <code>strsplit</code> function</li>
 </ol>
-<p>The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio). To get the frequency value from this list, here is some R magic that converts the result from <code>strsplit</code> into a matrix (found on <a href="https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list">Stackoverflow</a>):</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span> <span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">bed_splitted</span><span class="op">)</span>, n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
+<p>The output of this function is a list in which each item is a vector with the separate items resulting from the split (inspect this object in RStudio, for instance, by entering the variable name in the console (and pressing Enter)). To get the frequency value from this list, here is some R magic that converts the result from <code>strsplit</code> into a matrix (found on <a href="https://stackoverflow.com/questions/20428742/select-first-element-of-nested-list">Stackoverflow</a>) so that we can access the value in a column:</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/BiocGenerics/man/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="va">bed_splitted</span><span class="op">)</span>, n<span class="op">=</span><span class="fl">20</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##           chromosome    begin      end  gene
 ## ABCC9.814         12 21953958 21954135 ABCC9
 ## ABCC9.815         12 21958088 21958265 ABCC9
@@ -126,17 +126,17 @@
 <li>Perform the following steps on the column containing the frequency value:
 <ul>
 <li>remove the <code>AF=</code> part using the <code>gsub</code> function</li>
-<li>converts the data type of this column to <code>numeric</code> (note that you cannot convert a column in a matrix to a different data type, first convert to a data frame instead)</li>
-<li>saves only this column into a new variable</li>
+<li>convert the data type of this column to <code>numeric</code> (note that you cannot convert a column in a matrix to a different data type, first convert to a data frame instead)</li>
+<li>save only this column into a new variable</li>
 </ul>
 </li>
 </ol>
-<p>We now have the frequency value available for filtering and we’ll do that by adding it to the <code>GRanges</code> object we create next:</p>
+<p>We now have the frequency value available for filtering, and we’ll do that by adding it to the <code>GRanges</code> object we create next:</p>
 <ol start="4" style="list-style-type: decimal">
-<li>Create a <code>GRanges</code> object as we’ve done for assignment 3 by simply creating an <code>IRanges</code> object where the <code>start</code> and <code>end</code> parameters both get the variant position column (<code>POS</code> column). Also provide the <code>seqnames</code> parameter to <code>GRanges</code> which get the contents of the chromosome column. Note that we do not need to use a <code>for</code>-loop for this.</li>
+<li>Create a <code>GRanges</code> object as we’ve done for assignment 3 by simply creating an <code>IRanges</code> object where the <code>start</code> and <code>end</code> parameters both get the variant position column (<code>POS</code> column, as we only look at single-nucleotide variants). Also provide the <code>seqnames</code> parameter to <code>GRanges</code> which get the contents of the chromosome column. Note that we do not need to use a <code>for</code>-loop for this.</li>
 </ol>
 <p><code>GRanges</code> objects can contain other data as well, called <em>associated metadata</em>. Using the <code>mcols</code> function we can see existing or assign data to each variant. Adding this as a data-frame allows us to set a name for this column as demonstrated below with an example from the previous chapter:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Select and show data for a single gene (note that it specifies "... and 0 metadata columns")</span></span>
 <span><span class="co"># ('granges' object is used from assignment 3)</span></span>
 <span><span class="va">granges</span></span></code></pre></div>
@@ -150,8 +150,8 @@
 ##   SOD2        6 160114157-160114219      *
 ##   -------
 ##   seqinfo: 18 sequences from an unspecified genome; no seqlengths</code></pre>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Generate some random values for 'allele frequency'</span></span>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example: generate some random values for 'allele frequency'</span></span>
 <span><span class="va">allele_frequency</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">5</span>, mean <span class="op">=</span> <span class="fl">0.45</span>, sd <span class="op">=</span> <span class="fl">0.35</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Bind this data to the 'GRanges' object</span></span>
@@ -161,11 +161,11 @@
 <pre><code>## GRanges object with 5 ranges and 1 metadata column:
 ##        seqnames              ranges strand |        AF
 ##           &lt;Rle&gt;           &lt;IRanges&gt;  &lt;Rle&gt; | &lt;numeric&gt;
-##   SOD2        6 160103505-160103690      * |       0.0
+##   SOD2        6 160103505-160103690      * |       0.7
 ##   SOD2        6 160105866-160106085      * |       0.5
-##   SOD2        6 160109138-160109294      * |       0.6
-##   SOD2        6 160113673-160113915      * |       0.4
-##   SOD2        6 160114157-160114219      * |       0.6
+##   SOD2        6 160109138-160109294      * |      -0.1
+##   SOD2        6 160113673-160113915      * |       0.1
+##   SOD2        6 160114157-160114219      * |       0.5
 ##   -------
 ##   seqinfo: 18 sequences from an unspecified genome; no seqlengths</code></pre>
 <p>Use the example above to associate the frequency value with the created <code>GRanges</code> object. Now that we have both the BED-data (in a <code>GRangesList</code> object) and the VCF data in a <code>GRanges</code> object, we can</p>
@@ -177,7 +177,7 @@
 <li>this requires the <code>query</code> and <code>subject</code> parameters to be set to the <em>variants</em> and <em>BED</em>-<code>GrangesList</code> objects respectively</li>
 </ul>
 </li>
-<li>Convert the output to a data-frame using the <code>DataFrame</code> function</li>
+<li>Convert the output to a data-frame using the <code>as.data.frame</code> function</li>
 </ul>
 </li>
 </ol>
@@ -186,13 +186,23 @@
 <li>Filter the <strong>remaining</strong> variants based on their frequency, using a minimum of <strong>30%</strong>
 <ul>
 <li>Instead of removing rows or creating another subset, make sure you know which rows are to be kept after both filtering steps as we are going to reconstruct the original VCF file (we need it in Galaxy)</li>
+<li>Do this by sub-setting the <code>queryHits</code> column (this is a bit of a puzzle)</li>
 <li>Manually sample a few rows to see if they do fall within an exon and have a frequency &gt; 30%</li>
 </ul>
 </li>
-<li>Now that you have all the row numbers of variants that we want to keep, you need to think of a way to re-construct the VCF file and save it to disk.
+<li>Now that you have all the row numbers of variants that we want to keep, you need to think of a way to re-construct the VCF file and save it to disk. This means that we need to add all the header lines and all the filtered variants
 <ul>
-<li>Hint: read in the VCF file again for sub-setting using the <code>readLines</code> function</li>
-<li>Note: do not forget to include the 17 header lines!</li>
+<li>Hint: read in the VCF file again for sub-setting using the <code>readLines</code> function; this gives a <em>vector</em> where each element is a line in the file.
+<ul>
+<li>Example: if we have 100 header lines and our <code>queryHits</code> state that a variant in position 10 has overlap with an exon, we want to keep line <span class="math inline">\(100 + 10 =110\)</span>.</li>
+</ul>
+</li>
+<li>Reconstruct the VCF file:
+<ul>
+<li>Combine the header (i.e. <code>header &lt;- raw_vcf[1:100]</code>) and the filtered variants (i.e. <code>final_filtered_vcf &lt;- c(header, variants)</code>)</li>
+<li>Write this to a new file using the <code>writeLines</code> function (provide a file name with its <code>con</code> argument)</li>
+</ul>
+</li>
 </ul>
 </li>
 <li>Upload the new VCF file into Galaxy as we’ll use it in the next chapter.</li>
@@ -209,9 +219,9 @@
 <li>Can you explain the two peaks that you see in your histogram (around 50% and 100%)?</li>
 </ul>
 </li>
-<li>Visualize the amount of variants per gene. A simple solution for getting the numbers is to use the <code>table</code> function on the <code>subjectHits</code> column (output of <code>findOverlaps</code> where <code>subject</code> are the <em>genes</em>). Convert it to a data frame and then use the gene indices to get the actual gene names. Now you should have a combination of gene and number of variants. Create a barplot with this data as in the previous chapter.</li>
+<li>Visualize the amount of variants per gene. A simple solution for getting the numbers is to use the <code>table</code> function on the <code>subjectHits</code> column (output of <code>findOverlaps</code> where <code>subject</code> are the <em>genes</em>). Convert it to a data frame and then use the gene indices to get the actual gene names. Now you should have a combination of gene and number of variants. Create a bar plot with this data.</li>
 </ul>
-<p>It is also possible to add the VCF file to IGV (together with the mapping- and BED-files) and visualize the variants in the context of the genes. This is however not a requirement for this assignment.</p>
+<p>It is also possible to add the VCF file to IGV (together with the mapping- and BED-files) and visualize the variants in the context of the genes. This is however not a requirement for this assignment. When adding both the original and filtered VCF files, it’s easy to spot which variants were filtered out and which were retained after filtering.</p>
 <div class="inline-figure"><img src="images/igvVariant.png" width="311"></div>
 
 </div>
@@ -248,7 +258,7 @@
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-03-25.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-03-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
