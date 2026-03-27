@@ -53,3 +53,6 @@ rsconnect/
 
 # Assignment solution
 solution/
+
+# Custom CSS
+docs/libs/bs4_book-1.0.0/bs4_book.css

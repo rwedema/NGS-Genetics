@@ -19,8 +19,9 @@ Both tools are available in Galaxy with numerous sub-tools depending on the task
 **Step 1 - Running SnpEff**:
 
 * Select the `SnpEff Variant effect and annotation` tool from the `Variant Calling` tool menu in Galaxy. 
-* Select the uploaded VCF file containing the variants filtered for the cardiopanel genes. 
-* Check if the by default selected `GRCh38.p14` *Genome Source* is selected. 
+* Select the uploaded VCF file containing the variants filtered for your gene panel. 
+* For `Genome Source`, select the `Locally installed snpEff database` option,
+* and select `GRCh38.115` (or newer) as `Genome`.
 * All other settings can be left default, execute the tool.
 
 The result consists of two files: an annotated VCF file and a web-report on all the variants and their predicted effects.

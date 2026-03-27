@@ -13,20 +13,19 @@ that the columns never get too wide, either individually or collectively.
 
 */
 
-/* NOTE: adjusted based on: https://github.com/mkempenaar/gene_expression_analysis/commit/573c6cb94a725a8beea039c3f40d829ebdd6eb24 */
 
 @media (min-width: 1200px) {
   .container-fluid {
-    max-width: 120rem;
+    max-width: 95rem;
   }
   .container-fluid .row {
     justify-content: space-evenly;
   }
   .container-fluid main {
-    max-width: 60rem;
+    max-width: 45rem;
   }
   .sidebar {
-    max-width: 30rem;
+    max-width: 15rem;
   }
 
   /* Increase font-size for very wide devices */
