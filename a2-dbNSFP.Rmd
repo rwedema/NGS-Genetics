@@ -1,0 +1,41 @@
+# Appendix 2: SnpEff dbNSFP {#dbNSFP}
+
+The following columns are a good starting point to provide using the `-f` option to the SnpEff command. Note that this should be entered as a comma-separated list, i.e.: `SIFT_pred,SIFT_score,...`. See the command without further options for the default list: `java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp`.
+
+There is no guarantee that the available columns are from the correct database (the SnpSift tool and databases are released independent of each other). If you get an error, please verify that the columns actually exist in the database by checking the relevant README (release notes) of the database.
+
+**1. Essential Functional Prediction Columns**
+
+These columns are generally used to assess the pathogenicity of missense variants:
+
+-   **`SIFT_pred` / `SIFT_score`**: Predictions (D/T) and scores from SIFT.
+
+-   **`Polyphen2_HDIV_pred` / `Polyphen2_HDIV_score`**: PolyPhen-2 predictions based on HumDiv (good for complex traits).
+
+-   **`Polyphen2_HVAR_pred` / `Polyphen2_HVAR_score`**: PolyPhen-2 predictions based on HumVar (better for Mendelian diseases).
+
+-   **`MutationTaster_pred`**: Prediction from MutationTaster.
+
+-   **`LRT_pred`**: Likelihood Ratio Test prediction.
+
+-   **`FATHMM_pred` / `FATHMM_score`**: Functional Analysis through Hidden Markov Models.
+
+-   **`REVEL_score`**: A popular ensemble method for pathogenicity.
+
+-   **`VEST4_score`**: Variant Effect Scoring Tool.
+
+**2. Conservation Scores**
+
+Useful for determining if a site is evolutionarily constrained:
+
+-   **`PhyloP100way_vertebrate`**: Conservation score (higher = more conserved).
+
+-   **`GERP++_NR` / `GERP++_RS`**: Genomic Evolutionary Rate Profiling scores.
+
+-   **`SiPhy_29way_logOdds`**: Another measure of conservation.
+
+**3. Population Frequency (gnomAD)**
+
+-   **`gnomAD_exomes_AF`**: Allele frequency in gnomAD exomes.
+
+-   **`gnomAD_genomes_AF`**: Allele frequency in gnomAD genomes.

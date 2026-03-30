@@ -63,9 +63,13 @@ This tool adds annotations in two columns. First, the `ID` column will describe 
 First follow steps 1 and 2 using the instructions above, then, download the resulting VCF file and use that to complete step 3 using the following instructions:
 
 * Step 3: SnpSift dbNSFP annotation:
-  - Using the output from step 2 (called `variants_step2.vcf` below), we will add more annotation from dbNSFP using the following command: `java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP4.3c.txt.gz variants_step2.vcf > variants_step3.vcf`
+  - Using the output from step 2, we will add more annotation from dbNSFP using the following command: `java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp -db /data/datasets/dbNSFP/snpEff/data/dbNSFP5.3.1a_grch38.gz -n variants_step2.vcf > variants_step3.vcf` (replace `variants_step2.vcf` with the name of your actual VCF file).
 
-Note: annotating against dbNSFP can take a *long* time. Make sure to start these command from within a `bash` chunk in RStudio.
+Notes:
+
+- annotating against dbNSFP can take a while. Make sure to start these command from within a `bash` chunk in RStudio and set its options to `eval=FALSE` so that the tool won't run when you knit your document.
+- Using the `-n` option adds *all* dbNSFP columns to your VCF file, which can be >500. In the next assignment we will be looking into what the interesting columns are. It's also possible to limit the tool to those interesting columns by using the `-f` option, see the help of the tool by entering: `java -jar /data/datasets/dbNSFP/snpEff/SnpSift.jar DbNsfp` and/or the [SnpSift/SnpEff Manual](https://pcingola.github.io/SnpEff/snpsift/dbnsfp/).
+- See [Appendix 2: dbNSFP](#dbNSFP) for further details.
 
 Re-upload your `variants_step3.vcf` into Galaxy as we will be using some Galaxy tools to filter out interesting data next.
 :::
@@ -94,19 +98,17 @@ Step #3 SnpSift - dbNSFP with all options:
 
 ### Assignment {-}
 
-* Create a table in your report where you summarize the added annotation data (very!) briefly;
+* Create a table in your report where you summarize the added annotation data (very!) briefly so that you understand what all the data means;
     * The database where the data comes from
     * The result or value (is it an identifier, a percentage, etc.).
-    * **Hint**: you can add formatted tables in markdown with some syntax which is easiest generated at [https://www.tablesgenerator.com](www.tablesgenerator.com/markdown_tables)
+    * **Hint**: you can add formatted tables in markdown with some syntax which is easiest generated at [https://www.tablesgenerator.com](www.tablesgenerator.com/markdown_tables) or you can copy from Excel into the 'Visual' editor in RStudio.
 
 The VCF header only describes the names of the databases the data originates from and does not give a clear explanation. There might be a single source for the documentation (please let us know if you find it!), but for now the best method of getting information about the added data is:
 
-* **Step #1**: the output of the first step also includes a web report that at least gives more details on the results. Either use your biological knowledge or search for terms if they're unclear
+* **Step #1**: the output of the first step also includes a web report that at least gives more details on the results. The [SnpEff documentation](https://pcingola.github.io/SnpEff/snpeff/inputoutput/#vcf-header-lines) further describes all fields in detail.
 * **Step #2**: data from the `dbSnp` database comes from the 'ClinVar' version of this database, which is documented [on its NCBI website](https://www.ncbi.nlm.nih.gov/variation/docs/ClinVar_vcf_files/).
-* **Step #3**: for the `dbNSFP` database there are descriptions available on the online version:
-  - Go to [the online dbNSFP instance](http://database.liulab.science/dbNSFP), select the **Academic** option and click **Connect**. 
-  - If you hover over any of the selectable Variant fields, you can read a brief description of the data that is added.
-  - Note that this is for dbNSFP version 4.4a and we use version 4.3c (very minor differences)
+* **Step #3**: for the `dbNSFP` database the column descriptions are available in the [online README](https://drive.google.com/file/d/1lx26ftYpsQEi5tp1LzF7a4U2Ak8oYKXn/view) of the dataset, from section "Columns of dbNSFP_variant:".
+  - Note: if the above link does not work, navigate to the [dbNSFP website](https://www.dbnsfp.org/releases) and open the README of the listed version (5.3.1a in this case).
 
 ## Programming Assignment; Analyzing Variant Annotation
 
@@ -114,18 +116,7 @@ Given the possibly hundreds of annotated variants with data from multiple data s
 
 ### Assignment 10; Data Preparation
 
-This programming assignment asks to take another good look at the data, but now in R to see if everything is in a suitable format to eventually sort the data and extract a top-set of variants related to the condition. As you have seen, all data is essentially stored in a single column that contains multiple separators (such as `|` and `;`). You need to think of and implement a good strategy to convert all this information into a workable data format, such as a data frame.
-
-There are a few caveats though that can also be seen when looking at the SnpEff report (the 'stats' output). For instance, there are two lines in the overview table that describe the amount of variants and the amount of hits in the SnpEff database:
-
-* `Number of variants (before filter)   	145`
-* `Number of effects	    1,332`
-
-Which means that on average every variant has about 10 (!) hits of which all data is placed in the `INFO` column (most notably in the `ANN` part of the `INFO` column). This is caused most often by multiple transcripts (alternative splicing) being affected by this variant. This makes it very difficult to parse and therefore this section gives tips and example code to assist in that task. With this much data from three different steps it is too complex to assess in a single run so we will assess annotation data step by step.
-
-#### Step #1 & #2; SnpEff ANN data and SnpSift ClinVar data {-}
-
-According to the VCF header, the `ANN` data contains the values explained in the [SnpEff documentation](https://pcingola.github.io/SnpEff/se_inputoutput/#ann-field-vcf-output-files). Some, or all of them could be of interest. There is a Galaxy tool available to extract interesting fields from the added data.
+We are not going to manually process this file in R, but use a Galaxy tool first to extract the relevant columns for us. Use your previous table to decide which columns you want to have in the final 
 
 * Select the `SnpSift Extract Fields from a VCF file into a tabular file` tool from the tool menu
   - the tool help or [this manual](https://pcingola.github.io/SnpEff/snpsift/extractfields/) can provide more details
@@ -133,12 +124,13 @@ According to the VCF header, the `ANN` data contains the values explained in the
 * Provide the names of all columns of interest. For instance, the following could be used as a query for the 'Fields to extract':
   - ```CHROM POS ID REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG```
   - Add or remove any other column you find interesting to the above query.
+  - For `dbNSFP`, copy the actual column name as show in the VCF-header, i.e. `dbNSFP_GERP___RS`, `dbNSFP_PROVEAN_pred`, `dbNSFP_MutationAssessor_pred`, etc.
 * Enable the 'One effect per line' option
 * Run the tool and download the resulting tabular file for analysis in R
   - The resulting file contains as many rows as effects reported by SnpEff (1332 in this example)
 
 ::: {.rmdnote}
-Note: always include the `CHROM POS REF ALT` columns which are needed to identify the variant in the original file.
+Note: always include the `CHROM POS REF ALT ID` columns which are needed to identify the variant in the original file.
 :::
 
 #### Step #3; SnpSift dbNSFP {-}
@@ -147,17 +139,17 @@ Similar to the previous step, extract the fields of interest using the `SnpSift 
 
 ### Assignment 11; Finding Variants of Interest
 
-Given the knowledge we have on the data stored in the two dataframes, we can now formulate questions for this data to find a set of variants which are most likely linked to the cardiomyopathy condition. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines *if* someone suffers from cardiomyopathy but also how *badly* their condition is. 
+Given the knowledge we have on the data stored in the two dataframes, we can now formulate questions for this data to find a set of variants which are most likely linked to our condition of interest. This condition cannot be identified by a single variant but is often caused by several variants and the combination not only determines *if* someone suffers from it, but also how *badly* their condition is. 
 
 The physician who diagnoses patients uses the genetic information of the found variants as one of the sources for confirming the condition. However, presenting a list of 100+ variant positions with a list of numbers from some tools is not how that works in practice; we need to present a short, ordered list of variants that can be related to the condition. 
 
-Next, define your own sorting, filtering, selecting, etc. procedure to filter and order a top-list of variants that you'd present as aid to a diagnoses. For instance, you might have a variant that had a hit in the ClinVar database which directly links it to cardiomyopathy, this should probably be somewhere around the top of your list. Again, look at the output description that you've written earlier to come up with combination(s) of values. There is no golden standard for selecting these variants so it is very important to properly document and argument your decisions.
+Next, define your own sorting, filtering, selecting, etc. procedure to filter and order a top-list of variants that you'd present as aid to a diagnoses. For instance, you might have a variant that had a hit in the ClinVar database which directly links it to the condition, this should probably be somewhere around the top of your list. Again, look at the output description that you've written earlier to come up with combination(s) of values. There is no golden standard for selecting these variants so it is very important to properly document and argument your decisions.
 
 As an end product for this step you are expected to include a nice table including at least 10 variants in your report that contains all relevant information for each of them, i.e. the chromomsome, position, reference and variant nucleotides, gene name and all relevant scores.
 
 For all of your variants, try to (briefly!) answer the following questions for each variant:
 
-* Can you find a link between cardiomyopathy and the variant?
+* Can you find a link between the condition and the variant?
 * What is the effect of the variant?
 * Is it validated?
 * Are there scientific studies supporting the evidence?
