@@ -124,7 +124,7 @@ We are not going to manually process this file in R, but use a Galaxy tool first
 * Provide the names of all columns of interest. For instance, the following could be used as a query for the 'Fields to extract':
   - ```CHROM POS ID REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG```
   - Add or remove any other column you find interesting to the above query.
-  - For `dbNSFP`, copy the actual column name as show in the VCF-header, i.e. `dbNSFP_GERP___RS`, `dbNSFP_PROVEAN_pred`, `dbNSFP_MutationAssessor_pred`, etc.
+  - For `dbNSFP` columns, copy the actual column name as show in the VCF-header, i.e. `dbNSFP_GERP___RS`, `dbNSFP_PROVEAN_pred`, `dbNSFP_MutationAssessor_pred`, etc.
 * Enable the 'One effect per line' option
 * Run the tool and download the resulting tabular file for analysis in R
   - The resulting file contains as many rows as effects reported by SnpEff (1332 in this example)
@@ -132,10 +132,6 @@ We are not going to manually process this file in R, but use a Galaxy tool first
 ::: {.rmdnote}
 Note: always include the `CHROM POS REF ALT ID` columns which are needed to identify the variant in the original file.
 :::
-
-#### Step #3; SnpSift dbNSFP {-}
-
-Similar to the previous step, extract the fields of interest using the `SnpSift Extract Fields from a VCF file into a tabular file` tool. The `dbNSFP` entries are all prefixed with `dbNSFP_`, for instance: `dbNSFP_MutationAssessor_score` and `dbNSFP_SIFT_pred`. Once done, download this tabular file too for further analysis.
 
 ### Assignment 11; Finding Variants of Interest
 

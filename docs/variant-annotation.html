@@ -215,7 +215,7 @@ Step #3 SnpSift - dbNSFP with all options:
 <ul>
 <li><code>CHROM POS ID REF ALT ANN[*].EFFECT ANN[*].IMPACT ANN[*].GENE ANN[*].FEATURE ANN[*].FEATUREID ANN[*].BIOTYPE ANN[*].ERRORS CLNDN CLNSIG</code></li>
 <li>Add or remove any other column you find interesting to the above query.</li>
-<li>For <code>dbNSFP</code>, copy the actual column name as show in the VCF-header, i.e. <code>dbNSFP_GERP___RS</code>, <code>dbNSFP_PROVEAN_pred</code>, <code>dbNSFP_MutationAssessor_pred</code>, etc.</li>
+<li>For <code>dbNSFP</code> columns, copy the actual column name as show in the VCF-header, i.e. <code>dbNSFP_GERP___RS</code>, <code>dbNSFP_PROVEAN_pred</code>, <code>dbNSFP_MutationAssessor_pred</code>, etc.</li>
 </ul>
 </li>
 <li>Enable the ‘One effect per line’ option</li>
@@ -227,11 +227,6 @@ Step #3 SnpSift - dbNSFP with all options:
 </ul>
 <div class="rmdnote">
 <p>Note: always include the <code>CHROM POS REF ALT ID</code> columns which are needed to identify the variant in the original file.</p>
-</div>
-<div id="step-3-snpsift-dbnsfp" class="section level4 unnumbered">
-<h4>Step #3; SnpSift dbNSFP<a class="anchor" aria-label="anchor" href="#step-3-snpsift-dbnsfp"><i class="fas fa-link"></i></a>
-</h4>
-<p>Similar to the previous step, extract the fields of interest using the <code>SnpSift Extract Fields from a VCF file into a tabular file</code> tool. The <code>dbNSFP</code> entries are all prefixed with <code>dbNSFP_</code>, for instance: <code>dbNSFP_MutationAssessor_score</code> and <code>dbNSFP_SIFT_pred</code>. Once done, download this tabular file too for further analysis.</p>
 </div>
 </div>
 <div id="assignment-11-finding-variants-of-interest" class="section level3" number="6.2.2">
@@ -293,7 +288,7 @@ Step #3 SnpSift - dbNSFP with all options:
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-03-30.</p>
+    <p>"<strong>Minor DSLS - Genomics Project</strong>" was written by Marcel Kempenaar. It was last built on 2026-04-09.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">
